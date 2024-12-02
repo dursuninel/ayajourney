@@ -57,6 +57,24 @@ body {
   font-family: "Gilroy";
 }
 
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.loader .spinner-border{
+  width: 4rem;
+  height: 4rem;
+  border-width: .5rem;
+}
+
 section {
   margin-bottom: var(--module-margin);
 }
@@ -88,6 +106,13 @@ ul {
   height: 100vh;
   display: flex;
   background-color: var(--dark-blue);
+
+  transition: opacity 300ms, visibility 300ms;
+}
+
+.choice-main.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .visa {
@@ -96,7 +121,7 @@ ul {
   height: 100%;
   position: relative;
   overflow: hidden;
-  transition: width .75s;
+  transition: width 0.75s;
 }
 
 .education {
@@ -107,7 +132,7 @@ ul {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: right;
-  transition: width .75s;
+  transition: width 0.75s;
 }
 
 .visa:after,
@@ -123,7 +148,7 @@ ul {
   opacity: 0;
   visibility: hidden;
 
-  transition: opacity .75s, visibility .75s;
+  transition: opacity 0.75s, visibility 0.75s;
 }
 
 .education:after {
@@ -170,7 +195,7 @@ ul {
 }
 
 .choice-content i {
-  transition: transform .75s;
+  transition: transform 0.75s;
   transform: translateY(1.3rem);
 }
 

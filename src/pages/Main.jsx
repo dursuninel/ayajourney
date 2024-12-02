@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSiteType } from "../context/SiteTypeContext";
 
 export default function Main() {
-  const { siteType, changeSiteType } = useSiteType();
+  const { mainLoadTime, siteType, changeSiteType } = useSiteType();
 
   const [hideChoiceMain, setHideChoiceMain] = useState(false); // .choice-main görünürlük kontrolü
 
@@ -10,14 +10,12 @@ export default function Main() {
     changeSiteType(id); // Site tipini değiştir
     setTimeout(() => {
       setHideChoiceMain(true); // 2 saniye sonra gizle
-    }, 1500);
+    }, mainLoadTime);
   };
 
   return (
     <>
-      {!hideChoiceMain && (
-        <>
-          <div className="choice-main">
+          <div className={`choice-main${hideChoiceMain ? " hidden" : ""}`}>
             <div
               onClick={() => handleSiteTypeChange(1)}
               className={`visa${
@@ -46,7 +44,5 @@ export default function Main() {
             </div>
           </div>
         </>
-      )}
-    </>
   );
 }
