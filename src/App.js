@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Loader from "./components/Loader";
+
+// Pages
+const Main = lazy(() => import("./pages/Main"));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <main>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route index element={<Main />} />
+            {/* <Route
+              path={"/about-us"}
+              element={
+                <InclusivePage title={"Hakkımızda | Alsaç Araç Kiralama"}>
+                  <AboutUs />
+                </InclusivePage>
+              }
+            /> */}
+          </Routes>
+        </Suspense>
+      </main>
+    </>
   );
 }
 

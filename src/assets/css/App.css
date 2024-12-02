@@ -1,0 +1,206 @@
+:root {
+  --dark-blue: #052643;
+  --light-blue: #f6fbff;
+
+  --blue: #3d9be9;
+  --red: #ff4d4d;
+
+  --gradient-blue: linear-gradient(
+    90deg,
+    rgba(61, 155, 233, 1) 0%,
+    rgba(5, 38, 67, 1) 100%
+  );
+
+  --module-margin: 4rem;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+body {
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+}
+
+*::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 4px var(--blue);
+  background-color: var(--dark-blue);
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: url("../fonts/gilroy/Gilroy-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Gilroy";
+  src: url("../fonts/gilroy/Gilroy-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Gilroy-Bold";
+  src: url("../fonts/gilroy/Gilroy-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Gilroy-ExtraBold";
+  src: url("../fonts/gilroy/Gilroy-ExtraBold.ttf") format("truetype");
+}
+
+*:not(i, svg, img, iframe, video) {
+  font-family: "Gilroy";
+}
+
+section {
+  margin-bottom: var(--module-margin);
+}
+
+.center {
+  text-align: center;
+}
+.end {
+  text-align: end;
+}
+
+a {
+  text-decoration: none;
+  transition: background-color 250ms, color 250ms, border-color 250ms;
+}
+
+i {
+  transition: color 250ms;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.choice-main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: var(--dark-blue);
+}
+
+.visa {
+  background-color: var(--dark-blue);
+  width: 50vw;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: width .75s;
+}
+
+.education {
+  background-color: var(--blue);
+  width: 50vw;
+  height: 100%;
+  background: url("../images/visa.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  transition: width .75s;
+}
+
+.visa:after,
+.education:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--dark-blue);
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity .75s, visibility .75s;
+}
+
+.education:after {
+  background: var(--blue);
+}
+
+.choice-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  perspective: 65rem;
+  position: relative;
+  z-index: 2;
+
+  cursor: pointer;
+}
+
+.choice-content img {
+  width: 100%;
+  height: 100vh;
+  max-height: 60vh;
+  object-fit: contain;
+
+  transition: transform 250ms;
+}
+
+.choice-content a {
+  font-size: 2rem;
+}
+
+.visa a {
+  color: var(--blue);
+}
+
+.education a {
+  color: var(--dark-blue);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.choice-content i {
+  transition: transform .75s;
+  transform: translateY(1.3rem);
+}
+
+.choice-content:hover i,
+div.active .choice-content i {
+  transform: translateY(0.2rem);
+}
+
+.choice-content:hover img,
+div.active .choice-content img {
+  transform: translate(1rem, -0.5rem) rotate3d(1, 1, 1, -8deg);
+}
+
+.visa.active,
+.education.active {
+  width: 100vw;
+}
+
+.visa.active .choice-content i,
+.education.active .choice-content i {
+  opacity: 0;
+}
+
+.visa.deactive,
+.education.deactive {
+  width: 0vw;
+}
+
+.visa.active:after,
+.education.active:after {
+  opacity: 1;
+  visibility: visible;
+}
