@@ -110,6 +110,7 @@ export default function Home() {
                 <span className="sm-title">Hizmetlerimiz</span>
                 <h2 className="module-title">Neler Sunuyoruz</h2>
               </div>
+              
               <div className="module-content">
                 <p>
                   ABD turist vizesi başta olmak üzere, yararlanmak istediğiniz
