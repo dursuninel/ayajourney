@@ -7,6 +7,7 @@ const SiteTypeContext = createContext();
 
 export const SiteTypeProvider = ({ children }) => {
   const [loadPage, setLoadPage] = useState(false);
+  const [activeSite, setActiveSite] = useState(false);
   const mainLoadTime = 1200;
   const { t } = useTranslation(); // i18n hook
 
@@ -29,6 +30,11 @@ export const SiteTypeProvider = ({ children }) => {
     setSiteType(siteTypes.find((n) => n.type === id).type);
     setTimeout(() => {
       setLoadPage(true);
+
+      setTimeout(() => {
+        setLoadPage(false);
+        setActiveSite(true)
+      }, 1000);
     }, mainLoadTime);
   };
 
@@ -37,7 +43,9 @@ export const SiteTypeProvider = ({ children }) => {
   }, [siteType]);
 
   return (
-    <SiteTypeContext.Provider value={{ mainLoadTime, siteType, changeSiteType }}>
+    <SiteTypeContext.Provider
+      value={{ activeSite, mainLoadTime, siteType, changeSiteType }}
+    >
       {loadPage && <Loader />}
       {children}
     </SiteTypeContext.Provider>
