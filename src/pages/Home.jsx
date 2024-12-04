@@ -1,35 +1,10 @@
 import React from "react";
-import { useLanguage } from "../context/LanguageContext";
-import { useTranslation } from "react-i18next";
 
 export default function Home() {
-
-  const { activeLanguage, languages, changeLanguage } = useLanguage();
-  const { t } = useTranslation();
-
-
   return (
     <>
-    {t("home.test")}
-    <div className="language_modal_head">
-          {languages?.map((data, key) =>
-            activeLanguage.code === data.code ? (
-              <div key={key} className="active">
-                <img src={data.flag} alt={data.name} /> {data.name}
-              </div>
-            ) : (
-              <div
-                onClick={() => changeLanguage(data.id)}
-                key={key}
-              >
-                <img src={data.flag} alt={data.name} /> {data.name}
-              </div>
-            )
-          )}
-        </div>
-
       {/* Banner */}
-      <section style={{position: "relative"}}>
+      <section style={{ position: "relative" }}>
         <img
           className="banner-cover"
           src={require("../assets/images/ayajourney-banner.png")}
@@ -135,7 +110,7 @@ export default function Home() {
                 <span className="sm-title">Hizmetlerimiz</span>
                 <h2 className="module-title">Neler Sunuyoruz</h2>
               </div>
-              
+
               <div className="module-content">
                 <p>
                   ABD turist vizesi başta olmak üzere, yararlanmak istediğiniz
