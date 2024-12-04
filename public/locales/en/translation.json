@@ -1,7 +1,6 @@
 {
-    "types": {
-      "typeOne": "Visa",
-      "typeTwo": "Education Abroad"
-    }
+  "types": {
+    "typeOne": "Visa",
+    "typeTwo": "Education Abroad"
   }
-  
+}

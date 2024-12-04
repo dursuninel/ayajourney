@@ -95,6 +95,7 @@ img {
   align-items: center;
   justify-content: center;
   z-index: 3;
+  background-color: white;
 }
 
 .loader .spinner-border {
@@ -281,6 +282,11 @@ div.active .choice-content img {
 .banner-content {
   width: 40%;
   position: relative;
+}
+
+.banner-content > *:not(.banner-content > img) {
+  position: relative;
+  z-index: 1;
 }
 
 .banner-content span {

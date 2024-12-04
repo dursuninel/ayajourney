@@ -6,9 +6,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "cross-env": "^7.0.3",
     "i18n": "^0.15.1",
-    "i18next": "^24.0.5",
+    "i18next": "^23.4.5",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^3.0.1",
     "react": "^18.3.1",
@@ -43,6 +42,6 @@
     ]
   },
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "cross-env": "^7.0.3"
   }
 }
