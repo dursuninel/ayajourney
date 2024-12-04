@@ -9,6 +9,11 @@ import { BrowserRouter } from "react-router-dom";
 import { SiteTypeProvider } from "./context/SiteTypeContext";
 import { LanguageProvider } from "./context/LanguageContext";
 
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LanguageProvider>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Home() {
   return (
@@ -132,6 +133,90 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Paketler */}
+
+      <section>
+        <div className="container">
+          <div className="module-head">
+            <span className="sm-title center">Paketler</span>
+            <h2 className="module-title center">Paket Hizmetlerimiz</h2>
+          </div>
+          <Swiper spaceBetween={16} slidesPerView={1}>
+            <SwiperSlide className="package-item">
+              <div>
+                <div>
+                  <h3 className="pckg-title">Vize Hizmeti</h3>
+                  <p className="pckg-price">$89</p>
+                  <span>* Devlet ücretleri dahildir</span>
+                </div>
+                <a href="/" className="btn-style">
+                  Hemen Al
+                </a>
+                <div>
+                  <h4>Pakete Dahil olan özellikler</h4>
+                  <ul>
+                    <li>Kişisel vize danışmanının tüm avantajları</li>
+                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                    <li>Kullanıcı dostu dijital araçlar</li>
+                    <li>Onlarca yıllık deneyim</li>
+                  </ul>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="package-item most-populer">
+              <div>
+                <div className="most-populer-btn">En Popüler</div>
+                <div>
+                  <h3 className="pckg-title">ABD Vize Hizmeti</h3>
+                  <p className="pckg-price">$175</p>
+                  <span>* Devlet ücretleri dahildir</span>
+                </div>
+                <a href="/" className="btn-style">
+                  Hemen Al
+                </a>
+                <div>
+                  <h4>Pakete Dahil olan özellikler</h4>
+                  <ul>
+                    <li>Kişisel vize danışmanının tüm avantajları</li>
+                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                    <li>Kullanıcı dostu dijital araçlar</li>
+                    <li>Onlarca yıllık deneyim</li>
+                    <li>Bir kerelik nezaketen yeniden işleme</li>
+                    <li>Çok daha fazlası ...</li>
+                  </ul>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="package-item">
+              <div>
+                <div>
+                  <h3 className="pckg-title">VIP Vize Hizmeti</h3>
+                  <p className="pckg-price">$495</p>
+                  <span>* Devlet ücretleri dahildir</span>
+                </div>
+                <a href="/" className="btn-style">
+                  Hemen Al
+                </a>
+                <div>
+                  <h4>Pakete Dahil olan özellikler</h4>
+                  <ul>
+                    <li>Kişisel vize danışmanının tüm avantajları</li>
+                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                    <li>Kullanıcı dostu dijital araçlar</li>
+                    <li>Onlarca yıllık deneyim</li>
+                    <li>Bir kerelik nezaketen yeniden işleme</li>
+                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                    <li>Kullanıcı dostu dijital araçlar</li>
+                    <li>Çok daha fazlası ...</li>
+                  </ul>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+          <div className="packages-flex"></div>
         </div>
       </section>
     </>
