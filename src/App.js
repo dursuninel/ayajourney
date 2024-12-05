@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Loader from "./components/Loader";
 import { useSiteType } from "./context/SiteTypeContext";
+import Header from "./layout/Header";
 
 // Pages
 const Main = lazy(() => import("./pages/Main"));
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <main>
+        <Header />
         <Suspense fallback={<Loader />}>
           <Routes>
             {/* {activeSite ? (
