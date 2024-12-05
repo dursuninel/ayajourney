@@ -1,7 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow } from "swiper/modules";
+import "swiper/css/effect-coverflow";
+import TiltBox from "../components/TiltBox";
+
+const MySwiper = () => {
+  const images = [
+    "post.png",
+    "post.png",
+    "post.png",
+    "post.png",
+    "post.png",
+    "post.png",
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <div className="swiper-container">
+      <Swiper
+        effect="coverflow"
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView="2"
+        loop={true}
+        coverflowEffect={{
+          rotate: 10,
+          stretch: 5,
+          depth: 400,
+          modifier: 1,
+        }}
+        modules={[EffectCoverflow]}
+        className="mySwiper"
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
+      >
+        {images.map((src, index) => (
+          <SwiperSlide key={index}>
+            {activeIndex === index ? ( // Eğer bu slide aktif ise tilt uygula
+              <TiltBox>
+                <img
+                  src={require(`../assets/images/${src}`)}
+                  alt={`Slide ${index + 1}`}
+                />
+              </TiltBox>
+            ) : (
+              <img
+                src={require(`../assets/images/${src}`)}
+                alt={`Slide ${index + 1}`}
+              />
+            )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       {/* Banner */}
@@ -127,9 +195,9 @@ export default function Home() {
 
             <div className="col-md-6 col-12">
               <div className="flexible-images">
-                <img src={require("../assets/images/img1.png")} alt="" />
-                <img src={require("../assets/images/img2.png")} alt="" />
-                <img src={require("../assets/images/img3.png")} alt="" />
+                <TiltBox><img src={require("../assets/images/img1.png")} alt="" /></TiltBox>
+                <TiltBox><img src={require("../assets/images/img2.png")} alt="" /></TiltBox>
+                <TiltBox><img src={require("../assets/images/img3.png")} alt="" /></TiltBox>
               </div>
             </div>
           </div>
@@ -137,16 +205,88 @@ export default function Home() {
       </section>
 
       {/* Paketler */}
-
       <section>
         <div className="container">
           <div className="module-head">
             <span className="sm-title center">Paketler</span>
             <h2 className="module-title center">Paket Hizmetlerimiz</h2>
           </div>
-          <Swiper spaceBetween={16} slidesPerView={1}>
-            <SwiperSlide className="package-item">
-              <div>
+          {isMobile ? (
+            <Swiper autoHeight={true} spaceBetween={16} slidesPerView={1}>
+              <SwiperSlide className="package-item">
+                <div>
+                  <div>
+                    <h3 className="pckg-title">Vize Hizmeti</h3>
+                    <p className="pckg-price">$89</p>
+                    <span>* Devlet ücretleri dahildir</span>
+                  </div>
+                  <a href="/" className="btn-style">
+                    Hemen Al
+                  </a>
+                  <div>
+                    <h4>Pakete Dahil olan özellikler</h4>
+                    <ul>
+                      <li>Kişisel vize danışmanının tüm avantajları</li>
+                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                      <li>Kullanıcı dostu dijital araçlar</li>
+                      <li>Onlarca yıllık deneyim</li>
+                    </ul>
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="package-item most-populer">
+                <div>
+                  <div className="most-populer-btn">En Popüler</div>
+                  <div>
+                    <h3 className="pckg-title">ABD Vize Hizmeti</h3>
+                    <p className="pckg-price">$175</p>
+                    <span>* Devlet ücretleri dahildir</span>
+                  </div>
+                  <a href="/" className="btn-style">
+                    Hemen Al
+                  </a>
+                  <div>
+                    <h4>Pakete Dahil olan özellikler</h4>
+                    <ul>
+                      <li>Kişisel vize danışmanının tüm avantajları</li>
+                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                      <li>Kullanıcı dostu dijital araçlar</li>
+                      <li>Onlarca yıllık deneyim</li>
+                      <li>Bir kerelik nezaketen yeniden işleme</li>
+                      <li>Çok daha fazlası ...</li>
+                    </ul>
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="package-item">
+                <div>
+                  <div>
+                    <h3 className="pckg-title">VIP Vize Hizmeti</h3>
+                    <p className="pckg-price">$495</p>
+                    <span>* Devlet ücretleri dahildir</span>
+                  </div>
+                  <a href="/" className="btn-style">
+                    Hemen Al
+                  </a>
+                  <div>
+                    <h4>Pakete Dahil olan özellikler</h4>
+                    <ul>
+                      <li>Kişisel vize danışmanının tüm avantajları</li>
+                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                      <li>Kullanıcı dostu dijital araçlar</li>
+                      <li>Onlarca yıllık deneyim</li>
+                      <li>Bir kerelik nezaketen yeniden işleme</li>
+                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
+                      <li>Kullanıcı dostu dijital araçlar</li>
+                      <li>Çok daha fazlası ...</li>
+                    </ul>
+                  </div>
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          ) : (
+            <div className="packages-flex">
+              <div className="package-item">
                 <div>
                   <h3 className="pckg-title">Vize Hizmeti</h3>
                   <p className="pckg-price">$89</p>
@@ -165,9 +305,7 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </SwiperSlide>
-            <SwiperSlide className="package-item most-populer">
-              <div>
+              <div className="package-item most-populer">
                 <div className="most-populer-btn">En Popüler</div>
                 <div>
                   <h3 className="pckg-title">ABD Vize Hizmeti</h3>
@@ -189,9 +327,7 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </SwiperSlide>
-            <SwiperSlide className="package-item">
-              <div>
+              <div className="package-item">
                 <div>
                   <h3 className="pckg-title">VIP Vize Hizmeti</h3>
                   <p className="pckg-price">$495</p>
@@ -214,9 +350,40 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </SwiperSlide>
-          </Swiper>
-          <div className="packages-flex"></div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Vize Durum Kontrolü */}
+      <section>
+        <div className="container">
+          <div className="visa_status">
+            <div>
+              <h2>Vize Durumunu Kontrol Et!</h2>
+              <h3>
+                Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
+              </h3>
+            </div>
+            <div>
+              <a href="/" className="btn-style">
+                Hemen İncele
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* İnstagram Paylaşımlarımız */}
+      <section>
+        <div className="container">
+          <div className="module-head">
+            <span className="sm-title center">Sosyal Medya</span>
+            <h2 className="module-title center">İnstagram Paylaşımlarımız</h2>
+          </div>
+          <div className="post_slider">
+            <MySwiper />
+          </div>
         </div>
       </section>
     </>
