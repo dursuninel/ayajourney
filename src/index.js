@@ -10,7 +10,6 @@ import { BrowserRouter } from "react-router-dom";
 import { SiteTypeProvider } from "./context/SiteTypeContext";
 import { LanguageProvider } from "./context/LanguageContext";
 
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
@@ -20,22 +19,47 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 addLocale("tr", {
   firstDayOfWeek: 1,
   dayNames: [
-    "Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi",
+    "Pazar",
+    "Pazartesi",
+    "Salı",
+    "Çarşamba",
+    "Perşembe",
+    "Cuma",
+    "Cumartesi",
   ],
   dayNamesShort: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
   dayNamesMin: ["P", "Pz", "S", "Ç", "P", "C", "Ct"],
   monthNames: [
-    "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
-    "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık",
+    "Ocak",
+    "Şubat",
+    "Mart",
+    "Nisan",
+    "Mayıs",
+    "Haziran",
+    "Temmuz",
+    "Ağustos",
+    "Eylül",
+    "Ekim",
+    "Kasım",
+    "Aralık",
   ],
   monthNamesShort: [
-    "Oca", "Şub", "Mar", "Nis", "May", "Haz",
-    "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara",
+    "Oca",
+    "Şub",
+    "Mar",
+    "Nis",
+    "May",
+    "Haz",
+    "Tem",
+    "Ağu",
+    "Eyl",
+    "Eki",
+    "Kas",
+    "Ara",
   ],
   today: "Bugün",
   clear: "Temizle",
 });
-
 
 // import "primereact/resources/primereact.min.css";
 // import "primeicons/primeicons.css";
@@ -43,10 +67,10 @@ addLocale("tr", {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LanguageProvider>
-    <SiteTypeProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <SiteTypeProvider>
         <App />
-      </BrowserRouter>
-    </SiteTypeProvider>
+      </SiteTypeProvider>
+    </BrowserRouter>
   </LanguageProvider>
 );

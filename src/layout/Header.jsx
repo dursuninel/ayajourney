@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useSiteType } from "../context/SiteTypeContext";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
   const [lastNavItemActive, setLastNavItemActive] = useState(false);
+  
+  const { resetSiteType } = useSiteType();
+  
 
   const location = useLocation();
 
@@ -26,7 +30,7 @@ export default function Header() {
   const [main, setMain] = useState(location.pathname === "/");
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/visa") {
       setMain(true);
     } else {
       setMain(false);
@@ -39,7 +43,7 @@ export default function Header() {
         <div className="header-container">
           <div className="lang_flex">
             {main && (
-              <div className="prev">
+              <div className="prev" onClick={resetSiteType}>
                 <i class="fa-solid fa-arrow-left-long"></i>
               </div>
             )}
@@ -73,22 +77,34 @@ export default function Header() {
               </div>
               <ul className="navigation-list">
                 <li>
-                  <NavLink to="/" title="Anasayfa">Anasayfa</NavLink>
+                  <NavLink to="/" title="Anasayfa">
+                    Anasayfa
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/hakkimizda" title="Hakkımızda">Hakkımızda</NavLink>
+                  <NavLink to="/hakkimizda" title="Hakkımızda">
+                    Hakkımızda
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/hizmetler" title="Hizmetler">Hizmetler</NavLink>
+                  <NavLink to="/hizmetler" title="Hizmetler">
+                    Hizmetler
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/blog" title="Blog">Blog</NavLink>
+                  <NavLink to="/blog" title="Blog">
+                    Blog
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/form" title="Form">Form</NavLink>
+                  <NavLink to="/form" title="Form">
+                    Form
+                  </NavLink>
                 </li>
                 <li>
-                <NavLink to="/iletisim" title="İletişim">İletişim</NavLink>
+                  <NavLink to="/iletisim" title="İletişim">
+                    İletişim
+                  </NavLink>
                 </li>
                 <li className="auth_btn">
                   <i class="fa-solid fa-user"></i> Giriş Yap

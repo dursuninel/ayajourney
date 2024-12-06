@@ -2,8 +2,7 @@ import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Loader from "./components/Loader";
 import { useSiteType } from "./context/SiteTypeContext";
-import Header from "./layout/Header";
-
+import PageIncudes from "./layout/PageIncudes";
 // Pages
 const Main = lazy(() => import("./pages/Main"));
 const Home = lazy(() => import("./pages/Home"));
@@ -15,16 +14,31 @@ function App() {
   return (
     <>
       <main>
-        <Header />
         <Suspense fallback={<Loader />}>
           <Routes>
+            {/* {activeSite} */}
             {/* {activeSite ? (
               <Route path={"/"} element={<Home />} />
             ) : (
               <Route index element={<Main />} />
             )} */}
-            <Route path={"/"} element={<Home />} />
-            <Route path={"/form"} element={<VisaForm />} />
+            <Route index element={<Main />} />
+            <Route
+              path={"/visa"}
+              element={
+                <PageIncudes>
+                  <Home />
+                </PageIncudes>
+              }
+            />
+            <Route
+              path={"/form"}
+              element={
+                <PageIncudes>
+                  <VisaForm />
+                </PageIncudes>
+              }
+            />
           </Routes>
         </Suspense>
       </main>
