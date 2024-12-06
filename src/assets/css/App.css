@@ -1312,7 +1312,7 @@ header.main-header.main ul.navigation-list > li > a {
   color: var(--dark-blue);
 }
 
-.visa-form-container{
+.visa-form-container {
   /* margin-top: 3rem; */
   background-color: var(--light-blue);
   padding: 3rem 2rem;
@@ -1320,28 +1320,148 @@ header.main-header.main ul.navigation-list > li > a {
   box-shadow: 0 0 1px var(--blue);
 }
 
-.visa-form-container form {
+.visa-form-container form .step {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
-.visa-form-container form > div {
+.visa-form-container form .step > div {
   width: calc(50% - 0.5rem);
   display: flex;
   flex-direction: column;
 }
 
-.visa-form-container form > div > label {
+.visa-form-container form label {
   margin-bottom: 0.25rem;
   font-size: 0.85rem;
 }
 
-.visa-form-container form > div > input,
-.visa-form-container form > div > textarea {
- font-size: .85rem;
+.visa-form-container form input,
+.visa-form-container form textarea {
+  font-size: 0.85rem;
 }
 
-.p-fileupload .p-fileupload-buttonbar .p-button{
-  font-size: .85rem;
+.p-fileupload .p-fileupload-buttonbar .p-button {
+  font-size: 0.65rem;
+}
+
+.steps-flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 0rem;
+}
+
+.steps-flex > .step-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  height: 5rem;
+
+  background-color: #bdd2e2;
+  color: white;
+}
+.steps-flex > .step-item span.step-name {
+  font-size: 0.9rem;
+}
+
+.steps-flex > .step-item.active {
+  background-color: var(--blue);
+}
+
+.steps-flex > .step-item span.index {
+  display: none;
+}
+
+.step-line {
+  width: 100%;
+  height: 4px;
+  box-shadow: 0 0 2px rgba(42, 114, 175, 0.2);
+  background-color: var(--grey);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+  .steps-flex > .step-item span.step-name {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .steps-flex > .step-item {
+    clip-path: polygon(92% 0%, 100% 50%, 92% 100%, 0% 100%, 8% 50%, 0% 0%);
+  }
+  .steps-flex > .step-item:first-child {
+    clip-path: polygon(92% 0%, 100% 50%, 92% 100%, 0% 100%, 0 50%, 0% 0%);
+  }
+}
+
+@media (max-width: 768px) {
+  .steps-flex > .step-item span.step-name {
+    display: none;
+  }
+
+  .steps-flex > .step-item span.index {
+    display: block;
+  }
+
+  .steps-flex > .step-item {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+  }
+
+  .steps-flex {
+    justify-content: space-between;
+    gap: 0.9rem;
+  }
+
+  .visa-form-container {
+    padding-top: 1rem;
+  }
+
+  .steps-flex > .step-item span {
+    font-size: 0.9rem;
+  }
+}
+
+div#selfEmployed,
+div#selfEmployed *,
+span.p-dropdown-item-label {
+  font-size: 0.8rem;
+}
+
+.buttons {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.buttons.center{
+  justify-content: center;
+}
+
+.buttons button {
+  width: max-content;
+  padding: 0.75rem 4rem;
+  background-color: var(--blue);
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+
+  transition: background-color 250ms;
+}
+
+.buttons button:hover {
+  background-color: var(--dark-blue);
 }

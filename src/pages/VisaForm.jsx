@@ -1,5 +1,5 @@
 import React from "react";
-import VisaForms from "../components/forms/VisaForm";
+import VisaStepForm from "../components/forms/VisaStepForm";
 export default function VisaForm() {
   return (
     <>
@@ -23,7 +23,7 @@ export default function VisaForm() {
 
       <section>
         <div className="container">
-          <VisaForms />
+          <VisaStepForm />
         </div>
       </section>
     </>
