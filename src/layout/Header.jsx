@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
   const [lastNavItemActive, setLastNavItemActive] = useState(false);
+
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -20,14 +23,26 @@ export default function Header() {
     { name: `İngilizce`, code: "en" },
   ];
 
+  const [main, setMain] = useState(location.pathname === "/");
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setMain(true);
+    } else {
+      setMain(false);
+    }
+  }, [location.pathname]);
+
   return (
     <>
-      <div className="top-header">
-        <div className="container">
+      <div className={`top-header${main ? " main" : ""}`}>
+        <div className="header-container">
           <div className="lang_flex">
-            <div className="prev">
-              <i class="fa-solid fa-arrow-left-long"></i>
-            </div>
+            {main && (
+              <div className="prev">
+                <i class="fa-solid fa-arrow-left-long"></i>
+              </div>
+            )}
             <div>
               <span>
                 TR <i class="fa-solid fa-globe"></i>
@@ -36,16 +51,16 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <header className="main-header">
-        <div className="container">
+      <header className={`main-header${main ? " main" : ""}`}>
+        <div className="header-container">
           <div className={`header-flex ${menuActive ? "active" : ""}`}>
             <div className="header-logo">
-              <a href="/">
+              <NavLink to="/">
                 <img
                   src={require("../assets/images/logo.png")}
                   alt="Satılık Acenta Logo"
                 />
-              </a>
+              </NavLink>
             </div>
             <div className={`header-nav ${menuActive ? "active" : ""}`}>
               <div className="header-burger inner-check">
@@ -58,31 +73,22 @@ export default function Header() {
               </div>
               <ul className="navigation-list">
                 <li>
-                  <a href="/">Anasayfa</a>
+                  <NavLink to="/" title="Anasayfa">Anasayfa</NavLink>
                 </li>
                 <li>
-                  <a href="/">Hakkımızda</a>
+                  <NavLink to="/hakkimizda" title="Hakkımızda">Hakkımızda</NavLink>
                 </li>
                 <li>
-                  <a href="/">Hizmetler</a>
+                  <NavLink to="/hizmetler" title="Hizmetler">Hizmetler</NavLink>
                 </li>
                 <li>
-                  <a href="/">Blog</a>
+                  <NavLink to="/blog" title="Blog">Blog</NavLink>
                 </li>
                 <li>
-                  <a href="/">Form</a>
+                  <NavLink to="/form" title="Form">Form</NavLink>
                 </li>
                 <li>
-                  <a
-                    href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleLastNavItem();
-                    }}
-                    className={lastNavItemActive ? "active" : ""}
-                  >
-                    İletişim
-                  </a>
+                <NavLink to="/iletisim" title="İletişim">İletişim</NavLink>
                 </li>
                 <li className="auth_btn">
                   <i class="fa-solid fa-user"></i> Giriş Yap

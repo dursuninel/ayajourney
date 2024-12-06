@@ -7,6 +7,7 @@ import Header from "./layout/Header";
 // Pages
 const Main = lazy(() => import("./pages/Main"));
 const Home = lazy(() => import("./pages/Home"));
+const VisaForm = lazy(() => import("./pages/VisaForm"));
 
 function App() {
   const { activeSite } = useSiteType();
@@ -23,6 +24,7 @@ function App() {
               <Route index element={<Main />} />
             )} */}
             <Route path={"/"} element={<Home />} />
+            <Route path={"/form"} element={<VisaForm />} />
           </Routes>
         </Suspense>
       </main>
