@@ -59,7 +59,7 @@ export default function Header() {
         <div className="header-container">
           <div className={`header-flex ${menuActive ? "active" : ""}`}>
             <div className="header-logo">
-              <NavLink to="/">
+              <NavLink to="/visa">
                 <img
                   src={require("../assets/images/logo.png")}
                   alt="Satılık Acenta Logo"
@@ -77,7 +77,7 @@ export default function Header() {
               </div>
               <ul className="navigation-list">
                 <li>
-                  <NavLink to="/" title="Anasayfa">
+                  <NavLink to="/visa" title="Anasayfa">
                     Anasayfa
                   </NavLink>
                 </li>

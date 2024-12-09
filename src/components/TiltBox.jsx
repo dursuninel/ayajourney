@@ -3,7 +3,7 @@ import { Tilt } from "react-tilt";
 
 const defaultOptions = {
   reverse: false,
-  max: 5,
+  max: 8,
   perspective: 1000,
   scale: 1,
   speed: 1000,

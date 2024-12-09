@@ -1445,7 +1445,7 @@ span.p-dropdown-item-label {
   margin-top: 1rem;
 }
 
-.buttons.center{
+.buttons.center {
   justify-content: center;
 }
 
@@ -1464,4 +1464,108 @@ span.p-dropdown-item-label {
 
 .buttons button:hover {
   background-color: var(--dark-blue);
+}
+
+.testimonial-item {
+  transform: scale(0.99);
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: var(--light-blue);
+  box-shadow: 0 0 3px var(--dark-blue);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  /* gap: 1rem; */
+}
+
+.testi-img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  box-shadow: 0 0 2px var(--dark-blue);
+  background-color: var(--dark-blue);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.testimonial-item h3 {
+  margin: 0.5rem 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+.testimonial-item h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #707070;
+}
+
+.testi-content {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.testi-content p {
+  margin: 0;
+}
+
+.testimonial-item ul {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.testimonial-item li {
+  opacity: 0.4;
+}
+.testimonial-item li.act {
+  opacity: 1;
+}
+
+.testimonial-slider .swiper-wrapper {
+  padding: 0.2rem 0 !important;
+}
+
+.testimonial-slider .swiper-slide {
+  transition: transform 250ms !important;
+}
+
+.testimonial-item * {
+  position: relative;
+  perspective: 1000px;
+  z-index: 5;
+  transform: translate3d(0, 0, 1rem);
+}
+
+@media (min-width: 992px) {
+  .testimonial-slider .swiper-slide:not(.swiper-slide-next) {
+    transform: scale(0.8) !important;
+    /* opacity: 0.5; */
+  }
+
+  .testimonial-slider .swiper-slide.swiper-slide-next {
+    transform: scale(1) !important;
+  }
+}
+
+.testi-arrows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  margin-top: 1rem;
+  font-size: 1.75rem;
+}
+
+.testi-arrows i,
+.testi-arrows svg{
+  cursor: pointer;
+
+  color: #3D9BE9;
 }

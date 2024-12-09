@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 import "swiper/css/effect-coverflow";
 import TiltBox from "../components/TiltBox";
 
-const MySwiper = () => {
+const PostSlider = () => {
   const images = [
     "post.png",
     "post.png",
@@ -31,7 +31,7 @@ const MySwiper = () => {
           modifier: 1,
         }}
         modules={[EffectCoverflow]}
-        className="mySwiper"
+        className="postSlider"
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
       >
         {images.map((src, index) => (
@@ -52,6 +52,133 @@ const MySwiper = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+    </div>
+  );
+};
+
+const TestimonialSlider = () => {
+  const [datas, setDatas] = useState([
+    {
+      id: 1,
+      fullname: "Dursun İnel",
+      title: "Misafir",
+      content:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
+      star: 4,
+    },
+    {
+      id: 2,
+      fullname: "Dursun İnel",
+      title: "Misafir",
+      content:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
+      star: 4,
+    },
+    {
+      id: 3,
+      fullname: "Dursun İnel",
+      title: "Misafir",
+      content:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
+      star: 4,
+    },
+    {
+      id: 4,
+      fullname: "Dursun İnel",
+      title: "Misafir",
+      content:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
+      star: 2,
+    },
+  ]);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const sliderRef = useRef(null);
+
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+  }, []);
+
+  return (
+    <div className="swiper-container">
+      <Swiper
+        ref={sliderRef}
+        grabCursor={true}
+        centeredSlides={false}
+        slidesPerView="3"
+        loop={true}
+        className="testimonial-slider"
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          576: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          992: {
+            slidesPerView: 3,
+          },
+        }}
+      >
+        {datas.map((item, index) => (
+          <SwiperSlide key={index}>
+            {activeIndex + 1 === index ? ( // Eğer bu slide aktif ise tilt uygula
+              <TiltBox>
+                <div className="testimonial-item">
+                  <div className="testi-img">
+                    <i class="fa-solid fa-user"></i>
+                  </div>
+                  <h3>{item.fullname}</h3>
+                  <h4>{item.title}</h4>
+                  <div className="testi-content">
+                    <p>{item.content}</p>
+                  </div>
+                  <ul>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <li className={star <= item.star ? "act" : ""}>
+                        <i class="fa-solid fa-star"></i>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </TiltBox>
+            ) : (
+              <div className="testimonial-item">
+                <div className="testi-img">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <h3>{item.fullname}</h3>
+                <h4>{item.title}</h4>
+                <div className="testi-content">
+                  <p>{item.content}</p>
+                </div>
+                <ul>
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <li className={star <= item.star ? "act" : ""}>
+                      <i class="fa-solid fa-star"></i>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <div className="testi-arrows">
+        <i class="fa-solid fa-arrow-left-long" onClick={handlePrev}></i>
+        <i class="fa-solid fa-arrow-right-long"onClick={handleNext}></i>
+      </div>
     </div>
   );
 };
@@ -195,9 +322,15 @@ export default function Home() {
 
             <div className="col-md-6 col-12">
               <div className="flexible-images">
-                <TiltBox><img src={require("../assets/images/img1.png")} alt="" /></TiltBox>
-                <TiltBox><img src={require("../assets/images/img2.png")} alt="" /></TiltBox>
-                <TiltBox><img src={require("../assets/images/img3.png")} alt="" /></TiltBox>
+                <TiltBox>
+                  <img src={require("../assets/images/img1.png")} alt="" />
+                </TiltBox>
+                <TiltBox>
+                  <img src={require("../assets/images/img2.png")} alt="" />
+                </TiltBox>
+                <TiltBox>
+                  <img src={require("../assets/images/img3.png")} alt="" />
+                </TiltBox>
               </div>
             </div>
           </div>
@@ -382,8 +515,29 @@ export default function Home() {
             <h2 className="module-title center">İnstagram Paylaşımlarımız</h2>
           </div>
           <div className="post_slider">
-            <MySwiper />
+            <PostSlider />
           </div>
+        </div>
+      </section>
+
+      {/* Müşteri Yorumları */}
+      <section>
+        <div className="container">
+          <div className="module-head">
+            <span className="sm-title center">Müşteri Yorumları</span>
+            <h2 className="module-title center">Müşterilerimizden Hikayeler</h2>
+          </div>
+
+          <div className="">
+            <TestimonialSlider />
+          </div>
+        </div>
+      </section>
+
+      {/*  */}
+      <section>
+        <div className="container">
+          <div>sad</div>
         </div>
       </section>
     </>
