@@ -43,12 +43,12 @@ export default function Header() {
           <div className="lang_flex">
             {main && (
               <div className="prev" onClick={resetSiteType}>
-                <i class="fa-solid fa-arrow-left-long"></i>
+                <i className="fa-solid fa-arrow-left-long"></i>
               </div>
             )}
             <div>
               <span>
-                TR <i class="fa-solid fa-globe"></i>
+                TR <i className="fa-solid fa-globe"></i>
               </span>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function Header() {
                   </NavLink>
                 </li>
                 <li className="auth_btn">
-                  <i class="fa-solid fa-user"></i> Giriş Yap
+                  <i className="fa-solid fa-user"></i> Giriş Yap
                 </li>
               </ul>
             </div>
@@ -114,7 +114,7 @@ export default function Header() {
               <div className="lang_flex">
                 <div>
                   <span>
-                    TR <i class="fa-solid fa-globe"></i>
+                    TR <i className="fa-solid fa-globe"></i>
                   </span>
                 </div>
               </div>

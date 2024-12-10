@@ -137,7 +137,7 @@ const TestimonialSlider = () => {
               <TiltBox>
                 <div className="testimonial-item">
                   <div className="testi-img">
-                    <i class="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-user"></i>
                   </div>
                   <h3>{item.fullname}</h3>
                   <h4>{item.title}</h4>
@@ -145,9 +145,9 @@ const TestimonialSlider = () => {
                     <p>{item.content}</p>
                   </div>
                   <ul>
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <li className={star <= item.star ? "act" : ""}>
-                        <i class="fa-solid fa-star"></i>
+                    {[1, 2, 3, 4, 5].map((star, key) => (
+                      <li key={key} className={star <= item.star ? "act" : ""}>
+                        <i className="fa-solid fa-star"></i>
                       </li>
                     ))}
                   </ul>
@@ -156,7 +156,7 @@ const TestimonialSlider = () => {
             ) : (
               <div className="testimonial-item">
                 <div className="testi-img">
-                  <i class="fa-solid fa-user"></i>
+                  <i className="fa-solid fa-user"></i>
                 </div>
                 <h3>{item.fullname}</h3>
                 <h4>{item.title}</h4>
@@ -164,9 +164,9 @@ const TestimonialSlider = () => {
                   <p>{item.content}</p>
                 </div>
                 <ul>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <li className={star <= item.star ? "act" : ""}>
-                      <i class="fa-solid fa-star"></i>
+                  {[1, 2, 3, 4, 5].map((star, key) => (
+                    <li key={key} className={star <= item.star ? "act" : ""}>
+                      <i className="fa-solid fa-star"></i>
                     </li>
                   ))}
                 </ul>
@@ -177,8 +177,8 @@ const TestimonialSlider = () => {
       </Swiper>
 
       <div className="testi-arrows">
-        <i class="fa-solid fa-arrow-left-long" onClick={handlePrev}></i>
-        <i class="fa-solid fa-arrow-right-long" onClick={handleNext}></i>
+        <i className="fa-solid fa-arrow-left-long" onClick={handlePrev}></i>
+        <i className="fa-solid fa-arrow-right-long" onClick={handleNext}></i>
       </div>
     </div>
   );
@@ -565,7 +565,9 @@ export default function Home() {
       <section>
         <div className="container">
           <div className="visa_status">
-            <span className="check"><i class="fa-solid fa-check"></i></span>
+            <span className="check">
+              <i className="fa-solid fa-check"></i>
+            </span>
             <div>
               <h2>Vize görüşmesine hazır mısın?</h2>
               <h3>

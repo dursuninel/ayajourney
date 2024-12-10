@@ -44,36 +44,36 @@ export default function Footer() {
                   Çankaya/Ankara
                 </p>
                 <a href="tel:903122586362">
-                  <i class="fa-solid fa-phone"></i> +90 (312) 258 63 62
+                  <i className="fa-solid fa-phone"></i> +90 (312) 258 63 62
                 </a>
               </div>
               <div>
                 <span>İstanbul Sun Plaza</span>
                 <p>Maslak, Bilim Sk. No:5, 34398 Sarıyer/İstanbul</p>
                 <a href="tel:902123675807">
-                  <i class="fa-solid fa-phone"></i> +90 (212) 367 58 07
+                  <i className="fa-solid fa-phone"></i> +90 (212) 367 58 07
                 </a>
               </div>
             </div>
 
             <div className="footer-social">
               <a href="mailto:vizedestek@ayajourneys.com">
-                <i class="fa-solid fa-envelope"></i> vizedestek@ayajourneys.com
+                <i className="fa-solid fa-envelope"></i> vizedestek@ayajourneys.com
               </a>
               <ul className="social-list">
                 <li>
                   <a href="/">
-                    <i class="fa-brands fa-instagram"></i>
+                    <i className="fa-brands fa-instagram"></i>
                   </a>
                 </li>
                 <li>
                   <a href="/">
-                    <i class="fa-brands fa-facebook-f"></i>
+                    <i className="fa-brands fa-facebook-f"></i>
                   </a>
                 </li>
                 <li>
                   <a href="/">
-                    <i class="fa-brands fa-linkedin-in"></i>
+                    <i className="fa-brands fa-linkedin-in"></i>
                   </a>
                 </li>
               </ul>

@@ -6,6 +6,7 @@ import PageIncudes from "./layout/PageIncudes";
 // Pages
 const Main = lazy(() => import("./pages/Main"));
 const Home = lazy(() => import("./pages/Home"));
+const EducationHome = lazy(() => import("./pages/EducationHome"));
 const VisaForm = lazy(() => import("./pages/VisaForm"));
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
                 </PageIncudes>
               }
             />
+
+            <Route path={"/education"} element={<EducationHome />} />
             <Route
               path={"/form"}
               element={
@@ -39,6 +42,8 @@ function App() {
                 </PageIncudes>
               }
             />
+
+            <Route path={"*"} element={<EducationHome />} />
           </Routes>
         </Suspense>
       </main>
