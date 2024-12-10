@@ -6,9 +6,8 @@ import { useSiteType } from "../context/SiteTypeContext";
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
   const [lastNavItemActive, setLastNavItemActive] = useState(false);
-  
+
   const { resetSiteType } = useSiteType();
-  
 
   const location = useLocation();
 
@@ -112,6 +111,13 @@ export default function Header() {
               </ul>
             </div>
             <div className="header-burger out-check">
+              <div className="lang_flex">
+                <div>
+                  <span>
+                    TR <i class="fa-solid fa-globe"></i>
+                  </span>
+                </div>
+              </div>
               <div className="menuToggle" onClick={toggleMenu}>
                 <input type="checkbox" checked={menuActive} readOnly />
                 <span></span>
