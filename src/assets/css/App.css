@@ -342,6 +342,12 @@ div.active .choice-content img {
     opacity: 0;
   }
 }
+
+@media (max-height: 992px) and (max-width: 768px) {
+  .choice-content img {
+    max-height: 18rem;
+  }
+}
 /* Banner */
 
 .banner-cover {
