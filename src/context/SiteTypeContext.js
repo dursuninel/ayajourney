@@ -33,16 +33,16 @@ export const SiteTypeProvider = ({ children }) => {
     let type = siteTypes.find((n) => n.type === id).type;
     setSiteType(type);
     setTimeout(() => {
-      setLoadPage(true);
+      // setLoadPage(true);
 
       setTimeout(() => {
-        setLoadPage(false);
-        setActiveSite(true);
+        // setLoadPage(false);
+        // setActiveSite(true);
         if (type === 1) {
-          navigate("/visa");
+          // navigate("/visa");
         }
         else{
-          navigate("/education");
+          // navigate("/education");
         }
       }, 1000);
     }, mainLoadTime);
