@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 import "swiper/css/effect-coverflow";
 import TiltBox from "../components/TiltBox";
+import { NavLink } from "react-router-dom";
 
 const PostSlider = () => {
   const images = [
@@ -177,8 +178,80 @@ const TestimonialSlider = () => {
 
       <div className="testi-arrows">
         <i class="fa-solid fa-arrow-left-long" onClick={handlePrev}></i>
-        <i class="fa-solid fa-arrow-right-long"onClick={handleNext}></i>
+        <i class="fa-solid fa-arrow-right-long" onClick={handleNext}></i>
       </div>
+    </div>
+  );
+};
+
+const BlogSlider = () => {
+  const [datas, setDatas] = useState([
+    {
+      id: 1,
+      title: "Blog Başlığı",
+      date: "20.07.2003",
+      image: require("../assets/images/blog.png"),
+    },
+    {
+      id: 2,
+      title: "Blog Başlığı",
+      date: "20.07.2003",
+      image: require("../assets/images/blog.png"),
+    },
+    {
+      id: 3,
+      title: "Blog Başlığı",
+      date: "20.07.2003",
+      image: require("../assets/images/blog.png"),
+    },
+    {
+      id: 4,
+      title: "Blog Başlığı",
+      date: "20.07.2003",
+      image: require("../assets/images/blog.png"),
+    },
+  ]);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <div className="swiper-container">
+      <Swiper
+        grabCursor={true}
+        centeredSlides={false}
+        slidesPerView="3"
+        loop={true}
+        className="blog-slider"
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          1200: {
+            slidesPerView: 3,
+            spaceBetween: 16,
+          },
+        }}
+      >
+        {datas.map((item, index) => (
+          <SwiperSlide key={index}>
+            <TiltBox>
+              <NavLink to={`/blog/${item.id}`} className="blog-item">
+                <img src={item.image} alt={item.title} />
+                <div className="blog-card-content">
+                  <span className="date">{item.date}</span>
+                  <h3>{item.title}</h3>
+                </div>
+              </NavLink>
+            </TiltBox>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
@@ -492,16 +565,18 @@ export default function Home() {
       <section>
         <div className="container">
           <div className="visa_status">
+            <span className="check"><i class="fa-solid fa-check"></i></span>
             <div>
-              <h2>Vize Durumunu Kontrol Et!</h2>
+              <h2>Vize görüşmesine hazır mısın?</h2>
               <h3>
                 Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
               </h3>
-            </div>
-            <div>
-              <a href="/" className="btn-style">
+              <a href="/" className="btn-style transparent mt-4">
                 Hemen İncele
               </a>
+            </div>
+            <div>
+              <img src={require("../assets/images/visa_status.png")} alt="" />
             </div>
           </div>
         </div>
@@ -534,10 +609,88 @@ export default function Home() {
         </div>
       </section>
 
-      {/*  */}
+      {/* Bloglar */}
       <section>
         <div className="container">
-          <div>sad</div>
+          <div className="module-head">
+            <span className="sm-title center">Blog</span>
+            <h2 className="module-title center">Son Bloglar</h2>
+          </div>
+          <div className="blog_slider">
+            <BlogSlider />
+          </div>
+        </div>
+      </section>
+
+      {/* Bloglar */}
+      <section>
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="module-head">
+                <span className="sm-title">İletişim</span>
+                <h2 className="module-title">Bizimle İletişime Geçin</h2>
+              </div>
+
+              <div>
+                <form className="contact-form">
+                  <div>
+                    <div className="input">
+                      <input type="text" placeholder="Adınız" />
+                      <div className="line" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="input">
+                      <input type="text" placeholder="Email Adresiniz" />
+                      <div className="line" />
+                    </div>
+                    <div className="input">
+                      <input type="text" placeholder="Meslek" />
+                      <div className="line" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="input">
+                      <textarea type="text" placeholder="Mesajınız" />
+                      <div className="line" />
+                    </div>
+                  </div>
+                  <a href="/" className="btn-style">
+                    Gönder
+                  </a>
+                </form>
+              </div>
+            </div>
+            <div className="col-lg-6 mob-none">
+              <div className="contact-image">
+                <img
+                  src={require("../assets/images/contact.png")}
+                  width={"100%"}
+                  alt="Contact"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="container">
+          <div className="rezervation_module">
+            <div>
+              <h2>Hemen Rezervayon</h2>
+              <h3>
+                Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
+              </h3>
+              <a href="/" className="btn-style transparent mt-4">
+                Detaylı Bilgi
+              </a>
+            </div>
+            <div>
+              <img src={require("../assets/images/flags.png")} alt="" />
+            </div>
+          </div>
         </div>
       </section>
     </>
