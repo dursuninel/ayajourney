@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSiteType } from "../context/SiteTypeContext";
+import Modal from "../components/Modal";
+import Login from "../components/forms/Login";
+import AuthArea from "../components/AuthArea";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
   const [lastNavItemActive, setLastNavItemActive] = useState(false);
+
+  const [authMenu, setAuthMenu] = useState(false);
 
   const { resetSiteType } = useSiteType();
 
@@ -105,7 +110,7 @@ export default function Header() {
                     İletişim
                   </NavLink>
                 </li>
-                <li className="auth_btn">
+                <li className="auth_btn" onClick={() => setAuthMenu(true)}>
                   <i className="fa-solid fa-user"></i> Giriş Yap
                 </li>
               </ul>
@@ -133,6 +138,14 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      <Modal
+        state={authMenu}
+        setState={setAuthMenu}
+        title={"Giriş Yap / Kayıt Ol"}
+      >
+        <AuthArea />
+      </Modal>
     </>
   );
 }

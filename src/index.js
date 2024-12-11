@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { addLocale, locale } from "primereact/api";
+import { addLocale } from "primereact/api";
 
 import "./assets/css/App.css";
 
@@ -9,12 +9,15 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { SiteTypeProvider } from "./context/SiteTypeContext";
 import { LanguageProvider } from "./context/LanguageContext";
+import { UserProvider } from "./context/UserContext";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 addLocale("tr", {
   firstDayOfWeek: 1,
@@ -61,16 +64,15 @@ addLocale("tr", {
   clear: "Temizle",
 });
 
-// import "primereact/resources/primereact.min.css";
-// import "primeicons/primeicons.css";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LanguageProvider>
-    <BrowserRouter>
-      <SiteTypeProvider>
-        <App />
-      </SiteTypeProvider>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <SiteTypeProvider>
+          <App />
+        </SiteTypeProvider>
+      </BrowserRouter>
+    </UserProvider>
   </LanguageProvider>
 );
