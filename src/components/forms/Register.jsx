@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import axios from "axios";
-import Swal from "sweetalert2";
+import Alert from "../Alert";
+import { UserContext } from "../../context/UserContext";
 
 export default function Register() {
+  const { setAuthType } = useContext(UserContext);
+
   const validationSchema = Yup.object({
-    name: Yup.string().required("Ad soyad zorunludur"),
+    fullname: Yup.string().required("Ad soyad zorunludur"),
     email: Yup.string()
       .email("Geçersiz email adresi")
       .required("Email adresi zorunludur"),
@@ -29,28 +32,27 @@ export default function Register() {
       confirmPassword: "",
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        console.log(values);
+        const response = await axios.post("/register", values);
 
-        axios
-          .post("/register", values)
-          .then((response) => {
-            Swal.fire(
-              "Success",
-              "Kayıt başarılı, bilgileriniz ile giriş yapabilirsiniz",
-              "success"
-            );
-          })
-          .catch((error) => {
-            Swal.fire(
-              "Error",
-              "Kayıt sırasında bir hata oluştu, tekrar deneyiniz",
-              "error"
-            );
-          });
+        if (response.data.error === 0) {
+          Alert("Başarısız", "Girilen email adresi kullanılmaktadır", "error");
+        } else {
+          Alert(
+            "Kayıt Başarılı",
+            "Kullanıcı bilgilerinizle giriş yapabilirsiniz",
+            "success"
+          );
+          resetForm();
+          setAuthType(0);
+        }
       } catch (error) {
-        console.log(error);
+        Alert(
+          "Başarısız",
+          "Kayıt sırasında bir hata oluştu, tekrar deneyiniz",
+          "error"
+        );
       }
     },
   });

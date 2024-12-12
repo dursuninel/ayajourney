@@ -1,19 +1,21 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState({});
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(null);
+
+  const [authMenu, setAuthMenu] = useState(false);
+  const [authType, setAuthType] = useState(0);
 
   useEffect(() => {
     const checkLoggedInUser = async () => {
       try {
-        const response = await axios.get("/user");
+        const response = await axios.get("/webUserCheck");
         if (response.data && response.data.loggedIn) {
-          SignUser(response);
+          saveUserWeb(response.data);
         } else {
           setLogin(false);
         }
@@ -28,21 +30,21 @@ export const UserProvider = (props) => {
     }
   }, [login]);
 
-  const SignUser = (data) => {
+  const saveUserWeb = (data) => {
     setUser({
       id: `${data.user?.id || ""}`,
       email: `${data.user?.email || ""}`,
       fullname: `${data.user?.fullname || ""}`,
     });
     setLogin(true);
-    Cookies.set("token", data.token);
+    // Cookies.set("token", data.token);
   };
 
   const logout = () => {
     axios.post("/logout").then((res) => {
-      if (res.data.message === "Logout successful.") {
-        Cookies.remove("token");
-        window.location.pathname = "/";
+      if (res.data.status === 200) {
+        // Cookies.remove("token");
+        window.location.pathname = "/visa";
       }
     });
   };
@@ -53,7 +55,21 @@ export const UserProvider = (props) => {
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, login, setLogin, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        login,
+        setLogin,
+        logout,
+        saveUserWeb,
+
+        authMenu,
+        setAuthMenu,
+        authType,
+        setAuthType,
+      }}
+    >
       {props.children}
     </UserContext.Provider>
   );

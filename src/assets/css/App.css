@@ -1375,8 +1375,7 @@ header.main-header.main ul.navigation-list > li > a {
 
 .auth_btn {
   border: 1px solid var(--dark-blue);
-  height: max-content;
-  padding: 0.75rem 2rem;
+  block-size: max-content;
   border-radius: 1rem;
 
   font-size: 0.9rem !important;
@@ -1387,9 +1386,14 @@ header.main-header.main ul.navigation-list > li > a {
 
   color: var(--dark-blue);
 
-  cursor: pointer;
 
   transition: background-color 250ms, border-color 250ms, color 250ms;
+}
+
+.auth_btn .auth {
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+
 }
 
 .main .auth_btn {
@@ -2168,4 +2172,8 @@ footer .navigation-list a:hover::after {
 .error-input input,
 .error-input textarea {
   border-color: red;
+}
+
+div:where(.swal2-container) {
+  z-index: 1101 !important;
 }

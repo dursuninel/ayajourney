@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
+import Alert from "../Alert";
+import { UserContext } from "../../context/UserContext";
+import axios from "axios";
 
 export default function Login() {
+  const [pending, setPending] = useState(false);
+
+  const { saveUserWeb, setAuthMenu } = useContext(UserContext);
+
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Geçersiz email adresi")
@@ -19,8 +26,48 @@ export default function Login() {
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log("Form Data:", values);
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
+
+      console.log("Form data:", values);
+      try {
+        setPending(true);
+
+        const response = await axios.post("/webLogin", values);
+
+        if (response.data.error === 0) {
+          console.log(response.data.message);
+          Alert(
+            "Başarısız",
+            `Bir hata oluştu, lütfen console'a bakınız`,
+            "error"
+          );
+        } else if (response.data.error === 1) {
+          Alert(
+            "Başarısız",
+            `Kullanıcı bulunamadı, girilen bilgileri kontrol ediniz`,
+            "error",
+            "Tamam",
+            "Yeniden dene"
+          );
+        } else {
+          Alert("Başarılı", `Hesabınıza başarıyla giris yaptınız`, "success");
+          saveUserWeb(response.data);
+          setAuthMenu(false);
+        }
+      } catch (error) {
+        Alert(
+          "Başarısız",
+          `Bir hata oluştu, lütfen console'a bakınız`,
+          "error",
+          "Tamam",
+          "Yeniden dene"
+        );
+        console.log("Error:", error);
+      } finally {
+        setPending(false);
+        setSubmitting(false);
+      }
     },
   });
 
@@ -68,7 +115,7 @@ export default function Login() {
           </div>
           <Button
             type="submit"
-            label="Giriş Yap"
+            label={pending ? "Giriş Yapılıyor..." : "Giriş Yap"}
             icon="pi pi-sign-in"
             className="p-button-sm"
           />

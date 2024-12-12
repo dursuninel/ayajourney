@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Dropdown } from "primereact/dropdown";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { useSiteType } from "../context/SiteTypeContext";
 import Modal from "../components/Modal";
-import Login from "../components/forms/Login";
 import AuthArea from "../components/AuthArea";
+import { UserContext } from "../context/UserContext";
+import FormatUserName from "../components/FormatUserName";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
-  const [lastNavItemActive, setLastNavItemActive] = useState(false);
-
-  const [authMenu, setAuthMenu] = useState(false);
 
   const { resetSiteType } = useSiteType();
+
+  const { user, login, logout, authMenu, setAuthMenu } =
+    useContext(UserContext);
 
   const location = useLocation();
 
@@ -20,16 +20,6 @@ export default function Header() {
     setMenuActive(!menuActive);
     document.body.style.overflowY = menuActive ? "auto" : "hidden";
   };
-
-  const toggleLastNavItem = () => {
-    setLastNavItemActive(!lastNavItemActive);
-  };
-
-  const [selectedCity, setSelectedCity] = useState(null);
-  const cities = [
-    { name: `Türkçe`, code: "tr" },
-    { name: `İngilizce`, code: "en" },
-  ];
 
   const [main, setMain] = useState(location.pathname === "/");
 
@@ -110,8 +100,25 @@ export default function Header() {
                     İletişim
                   </NavLink>
                 </li>
-                <li className="auth_btn" onClick={() => setAuthMenu(true)}>
-                  <i className="fa-solid fa-user"></i> Giriş Yap
+                <li className="auth_btn">
+                  {login === null ? (
+                    // Spinner
+                    <div className="spinner">
+                      <i className="fa-solid fa-spinner fa-spin"></i>{" "}
+                      Yükleniyor...
+                    </div>
+                  ) : login === true ? (
+                    // Giriş yapılmış menü
+                    <div className="auth" onClick={logout}>
+                      <i className="fa-solid fa-user"></i>{" "}
+                      {FormatUserName(user.fullname)}
+                    </div>
+                  ) : (
+                    // Giriş Yap
+                    <div className="auth" onClick={() => setAuthMenu(true)}>
+                      <i className="fa-solid fa-user"></i> Giriş Yap
+                    </div>
+                  )}
                 </li>
               </ul>
             </div>

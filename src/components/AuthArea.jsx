@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Login from "./forms/Login";
 import Register from "./forms/Register";
+import { UserContext } from "../context/UserContext";
 
 export default function AuthArea() {
-  const [authType, setAuthType] = useState(0);
+  const { authType, setAuthType } = useContext(UserContext);
 
   return (
     <>
