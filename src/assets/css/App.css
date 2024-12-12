@@ -69,6 +69,9 @@ img {
   padding: 0.65rem 1.5rem;
   font-size: 0.9rem;
   border-radius: 0.8rem;
+  border: 1px solid var(--blue);
+
+  transition: background-color 250ms, border-color 250ms;
 }
 
 .btn-style:hover {
@@ -2160,4 +2163,9 @@ footer .navigation-list a:hover::after {
 .auth_choose div.active {
   background-color: var(--dark-blue);
   color: white;
+}
+
+.error-input input,
+.error-input textarea {
+  border-color: red;
 }

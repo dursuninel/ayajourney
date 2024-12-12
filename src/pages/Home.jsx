@@ -4,6 +4,7 @@ import { EffectCoverflow } from "swiper/modules";
 import "swiper/css/effect-coverflow";
 import TiltBox from "../components/TiltBox";
 import { NavLink } from "react-router-dom";
+import ContactForm from "../components/forms/ContactForm";
 
 const PostSlider = () => {
   const images = [
@@ -635,33 +636,7 @@ export default function Home() {
               </div>
 
               <div>
-                <form className="contact-form">
-                  <div>
-                    <div className="input">
-                      <input type="text" placeholder="Adınız" />
-                      <div className="line" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="input">
-                      <input type="text" placeholder="Email Adresiniz" />
-                      <div className="line" />
-                    </div>
-                    <div className="input">
-                      <input type="text" placeholder="Meslek" />
-                      <div className="line" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="input">
-                      <textarea type="text" placeholder="Mesajınız" />
-                      <div className="line" />
-                    </div>
-                  </div>
-                  <a href="/" className="btn-style">
-                    Gönder
-                  </a>
-                </form>
+                <ContactForm />
               </div>
             </div>
             <div className="col-lg-6 mob-none">
