@@ -9,6 +9,8 @@ import FormatUserName from "../components/FormatUserName";
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
 
+  const [dropdownActive, setDropdownActive] = useState(false);
+
   const { resetSiteType } = useSiteType();
 
   const { user, login, logout, authMenu, setAuthMenu } =
@@ -80,10 +82,26 @@ export default function Header() {
                     Hakkımızda
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/hizmetler" title="Hizmetler">
-                    Hizmetler
-                  </NavLink>
+                <li className={dropdownActive ? "dropdown open" : "dropdown"}>
+                  <div
+                    title="Hizmetler"
+                    onClick={() => setDropdownActive(!dropdownActive)}
+                  >
+                    Hizmetler <i class="fa-solid fa-angle-down"></i>
+                  </div>
+                  <ul className={dropdownActive ? "active" : ""}>
+                    <li>
+                      <a href="/">Vize Hizmeti</a>
+                    </li>
+
+                    <li>
+                      <a href="/">ABD Vize Hizmeti</a>
+                    </li>
+
+                    <li>
+                      <a href="/">VIP Vize Hizmeti</a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <NavLink to="/blog" title="Blog">
@@ -123,13 +141,16 @@ export default function Header() {
               </ul>
             </div>
             <div className="header-burger out-check">
-              <div className="lang_flex">
-                <div>
-                  <span>
-                    TR <i className="fa-solid fa-globe"></i>
-                  </span>
+              {main && (
+                <div className="lang_flex">
+                  <div>
+                    <span>
+                      TR <i className="fa-solid fa-globe"></i>
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )}
+
               <div className="menuToggle" onClick={toggleMenu}>
                 <input type="checkbox" checked={menuActive} readOnly />
                 <span></span>
