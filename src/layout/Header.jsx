@@ -78,7 +78,7 @@ export default function Header() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/hakkimizda" title="Hakkımızda">
+                  <NavLink to="/about-us" title="Hakkımızda">
                     Hakkımızda
                   </NavLink>
                 </li>
@@ -91,15 +91,15 @@ export default function Header() {
                   </div>
                   <ul className={dropdownActive ? "active" : ""}>
                     <li>
-                      <a href="/">Vize Hizmeti</a>
+                      <NavLink to="/service/vize-hizmeti">Vize Hizmeti</NavLink>
                     </li>
 
                     <li>
-                      <a href="/">ABD Vize Hizmeti</a>
+                      <NavLink to="/service/abd-vize-hizmeti">ABD Vize Hizmeti</NavLink>
                     </li>
 
                     <li>
-                      <a href="/">VIP Vize Hizmeti</a>
+                      <NavLink to="/service/vip-vize-hizmeti">VIP Vize Hizmeti</NavLink>
                     </li>
                   </ul>
                 </li>
@@ -114,7 +114,7 @@ export default function Header() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/iletisim" title="İletişim">
+                  <NavLink to="/contact" title="İletişim">
                     İletişim
                   </NavLink>
                 </li>

@@ -1199,6 +1199,14 @@ header.main-header.main ul.navigation-list > li > a {
   }
 }
 
+header.main-header.main .dropdown > div{
+  color: white;
+}
+
+header.main-header.main .dropdown > div:hover{
+  color: var(--dark-blue);
+}
+
 @media (max-width: 992px) {
   .header-nav {
     display: flex;

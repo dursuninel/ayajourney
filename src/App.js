@@ -12,6 +12,7 @@ const Home = lazy(() => import("./pages/Home"));
 const EducationHome = lazy(() => import("./pages/EducationHome"));
 const VisaForm = lazy(() => import("./pages/VisaForm"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
+const Service = lazy(() => import("./pages/Service"));
 
 function App() {
   function getCookie(name) {
@@ -97,10 +98,19 @@ function App() {
             />
 
             <Route
-              path={"/hakkimizda"}
+              path={"/about-us"}
               element={
                 <PageIncudes>
                   <AboutUs />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/service/:link"}
+              element={
+                <PageIncudes>
+                  <Service />
                 </PageIncudes>
               }
             />
