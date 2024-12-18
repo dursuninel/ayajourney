@@ -1199,11 +1199,11 @@ header.main-header.main ul.navigation-list > li > a {
   }
 }
 
-header.main-header.main .dropdown > div{
+header.main-header.main .dropdown > div {
   color: white;
 }
 
-header.main-header.main .dropdown > div:hover{
+header.main-header.main .dropdown > div:hover {
   color: var(--dark-blue);
 }
 
@@ -2212,7 +2212,7 @@ div:where(.swal2-container) {
 .page_content h1 {
   font-size: 1.95rem;
   color: white;
-  padding: 4rem 0;
+  padding: 5.5rem 0;
   text-align: center;
 }
 
@@ -2285,7 +2285,29 @@ div:where(.swal2-container) {
     font-size: 0.9rem;
   }
 
-  .dropdown ul:not(.active){
+  .dropdown ul:not(.active) {
     display: none;
+  }
+}
+
+.blog_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.blog_list > div {
+  width: calc((100% / 3) - 0.67rem);
+}
+
+@media (max-width: 992px) {
+  .blog_list > div {
+    width: calc((100% / 2) - 0.5rem);
+  }
+}
+
+@media (max-width: 576px) {
+  .blog_list > div {
+    width: 100%;
   }
 }

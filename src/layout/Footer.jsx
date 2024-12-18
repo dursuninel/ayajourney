@@ -22,17 +22,29 @@ export default function Footer() {
               <li>
                 <NavLink to={"/visa/about"}>Hakkımızda</NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to={"/visa/services"}>Hizmetler</NavLink>
-              </li>
+              </li> */}
               <li>
-                <NavLink to={"/visa/blog"}>Blog</NavLink>
+                <NavLink to={"/visa/blog"}>Bloglar</NavLink>
               </li>
               <li>
                 <NavLink to={"/visa/form"}>Form</NavLink>
               </li>
               <li>
                 <NavLink to={"/visa/contact"}>İletişim</NavLink>
+              </li>
+            </ul>
+
+            <ul className="navigation-list">
+              <li>
+                <NavLink to={"/service/vize-hizmeti"}>Vize Hizmeti</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/service/abd-vize-hizmeti"}>ABD Vize Hizmeti</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/service/vip-vize-hizmeti"}>VIP Vize Hizmeti</NavLink>
               </li>
             </ul>
 
@@ -58,7 +70,8 @@ export default function Footer() {
 
             <div className="footer-social">
               <a href="mailto:vizedestek@ayajourneys.com">
-                <i className="fa-solid fa-envelope"></i> vizedestek@ayajourneys.com
+                <i className="fa-solid fa-envelope"></i>{" "}
+                vizedestek@ayajourneys.com
               </a>
               <ul className="social-list">
                 <li>

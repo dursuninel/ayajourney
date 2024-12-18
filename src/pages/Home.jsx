@@ -242,7 +242,7 @@ const BlogSlider = () => {
         {datas.map((item, index) => (
           <SwiperSlide key={index}>
             <TiltBox>
-              <NavLink to={`/blog/${item.id}`} className="blog-item">
+              <NavLink to={`/visa/blog/${item.id}`} className="blog-item">
                 <img src={item.image} alt={item.title} />
                 <div className="blog-card-content">
                   <span className="date">{item.date}</span>
@@ -616,7 +616,7 @@ export default function Home() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Blog</span>
+            <span className="sm-title center">Bloglar</span>
             <h2 className="module-title center">Son Bloglar</h2>
           </div>
           <div className="blog_slider">
@@ -625,7 +625,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bloglar */}
+      {/* İletişim */}
       <section>
         <div className="container">
           <div className="row align-items-center">

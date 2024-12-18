@@ -13,6 +13,9 @@ const EducationHome = lazy(() => import("./pages/EducationHome"));
 const VisaForm = lazy(() => import("./pages/VisaForm"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const Service = lazy(() => import("./pages/Service"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 
 function App() {
   function getCookie(name) {
@@ -111,6 +114,33 @@ function App() {
               element={
                 <PageIncudes>
                   <Service />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/visa/contact"}
+              element={
+                <PageIncudes>
+                  <Contact />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/visa/blog"}
+              element={
+                <PageIncudes>
+                  <Blog />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/visa/blog/:link"}
+              element={
+                <PageIncudes>
+                  <BlogDetail />
                 </PageIncudes>
               }
             />

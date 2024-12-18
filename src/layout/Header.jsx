@@ -104,8 +104,8 @@ export default function Header() {
                   </ul>
                 </li>
                 <li>
-                  <NavLink to="/blog" title="Blog">
-                    Blog
+                  <NavLink to="/visa/blog" title="Blog">
+                  Bloglar
                   </NavLink>
                 </li>
                 <li>
