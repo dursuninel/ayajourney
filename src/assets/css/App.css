@@ -2235,6 +2235,7 @@ div:where(.swal2-container) {
   justify-content: center;
   padding: 1rem 2rem;
   color: var(--dark-blue);
+  user-select: none;
 }
 
 .dropdown ul a:hover {
@@ -2309,5 +2310,26 @@ div:where(.swal2-container) {
 @media (max-width: 576px) {
   .blog_list > div {
     width: 100%;
+  }
+}
+
+.blog-detail-content img {
+  width: 100%;
+  max-height: 35rem;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.blog-detail-text {
+  padding: 0 2rem;
+}
+
+.blog-detail-text > * {
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .blog-detail-text {
+    padding: 0;
   }
 }
