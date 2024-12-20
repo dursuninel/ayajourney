@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 import "swiper/css/effect-coverflow";
+
 import TiltBox from "../components/TiltBox";
 import { NavLink } from "react-router-dom";
 import ContactForm from "../components/forms/ContactForm";
+import BlogSlider from "../components/BlogSlider";
 
 const PostSlider = () => {
   const images = [
@@ -185,79 +187,7 @@ const TestimonialSlider = () => {
   );
 };
 
-const BlogSlider = () => {
-  const [datas, setDatas] = useState([
-    {
-      id: 1,
-      title: "Blog Başlığı",
-      date: "20.07.2003",
-      image: require("../assets/images/blog.png"),
-    },
-    {
-      id: 2,
-      title: "Blog Başlığı",
-      date: "20.07.2003",
-      image: require("../assets/images/blog.png"),
-    },
-    {
-      id: 3,
-      title: "Blog Başlığı",
-      date: "20.07.2003",
-      image: require("../assets/images/blog.png"),
-    },
-    {
-      id: 4,
-      title: "Blog Başlığı",
-      date: "20.07.2003",
-      image: require("../assets/images/blog.png"),
-    },
-  ]);
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  return (
-    <div className="swiper-container">
-      <Swiper
-        grabCursor={true}
-        centeredSlides={false}
-        slidesPerView="3"
-        loop={true}
-        className="blog-slider"
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
-        breakpoints={{
-          0: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          1200: {
-            slidesPerView: 3,
-            spaceBetween: 16,
-          },
-        }}
-      >
-        {datas.map((item, index) => (
-          <SwiperSlide key={index}>
-            <TiltBox>
-              <NavLink to={`/blog/${item.id}`} className="blog-item">
-                <img src={item.image} alt={item.title} />
-                <div className="blog-card-content">
-                  <span className="date">{item.date}</span>
-                  <h3>{item.title}</h3>
-                </div>
-              </NavLink>
-            </TiltBox>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-};
-
-export default function Home() {
+export default function VisaHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -294,9 +224,9 @@ export default function Home() {
                 Eğitim, iş, ticaret ve diğer vize danışmanlık ihtiyaçlarınız
                 için AYA Journey olarak her zaman yanınızdayız!
               </p>
-              <a href="/" className="btn-style">
+              <NavLink to="/visa" className="btn-style">
                 Hemen Rezervasyon
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -352,9 +282,9 @@ export default function Home() {
                   dönüştürüyoruz.
                 </p>
               </div>
-              <a href="/" className="btn-style">
+              <NavLink to="/about-us" className="btn-style">
                 Detaylı Bilgi
-              </a>
+              </NavLink>
             </div>
 
             <div className="col-md-6 col-12">
@@ -390,9 +320,9 @@ export default function Home() {
                     <p className="pckg-price">$89</p>
                     <span>* Devlet ücretleri dahildir</span>
                   </div>
-                  <a href="/" className="btn-style">
+                  <NavLink to="#" className="btn-style">
                     Hemen Al
-                  </a>
+                  </NavLink>
                   <div>
                     <h4>Pakete Dahil olan özellikler</h4>
                     <ul>
@@ -412,9 +342,9 @@ export default function Home() {
                     <p className="pckg-price">$175</p>
                     <span>* Devlet ücretleri dahildir</span>
                   </div>
-                  <a href="/" className="btn-style">
+                  <NavLink to="#" className="btn-style">
                     Hemen Al
-                  </a>
+                  </NavLink>
                   <div>
                     <h4>Pakete Dahil olan özellikler</h4>
                     <ul>
@@ -435,9 +365,9 @@ export default function Home() {
                     <p className="pckg-price">$495</p>
                     <span>* Devlet ücretleri dahildir</span>
                   </div>
-                  <a href="/" className="btn-style">
+                  <NavLink to="#" className="btn-style">
                     Hemen Al
-                  </a>
+                  </NavLink>
                   <div>
                     <h4>Pakete Dahil olan özellikler</h4>
                     <ul>
@@ -462,9 +392,9 @@ export default function Home() {
                   <p className="pckg-price">$89</p>
                   <span>* Devlet ücretleri dahildir</span>
                 </div>
-                <a href="/" className="btn-style">
+                <NavLink to="#" className="btn-style">
                   Hemen Al
-                </a>
+                </NavLink>
                 <div>
                   <h4>Pakete Dahil olan özellikler</h4>
                   <ul>
@@ -482,9 +412,9 @@ export default function Home() {
                   <p className="pckg-price">$175</p>
                   <span>* Devlet ücretleri dahildir</span>
                 </div>
-                <a href="/" className="btn-style">
+                <NavLink to="#" className="btn-style">
                   Hemen Al
-                </a>
+                </NavLink>
                 <div>
                   <h4>Pakete Dahil olan özellikler</h4>
                   <ul>
@@ -503,9 +433,9 @@ export default function Home() {
                   <p className="pckg-price">$495</p>
                   <span>* Devlet ücretleri dahildir</span>
                 </div>
-                <a href="/" className="btn-style">
+                <NavLink to="#" className="btn-style">
                   Hemen Al
-                </a>
+                </NavLink>
                 <div>
                   <h4>Pakete Dahil olan özellikler</h4>
                   <ul>
@@ -537,9 +467,9 @@ export default function Home() {
               <h3>
                 Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
               </h3>
-              <a href="/" className="btn-style transparent mt-4">
+              <NavLink to="#" className="btn-style transparent mt-4">
                 Hemen İncele
-              </a>
+              </NavLink>
             </div>
             <div>
               <img src={require("../assets/images/visa_status.png")} alt="" />
@@ -577,9 +507,9 @@ export default function Home() {
                   sunuyoruz.
                 </p>
               </div>
-              <a href="/" className="btn-style">
+              <NavLink to="/about-us" className="btn-style">
                 Detaylı Bilgi
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -660,9 +590,9 @@ export default function Home() {
               <h3>
                 Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
               </h3>
-              <a href="/" className="btn-style transparent mt-4">
+              <NavLink to="#" className="btn-style transparent mt-4">
                 Detaylı Bilgi
-              </a>
+              </NavLink>
             </div>
             <div>
               <img src={require("../assets/images/flags.png")} alt="" />
