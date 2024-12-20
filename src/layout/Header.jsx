@@ -5,13 +5,15 @@ import Modal from "../components/Modal";
 import AuthArea from "../components/AuthArea";
 import { UserContext } from "../context/UserContext";
 import FormatUserName from "../components/FormatUserName";
+import { useGlobal } from "../context/GlobalContext";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
 
   const [dropdownActive, setDropdownActive] = useState(false);
 
-  const { resetSiteType } = useSiteType();
+  const { siteType, resetSiteType } = useSiteType();
+  const { services } = useGlobal();
 
   const { user, login, logout, authMenu, setAuthMenu } =
     useContext(UserContext);
@@ -26,12 +28,14 @@ export default function Header() {
   const [main, setMain] = useState(location.pathname === "/");
 
   useEffect(() => {
-    if (location.pathname === "/visa") {
+    if (location.pathname === "/visa" || location.pathname === "/education") {
       setMain(true);
     } else {
       setMain(false);
     }
   }, [location.pathname]);
+
+
 
   return (
     <>
@@ -55,7 +59,7 @@ export default function Header() {
         <div className="header-container">
           <div className={`header-flex ${menuActive ? "active" : ""}`}>
             <div className="header-logo">
-              <NavLink to="/visa">
+              <NavLink to={siteType === 1 ? "/visa" : "/education"}>
                 <img
                   src={require("../assets/images/logo.png")}
                   alt="Satılık Acenta Logo"
@@ -73,7 +77,7 @@ export default function Header() {
               </div>
               <ul className="navigation-list">
                 <li>
-                  <NavLink to="/visa" title="Anasayfa">
+                  <NavLink to={siteType === 1 ? "/visa" : "/education"} title="Anasayfa">
                     Anasayfa
                   </NavLink>
                 </li>
@@ -90,22 +94,18 @@ export default function Header() {
                     Hizmetler <i class="fa-solid fa-angle-down"></i>
                   </div>
                   <ul className={dropdownActive ? "active" : ""}>
-                    <li>
-                      <NavLink to="/service/vize-hizmeti">Vize Hizmeti</NavLink>
-                    </li>
-
-                    <li>
-                      <NavLink to="/service/abd-vize-hizmeti">ABD Vize Hizmeti</NavLink>
-                    </li>
-
-                    <li>
-                      <NavLink to="/service/vip-vize-hizmeti">VIP Vize Hizmeti</NavLink>
-                    </li>
+                    {services.map((service) => (
+                      <li key={service.id}>
+                        <NavLink to={`/service/${service.link}`}>
+                          {service.title}
+                        </NavLink>
+                      </li>
+                    ))}
                   </ul>
                 </li>
                 <li>
-                  <NavLink to="/visa/blog" title="Blog">
-                  Bloglar
+                  <NavLink to="/blog" title="Blog">
+                    Bloglar
                   </NavLink>
                 </li>
                 <li>

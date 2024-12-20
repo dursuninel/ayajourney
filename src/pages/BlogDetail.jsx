@@ -17,7 +17,7 @@ export default function BlogDetail() {
     setLoading(true);
     axios.get(`/webBlog/${link}`).then((response) => {
       if (response.data === "") {
-        navigate("/visa/blog");
+        navigate("/blog");
       } else {
         setData(response.data);
         setLoading(false);

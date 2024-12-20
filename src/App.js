@@ -7,10 +7,13 @@ import { UserContext } from "./context/UserContext";
 import axios from "axios";
 
 // Pages
+
+const Yapim = lazy(() => import("./pages/yapim"));
 const Main = lazy(() => import("./pages/Main"));
-const Home = lazy(() => import("./pages/Home"));
+const VisaHome = lazy(() => import("./pages/VisaHome"));
 const EducationHome = lazy(() => import("./pages/EducationHome"));
 const VisaForm = lazy(() => import("./pages/VisaForm"));
+const SchengenForm = lazy(() => import("./pages/SchengenForm"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const Service = lazy(() => import("./pages/Service"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -85,17 +88,33 @@ function App() {
               path={"/visa"}
               element={
                 <PageIncudes>
-                  <Home />
+                  <VisaHome />
                 </PageIncudes>
               }
             />
 
-            <Route path={"/education"} element={<EducationHome />} />
+            <Route
+              path={"/education"}
+              element={
+                <PageIncudes>
+                  <EducationHome />
+                </PageIncudes>
+              }
+            />
             <Route
               path={"/form"}
               element={
                 <PageIncudes>
                   <VisaForm />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/schengen-form"}
+              element={
+                <PageIncudes>
+                  <SchengenForm />
                 </PageIncudes>
               }
             />
@@ -119,7 +138,7 @@ function App() {
             />
 
             <Route
-              path={"/visa/contact"}
+              path={"/contact"}
               element={
                 <PageIncudes>
                   <Contact />
@@ -128,7 +147,7 @@ function App() {
             />
 
             <Route
-              path={"/visa/blog"}
+              path={"/blog"}
               element={
                 <PageIncudes>
                   <Blog />
@@ -137,7 +156,7 @@ function App() {
             />
 
             <Route
-              path={"/visa/blog/:link"}
+              path={"/blog/:link"}
               element={
                 <PageIncudes>
                   <BlogDetail />
@@ -145,7 +164,7 @@ function App() {
               }
             />
 
-            <Route path={"*"} element={<EducationHome />} />
+            <Route path={"*"} element={<Yapim />} />
           </Routes>
         </Suspense>
       </main>

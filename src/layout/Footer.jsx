@@ -1,7 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useGlobal } from "../context/GlobalContext";
+import { useSiteType } from "../context/SiteTypeContext";
 
 export default function Footer() {
+  const { services } = useGlobal();
+  const { siteType } = useSiteType();
+
   return (
     <>
       <footer>
@@ -17,35 +22,32 @@ export default function Footer() {
           <div className="container">
             <ul className="navigation-list">
               <li>
-                <NavLink to={"/visa"}>Anasayfa</NavLink>
+                <NavLink to={siteType === 1 ? "/visa" : "/education"}>
+                  Anasayfa
+                </NavLink>
               </li>
               <li>
-                <NavLink to={"/visa/about"}>Hakkımızda</NavLink>
-              </li>
-              {/* <li>
-                <NavLink to={"/visa/services"}>Hizmetler</NavLink>
-              </li> */}
-              <li>
-                <NavLink to={"/visa/blog"}>Bloglar</NavLink>
+                <NavLink to={"/about-us"}>Hakkımızda</NavLink>
               </li>
               <li>
-                <NavLink to={"/visa/form"}>Form</NavLink>
+                <NavLink to={"/blog"}>Bloglar</NavLink>
               </li>
               <li>
-                <NavLink to={"/visa/contact"}>İletişim</NavLink>
+                <NavLink to={"/form"}>Form</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/contact"}>İletişim</NavLink>
               </li>
             </ul>
 
             <ul className="navigation-list">
-              <li>
-                <NavLink to={"/service/vize-hizmeti"}>Vize Hizmeti</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/service/abd-vize-hizmeti"}>ABD Vize Hizmeti</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/service/vip-vize-hizmeti"}>VIP Vize Hizmeti</NavLink>
-              </li>
+              {services.map((service) => (
+                <li key={service.id}>
+                  <NavLink to={`/service/${service.link}`}>
+                    {service.title}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
 
             <div className="footer-cards">

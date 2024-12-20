@@ -242,7 +242,7 @@ const BlogSlider = () => {
         {datas.map((item, index) => (
           <SwiperSlide key={index}>
             <TiltBox>
-              <NavLink to={`/visa/blog/${item.id}`} className="blog-item">
+              <NavLink to={`/blog/${item.id}`} className="blog-item">
                 <img src={item.image} alt={item.title} />
                 <div className="blog-card-content">
                   <span className="date">{item.date}</span>
@@ -329,43 +329,6 @@ export default function Home() {
                 <img src={require("../assets/images/card4.png")} alt="" />
               </div>
               <h3>7/24 İletişim</h3>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Hakkımızda */}
-      <section>
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-6 col-12">
-              <img
-                width={"100%"}
-                src={require("../assets/images/about.png")}
-                alt=""
-              />
-            </div>
-            <div className="col-md-6 col-12">
-              <div className="module-head">
-                <span className="sm-title">Hakkımızda</span>
-                <h2 className="module-title">Biz Kimiz?</h2>
-              </div>
-              <div className="module-content">
-                <p>
-                  Vize almak, uluslararası seyahatlerde karşılaşabileceğiniz en
-                  önemli adımlardan biridir ve bu sürecin karmaşıklığı herkes
-                  için sorun yaratabilir.
-                </p>
-                <br />
-                <p>
-                  Vize Danışmanlık olarak, sizlere bu süreci daha kolay ve
-                  sorunsuz bir şekilde geçirmeniz için uzman rehberlik
-                  sunuyoruz.
-                </p>
-              </div>
-              <a href="/" className="btn-style">
-                Detaylı Bilgi
-              </a>
             </div>
           </div>
         </div>
@@ -580,6 +543,43 @@ export default function Home() {
             </div>
             <div>
               <img src={require("../assets/images/visa_status.png")} alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Hakkımızda */}
+      <section>
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-6 col-12">
+              <img
+                width={"100%"}
+                src={require("../assets/images/about.png")}
+                alt=""
+              />
+            </div>
+            <div className="col-md-6 col-12">
+              <div className="module-head">
+                <span className="sm-title">Hakkımızda</span>
+                <h2 className="module-title">Neden Bizi Seçmelisiniz?</h2>
+              </div>
+              <div className="module-content">
+                <p>
+                  Vize almak, uluslararası seyahatlerde karşılaşabileceğiniz en
+                  önemli adımlardan biridir ve bu sürecin karmaşıklığı herkes
+                  için sorun yaratabilir.
+                </p>
+                <br />
+                <p>
+                  Vize Danışmanlık olarak, sizlere bu süreci daha kolay ve
+                  sorunsuz bir şekilde geçirmeniz için uzman rehberlik
+                  sunuyoruz.
+                </p>
+              </div>
+              <a href="/" className="btn-style">
+                Detaylı Bilgi
+              </a>
             </div>
           </div>
         </div>

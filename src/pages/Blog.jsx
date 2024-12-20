@@ -30,7 +30,7 @@ export default function Blog() {
             <div className="blog_list">
               {datas.map((item, index) => (
                 <TiltBox>
-                  <NavLink to={`/visa/blog/${item.link}`} className="blog-item">
+                  <NavLink to={`/blog/${item.link}`} className="blog-item">
                     <img src={item.image} alt={item.title} />
                     <div className="blog-card-content">
                       <span className="date">{new Date(item.date).toLocaleDateString("tr-TR")}</span>

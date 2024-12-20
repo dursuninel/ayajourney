@@ -10,6 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 import { SiteTypeProvider } from "./context/SiteTypeContext";
 import { LanguageProvider } from "./context/LanguageContext";
 import { UserProvider } from "./context/UserContext";
+import { GlobalProvider } from "./context/GlobalContext";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -67,12 +68,14 @@ addLocale("tr", {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LanguageProvider>
-    <UserProvider>
-      <BrowserRouter>
-        <SiteTypeProvider>
-          <App />
-        </SiteTypeProvider>
-      </BrowserRouter>
-    </UserProvider>
+    <GlobalProvider>
+      <UserProvider>
+        <BrowserRouter>
+          <SiteTypeProvider>
+            <App />
+          </SiteTypeProvider>
+        </BrowserRouter>
+      </UserProvider>
+    </GlobalProvider>
   </LanguageProvider>
 );
