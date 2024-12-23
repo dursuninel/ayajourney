@@ -29,6 +29,8 @@ export const SiteTypeProvider = ({ children }) => {
 
   const [siteType, setSiteType] = useState(null);
 
+  const runType = (id) => setSiteType(id);
+
   const changeSiteType = (id) => {
     let type = siteTypes.find((n) => n.type === id).type;
     setSiteType(type);
@@ -40,11 +42,10 @@ export const SiteTypeProvider = ({ children }) => {
         setActiveSite(true);
         if (type === 1) {
           navigate("/visa");
-        }
-        else{
+        } else {
           navigate("/education");
         }
-      }, 1000);
+      }, 250);
     }, mainLoadTime);
   };
 
@@ -60,7 +61,16 @@ export const SiteTypeProvider = ({ children }) => {
 
   return (
     <SiteTypeContext.Provider
-      value={{ resetSiteType, activeSite, mainLoadTime, siteType, changeSiteType }}
+      value={{
+        resetSiteType,
+        activeSite,
+        mainLoadTime,
+
+        siteType,
+        changeSiteType,
+
+        runType
+      }}
     >
       {loadPage && <Loader />}
       {children}

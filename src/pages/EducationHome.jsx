@@ -190,10 +190,12 @@ const TestimonialSlider = () => {
 export default function EducationHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  const { changeSiteType } = useSiteType();
+  const { siteType, runType } = useSiteType();
 
   useEffect(() => {
-    changeSiteType(2);
+    if (siteType !== 2) {
+      runType(2);
+    }
   }, []);
 
   useEffect(() => {

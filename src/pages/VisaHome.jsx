@@ -20,10 +20,12 @@ const PostSlider = () => {
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const { changeSiteType } = useSiteType();
+  const { siteType, runType } = useSiteType();
 
   useEffect(() => {
-    changeSiteType(1);
+    if (siteType !== 1) {
+      runType(1);
+    }
   }, []);
 
   return (
