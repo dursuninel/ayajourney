@@ -41,7 +41,7 @@ function App() {
 
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common["Content-Type"] = "application/json";
-  axios.defaults.baseURL = "http://localhost:5001";
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
   axios.defaults.headers.common["authorization"] = `${getCookie("token")}`;
 
   useEffect(() => {
