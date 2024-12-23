@@ -65,6 +65,11 @@ const SchengenVisaForm = () => {
     { label: "Kadın", value: "Kadın" },
   ];
 
+  const yesNoOptions = [
+    { label: "Evet", value: "Evet" },
+    { label: "Hayır", value: "Hayır" },
+  ];
+
   const maritalStatusOptions = [
     "Bekar",
     "Evli",
@@ -253,7 +258,7 @@ const SchengenVisaForm = () => {
           placeholder="Telefon numaranızı giriniz"
         />
       </div>
-
+      <h2>Pasaport Bilgileri</h2>
       <div>
         <label htmlFor="passportType">Pasaport türünüz</label>
         <Dropdown
@@ -309,28 +314,6 @@ const SchengenVisaForm = () => {
           value={formik.values.passportIssuer}
           onChange={formik.handleChange}
           placeholder="Pasaport düzenleyen makamı giriniz"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="plannedEntryDate">Planlanan giriş tarihi</label>
-        <Calendar
-          id="plannedEntryDate"
-          name="plannedEntryDate"
-          value={formik.values.plannedEntryDate}
-          onChange={(e) => formik.setFieldValue("plannedEntryDate", e.value)}
-          placeholder="Planlanan giriş tarihini seçiniz"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="plannedExitDate">Planlanan çıkış tarihi</label>
-        <Calendar
-          id="plannedExitDate"
-          name="plannedExitDate"
-          value={formik.values.plannedExitDate}
-          onChange={(e) => formik.setFieldValue("plannedExitDate", e.value)}
-          placeholder="Planlanan çıkış tarihini seçiniz"
         />
       </div>
 
@@ -451,6 +434,245 @@ const SchengenVisaForm = () => {
           }))}
           onChange={formik.handleChange}
           placeholder="Seyahat amacınızı seçiniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="additionalInfo">
+          Kalış sebebinize ilişkin ek bilgi
+        </label>
+        <InputText
+          id="additionalInfo"
+          name="additionalInfo"
+          value={formik.values.additionalInfo}
+          onChange={formik.handleChange}
+          placeholder="Kalış sebebinize ilişkin ek bilgi"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="mainDestination">
+          Gidilecek olan asıl üye ülke (ve varsa gidilecek olan diğer üye
+          ülkeler)
+        </label>
+        <InputText
+          id="mainDestination"
+          name="mainDestination"
+          value={formik.values.mainDestination}
+          onChange={formik.handleChange}
+          placeholder="Gidilecek olan asıl üye ülke (ve varsa gidilecek olan diğer üye
+          ülkeler)"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="entryCountry">İlk giriş yapacağınız üye ülke</label>
+        <InputText
+          id="entryCountry"
+          name="entryCountry"
+          value={formik.values.entryCountry}
+          onChange={formik.handleChange}
+          placeholder="İlk giriş yapacağınız üye ülke"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="entryCount">Talep edilen giriş sayısı</label>
+        <Dropdown
+          id="entryCount"
+          name="entryCount"
+          value={formik.values.entryCount}
+          options={entryCounts.map((type) => ({ label: type, value: type }))}
+          onChange={formik.handleChange}
+          placeholder="Talep edilen giriş sayısı"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="plannedEntryDate">
+          Schengen bölgesinde ilk kalmaya başlayacağınız tarih için öngörülen
+          gidiş tarihi
+        </label>
+        <Calendar
+          id="plannedEntryDate"
+          name="plannedEntryDate"
+          value={formik.values.plannedEntryDate}
+          onChange={(e) => formik.setFieldValue("plannedEntryDate", e.value)}
+          placeholder="Gidiş tarihini seçiniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="plannedExitDate">
+          İlk kalıştan sonra Schengen bölgesinden ayrılış için öngörülen çıkış
+          tarihi
+        </label>
+        <Calendar
+          id="plannedExitDate"
+          name="plannedExitDate"
+          value={formik.values.plannedExitDate}
+          onChange={(e) => formik.setFieldValue("plannedExitDate", e.value)}
+          placeholder="Çıkış tarihini seçiniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="previousVisa">
+          Schengen vizesi talebinde daha önce parmak izi alınmış mı?
+        </label>
+        <Dropdown
+          id="previousVisa"
+          name="previousVisa"
+          value={formik.values.previousVisa}
+          options={[
+            { label: "Hayır", value: "Hayır" },
+            { label: "Evet", value: "Evet" },
+          ]}
+          onChange={formik.handleChange}
+          placeholder="Seçiminizi yapınız"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="previousVisaDate">Biliyorsanız tarihi</label>
+        <Calendar
+          id="previousVisaDate"
+          name="previousVisaDate"
+          value={formik.values.previousVisaDate}
+          onChange={(e) => formik.setFieldValue("previousVisaDate", e.value)}
+          placeholder="Tarihi seçiniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="inviteeInfo">
+          Üye Devlet(ler)den davetiye gönderen kişi(ler)in soyadı ve adı
+        </label>
+        <InputText
+          id="inviteeInfo"
+          name="inviteeInfo"
+          value={formik.values.inviteeInfo}
+          onChange={formik.handleChange}
+          placeholder="Davetiye gönderen kişi bilgilerini giriniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="inviteeAddress">
+          Davetiye olmaması durumunda, Üye Devletlerde geçici olarak
+          konaklanacak yer(ler)in adresi veya otel(ler)in isimleri
+        </label>
+        <InputText
+          id="inviteeAddress"
+          name="inviteeAddress"
+          value={formik.values.inviteeAddress}
+          onChange={formik.handleChange}
+          placeholder="Konaklama adresini giriniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="inviteeContact">
+          Davetiye gönderen kişi(ler)in/otel(ler)in/geçici olarak konaklanacak
+          yer(ler)in telefon numarası
+        </label>
+        <InputText
+          id="inviteeContact"
+          name="inviteeContact"
+          value={formik.values.inviteeContact}
+          onChange={formik.handleChange}
+          placeholder="Telefon numarasını giriniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="inviteeEmail">
+          Yer(ler)in posta adresi ve e-posta adresi
+        </label>
+        <InputText
+          id="inviteeEmail"
+          name="inviteeEmail"
+          value={formik.values.inviteeEmail}
+          onChange={formik.handleChange}
+          placeholder="E-posta adresini giriniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="inviteeCompany">
+          Davetiye gönderen şirket veya kurumun adı ve adresi
+        </label>
+        <InputText
+          id="inviteeCompany"
+          name="inviteeCompany"
+          value={formik.values.inviteeCompany}
+          onChange={formik.handleChange}
+          placeholder="Şirket veya kurumun bilgilerini giriniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="inviteeRepresentative">
+          Şirket veya kurumdaki irtibat kişinin soyadı, adı, adresi, telefon
+          numarası ve e-posta adresi
+        </label>
+        <InputText
+          id="inviteeRepresentative"
+          name="inviteeRepresentative"
+          value={formik.values.inviteeRepresentative}
+          onChange={formik.handleChange}
+          placeholder="İrtibat kişisinin bilgilerini giriniz"
+        />
+      </div>
+
+      <h2>Geçim Kaynağı</h2>
+
+      <div>
+        <label htmlFor="financialSupport">
+          Kaldığınız süre boyunca başvuru sahibinin seyahat ve genel masrafları
+          kim tarafından karşılanacak?
+        </label>
+        <Dropdown
+          id="financialSupport"
+          name="financialSupport"
+          value={formik.values.financialSupport}
+          options={[
+            { label: "Başvuru sahibinin kendisi tarafından", value: "self" },
+            {
+              label: "Sponsor tarafından (ev sahibi, şirket, kuruluş)",
+              value: "sponsor",
+            },
+          ]}
+          onChange={formik.handleChange}
+          placeholder="Seçiminizi yapınız"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="financialDetails">
+          Başvuru sahibi tarafından karşılanıyorsa (Nakit, Seyahat çeki, Kredi
+          kartı, Konaklama bedeli ön ödemeli, Ön ödemeli ulaşım, Diğer)
+        </label>
+        <InputText
+          id="financialDetails"
+          name="financialDetails"
+          value={formik.values.financialDetails}
+          onChange={formik.handleChange}
+          placeholder="Finansal detayları giriniz"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="sponsorDetails">
+          Sponsor tarafından karşılanıyorsa: (Nakit, Konaklama sağlanmıştır, Tüm
+          masraflar karşılanmıştır, Ön ödemeli ulaşım, Diğer)
+        </label>
+        <InputText
+          id="sponsorDetails"
+          name="sponsorDetails"
+          value={formik.values.sponsorDetails}
+          onChange={formik.handleChange}
+          placeholder="Sponsor detaylarını giriniz"
         />
       </div>
 

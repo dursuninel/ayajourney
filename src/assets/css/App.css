@@ -1066,7 +1066,7 @@ header.main-header {
 }
 
 .header-nav a.active {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 header.main-header.main {
@@ -1406,9 +1406,14 @@ header.main-header.main .dropdown > div:hover {
     cursor: pointer;
   }
 
-  header.main-header.main {
-    /* top: 0; */
+  .main-header:not(.main) .overlay-header,
+  .main-header:not(.main) .header-nav {
+    top: 0 !important;
   }
+
+  li.dropdown ul {
+    background: #eeeeee;
+}
 
   .header-logo img {
     bottom: -2.1rem;
@@ -1588,6 +1593,7 @@ header.main-header.main .dropdown > div:hover {
 }
 .steps-flex > .step-item span.step-name {
   font-size: 0.9rem;
+  padding: 0 1rem;
 }
 
 .steps-flex > .step-item.active {
@@ -1609,7 +1615,7 @@ header.main-header.main .dropdown > div:hover {
 
 @media (max-width: 992px) {
   .steps-flex > .step-item span.step-name {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
   }
 }
 

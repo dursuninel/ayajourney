@@ -6,6 +6,7 @@ import AuthArea from "../components/AuthArea";
 import { UserContext } from "../context/UserContext";
 import FormatUserName from "../components/FormatUserName";
 import { useGlobal } from "../context/GlobalContext";
+import Dropdown from "../components/Dropdown";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
@@ -34,8 +35,6 @@ export default function Header() {
       setMain(false);
     }
   }, [location.pathname]);
-
-
 
   return (
     <>
@@ -77,7 +76,10 @@ export default function Header() {
               </div>
               <ul className="navigation-list">
                 <li>
-                  <NavLink to={siteType === 1 ? "/visa" : "/education"} title="Anasayfa">
+                  <NavLink
+                    to={siteType === 1 ? "/visa" : "/education"}
+                    title="Anasayfa"
+                  >
                     Anasayfa
                   </NavLink>
                 </li>
@@ -86,33 +88,34 @@ export default function Header() {
                     Hakkımızda
                   </NavLink>
                 </li>
-                <li className={dropdownActive ? "dropdown open" : "dropdown"}>
-                  <div
-                    title="Hizmetler"
-                    onClick={() => setDropdownActive(!dropdownActive)}
-                  >
-                    Hizmetler <i class="fa-solid fa-angle-down"></i>
-                  </div>
-                  <ul className={dropdownActive ? "active" : ""}>
-                    {services.map((service) => (
-                      <li key={service.id}>
-                        <NavLink to={`/service/${service.link}`}>
-                          {service.title}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
+                <Dropdown
+                  title={"Hizmetler"}
+                  data={services.map((service) => ({
+                    title: service.title,
+                    link: `/service/${service.link}`,
+                  }))}
+                />
+
                 <li>
                   <NavLink to="/blog" title="Blog">
                     Bloglar
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/form" title="Form">
-                    Form
-                  </NavLink>
-                </li>
+
+                <Dropdown
+                  title={"Formlar"}
+                  data={[
+                    {
+                      title: "İngiltere Formu",
+                      link: `/england-form`,
+                    },
+                    {
+                      title: "Schengen Formu",
+                      link: `/schengen-form`,
+                    },
+                  ]}
+                />
+
                 <li>
                   <NavLink to="/contact" title="İletişim">
                     İletişim

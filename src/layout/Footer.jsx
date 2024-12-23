@@ -32,9 +32,9 @@ export default function Footer() {
               <li>
                 <NavLink to={"/blog"}>Bloglar</NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to={"/form"}>Form</NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink to={"/contact"}>İletişim</NavLink>
               </li>

@@ -24,7 +24,7 @@ export default function SchengenForm() {
 
       <section>
         <div className="container">
-          <TestForm />
+          <SchengenStepForm />
         </div>
       </section>
     </>
