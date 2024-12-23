@@ -6,6 +6,7 @@ import TiltBox from "../components/TiltBox";
 import { NavLink } from "react-router-dom";
 import ContactForm from "../components/forms/ContactForm";
 import BlogSlider from "../components/BlogSlider";
+import { useSiteType } from "../context/SiteTypeContext";
 
 const PostSlider = () => {
   const images = [
@@ -188,6 +189,12 @@ const TestimonialSlider = () => {
 
 export default function EducationHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  const { changeSiteType } = useSiteType();
+
+  useEffect(() => {
+    changeSiteType(2);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {

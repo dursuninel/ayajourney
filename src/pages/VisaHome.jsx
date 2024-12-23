@@ -7,6 +7,7 @@ import TiltBox from "../components/TiltBox";
 import { NavLink } from "react-router-dom";
 import ContactForm from "../components/forms/ContactForm";
 import BlogSlider from "../components/BlogSlider";
+import { useSiteType } from "../context/SiteTypeContext";
 
 const PostSlider = () => {
   const images = [
@@ -19,6 +20,11 @@ const PostSlider = () => {
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const { changeSiteType } = useSiteType();
+
+  useEffect(() => {
+    changeSiteType(1);
+  }, []);
 
   return (
     <div className="swiper-container">
