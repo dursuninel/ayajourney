@@ -16,6 +16,8 @@ export default function Service() {
     setLoading(true);
     axios.get(`/webService/${link}`).then((response) => {
       setData(response.data);
+      document.title = `${response.data.title} | AYA Journey`;
+
       setLoading(false);
     });
   }, [link]);

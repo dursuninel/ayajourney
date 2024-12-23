@@ -7,6 +7,7 @@ export default function Main() {
   const [hideChoiceMain, setHideChoiceMain] = useState(false); // .choice-main görünürlük kontrolü
 
   useEffect(() => {
+    document.title = `Hedefini Seç | AYA Journey`;
     resetSiteType();
   }, []);
 

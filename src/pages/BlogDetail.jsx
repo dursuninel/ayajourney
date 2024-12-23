@@ -20,6 +20,7 @@ export default function BlogDetail() {
         navigate("/blog");
       } else {
         setData(response.data);
+        document.title = `${response.data.title} | AYA Journey`;
         setLoading(false);
       }
     });

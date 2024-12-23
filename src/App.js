@@ -87,7 +87,7 @@ function App() {
             <Route
               path={"/visa"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"Vize"}>
                   <VisaHome />
                 </PageIncudes>
               }
@@ -96,17 +96,16 @@ function App() {
             <Route
               path={"/education"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"Yurtdışı Eğitim"}>
                   <EducationHome />
                 </PageIncudes>
               }
             />
 
-            
             <Route
               path={"/england-form"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"İngiltere Vize Formu"}>
                   <VisaForm />
                 </PageIncudes>
               }
@@ -115,7 +114,7 @@ function App() {
             <Route
               path={"/schengen-form"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"Schengen Vize Formu"}>
                   <SchengenForm />
                 </PageIncudes>
               }
@@ -124,7 +123,7 @@ function App() {
             <Route
               path={"/about-us"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"Hakkımızda"}>
                   <AboutUs />
                 </PageIncudes>
               }
@@ -142,7 +141,7 @@ function App() {
             <Route
               path={"/contact"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"İletişim"}>
                   <Contact />
                 </PageIncudes>
               }
@@ -151,7 +150,7 @@ function App() {
             <Route
               path={"/blog"}
               element={
-                <PageIncudes>
+                <PageIncudes title={"Bloglar"}>
                   <Blog />
                 </PageIncudes>
               }
