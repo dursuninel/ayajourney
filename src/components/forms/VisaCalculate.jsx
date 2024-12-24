@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
 
-const VisaCalculate = () => {
+export default function VisaCalculate() {
     const questions = [
         { id: 'age', label: 'Yaşınız', type: 'dropdown', options: [
             { label: '0-18', value: 10 },
@@ -80,6 +79,8 @@ const VisaCalculate = () => {
         ] },
     ];
 
+    const [currentStep, setCurrentStep] = useState(0);
+
     const formik = useFormik({
         initialValues: questions.reduce((values, question) => {
             values[question.id] = '';
@@ -101,45 +102,64 @@ const VisaCalculate = () => {
         },
     });
 
+    const handleNext = () => {
+        if (currentStep < questions.length - 1) {
+            setCurrentStep((prev) => prev + 1);
+        }
+    };
+
+    const handlePrevious = () => {
+        if (currentStep > 0) {
+            setCurrentStep((prev) => prev - 1);
+        }
+    };
+
     return (
         <form onSubmit={formik.handleSubmit}>
-            {questions.map((question, index) => (
-                <div key={question.id} className="field">
-                    <label htmlFor={question.id}>{question.label}</label>
-                    {question.type === 'text' && (
-                        <InputText
-                            id={question.id}
-                            name={question.id}
-                            value={formik.values[question.id]}
-                            onChange={formik.handleChange}
-                            placeholder={question.label}
-                        />
-                    )}
-                    {question.type === 'dropdown' && (
-                        <Dropdown
-                            id={question.id}
-                            name={question.id}
-                            value={formik.values[question.id]}
-                            options={question.options}
-                            onChange={(e) => formik.setFieldValue(question.id, e.value)}
-                            placeholder={question.label}
-                        />
-                    )}
-                    {question.type === 'number' && (
-                        <InputText
-                            id={question.id}
-                            name={question.id}
-                            type="number"
-                            value={formik.values[question.id]}
-                            onChange={formik.handleChange}
-                            placeholder={question.label}
-                        />
-                    )}
-                </div>
-            ))}
-            <Button type="submit" label="Sonucu Göster" />
+            <div className="field">
+                <label htmlFor={questions[currentStep].id}>{questions[currentStep].label}</label>
+                {questions[currentStep].type === 'text' && (
+                    <InputText
+                        id={questions[currentStep].id}
+                        name={questions[currentStep].id}
+                        value={formik.values[questions[currentStep].id]}
+                        onChange={formik.handleChange}
+                        placeholder={questions[currentStep].label}
+                    />
+                )}
+                {questions[currentStep].type === 'dropdown' && (
+                    <Dropdown
+                        id={questions[currentStep].id}
+                        name={questions[currentStep].id}
+                        value={formik.values[questions[currentStep].id]}
+                        options={questions[currentStep].options}
+                        onChange={(e) => formik.setFieldValue(questions[currentStep].id, e.value)}
+                        placeholder={questions[currentStep].label}
+                    />
+                )}
+                {questions[currentStep].type === 'number' && (
+                    <InputText
+                        id={questions[currentStep].id}
+                        name={questions[currentStep].id}
+                        type="number"
+                        value={formik.values[questions[currentStep].id]}
+                        onChange={formik.handleChange}
+                        placeholder={questions[currentStep].label}
+                    />
+                )}
+            </div>
+
+            <div className="buttons">
+                {currentStep > 0 && (
+                    <Button type="button" label="Geri" onClick={handlePrevious} />
+                )}
+                {currentStep < questions.length - 1 && (
+                    <Button type="button" label="İleri" onClick={handleNext} />
+                )}
+                {currentStep === questions.length - 1 && (
+                    <Button type="submit" label="Sonucu Göster" />
+                )}
+            </div>
         </form>
     );
 };
-
-export default VisaCalculate;
