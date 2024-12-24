@@ -525,7 +525,7 @@ div.active .choice-content img {
   transition: filter 250ms;
 }
 
-.card-item:hover img {
+.card-item:not(.education_cards .card-item):hover img {
   filter: invert(100%) sepia(58%) saturate(0%) hue-rotate(82deg)
     brightness(116%) contrast(101%);
 }
@@ -1571,7 +1571,7 @@ header.main-header.main .dropdown > div:hover {
 
 .visa-form-container form input,
 .visa-form-container form textarea,
-.visa-form-container form .p-dropdown-label{
+.visa-form-container form .p-dropdown-label {
   font-size: 0.85rem;
 }
 
@@ -2381,4 +2381,41 @@ div:where(.swal2-container) {
   padding: 1rem;
   margin-bottom: 1rem;
   font-weight: 600;
+}
+
+.education_cards .card-item {
+  padding: 0;
+  gap: 0;
+}
+
+.education_cards .card-item .card-image {
+  width: 100%;
+  height: 15rem;
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.education_cards img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.education_cards .card-item:hover{
+  background-color: var(--blue);
+}
+
+.education_cards .card-item:hover .card-image{
+  background-color: var(--blue);
+}
+
+.education_cards .card-item h3{
+  margin: .75rem 0;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px){
+  .education_cards .card-item .card-image {
+    height: 12rem;
+  }
 }

@@ -241,32 +241,32 @@ export default function EducationHome() {
       </section>
 
       {/* Kartlar */}
-      <section className="cards-section">
+      <section className="cards-section education_cards">
         <div className="container">
           <div className="cards-flex">
             <div className="card-item">
               <div className="card-image">
-                <img src={require("../assets/images/card1.png")} alt="" />
+                <img src={require("../assets/images/fly.png")} alt="" />
               </div>
-              <h3>Hız</h3>
+              <h3>Hizmet 1</h3>
             </div>
             <div className="card-item">
               <div className="card-image">
-                <img src={require("../assets/images/card2.png")} alt="" />
+                <img src={require("../assets/images/img1.png")} alt="" />
               </div>
-              <h3>Kaliteli Hizmet</h3>
+              <h3>Hizmet 2</h3>
             </div>
             <div className="card-item">
               <div className="card-image">
-                <img src={require("../assets/images/card3.png")} alt="" />
+                <img src={require("../assets/images/img3.png")} alt="" />
               </div>
-              <h3>Müşteri Memnuniyeti</h3>
+              <h3>Hizmet 3</h3>
             </div>
             <div className="card-item">
               <div className="card-image">
-                <img src={require("../assets/images/card4.png")} alt="" />
+                <img src={require("../assets/images/img2.png")} alt="" />
               </div>
-              <h3>7/24 İletişim</h3>
+              <h3>Hizmet 4</h3>
             </div>
           </div>
         </div>
