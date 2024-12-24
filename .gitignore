@@ -10,6 +10,7 @@
 
 # production
 /build
+/buildeski
 
 # misc
 .DS_Store

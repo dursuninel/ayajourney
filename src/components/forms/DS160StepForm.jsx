@@ -410,6 +410,7 @@ const DS160StepForm = () => {
                       label: status,
                       value: status,
                     }))}
+                    onChange={formik.handleChange}
                     placeholder="Medeni Hal"
                   />
                 </div>

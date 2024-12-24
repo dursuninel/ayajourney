@@ -117,6 +117,10 @@ export default function Header() {
                       title: "DS160 Formu",
                       link: "/ds160-form",
                     },
+                    {
+                      title: "Vize İhtimali Hesaplama",
+                      link: "/visa-calculate",
+                    },
                   ]}
                 />
 
