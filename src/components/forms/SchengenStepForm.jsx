@@ -279,6 +279,8 @@ const SchengenStepForm = () => {
                     Doğum tarihiniz (gün-ay-yıl)
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="birthDate"
                     name="birthDate"
                     value={formik.values.birthDate}
@@ -440,6 +442,8 @@ const SchengenStepForm = () => {
                     Pasaport veriliş tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="passportIssueDate"
                     name="passportIssueDate"
                     value={formik.values.passportIssueDate}
@@ -455,6 +459,8 @@ const SchengenStepForm = () => {
                     Pasaport son geçerlilik tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="passportExpiryDate"
                     name="passportExpiryDate"
                     value={formik.values.passportExpiryDate}
@@ -490,9 +496,7 @@ const SchengenStepForm = () => {
             <>
               <div className="step">
                 <div>
-                  <label htmlFor="euf_surname">
-                    Aile üyesi soyadı
-                  </label>
+                  <label htmlFor="euf_surname">Aile üyesi soyadı</label>
                   <InputText
                     id="euf_surname"
                     name="euf_surname"
@@ -503,9 +507,7 @@ const SchengenStepForm = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="euf_firstName">
-                    Aile üyesi adı
-                  </label>
+                  <label htmlFor="euf_firstName">Aile üyesi adı</label>
                   <InputText
                     id="euf_firstName"
                     name="euf_firstName"
@@ -516,10 +518,10 @@ const SchengenStepForm = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="euf_birthDate">
-                    Aile üyesi doğum tarihi
-                  </label>
+                  <label htmlFor="euf_birthDate">Aile üyesi doğum tarihi</label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="euf_birthDate"
                     name="euf_birthDate"
                     value={formik.values.euf_birthDate}
@@ -531,9 +533,7 @@ const SchengenStepForm = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="euf_nationality">
-                    Aile üyesi uyruğu
-                  </label>
+                  <label htmlFor="euf_nationality">Aile üyesi uyruğu</label>
                   <InputText
                     id="euf_nationality"
                     name="euf_nationality"
@@ -690,6 +690,8 @@ const SchengenStepForm = () => {
                     öngörülen gidiş tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="plannedEntryDate"
                     name="plannedEntryDate"
                     value={formik.values.plannedEntryDate}
@@ -706,6 +708,8 @@ const SchengenStepForm = () => {
                     öngörülen çıkış tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="plannedExitDate"
                     name="plannedExitDate"
                     value={formik.values.plannedExitDate}
@@ -736,6 +740,8 @@ const SchengenStepForm = () => {
                 <div>
                   <label htmlFor="previousVisaDate">Biliyorsanız tarihi</label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
+                    locale="tr"
                     id="previousVisaDate"
                     name="previousVisaDate"
                     value={formik.values.previousVisaDate}

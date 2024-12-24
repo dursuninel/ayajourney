@@ -113,6 +113,10 @@ export default function Header() {
                       title: "Schengen Formu",
                       link: `/schengen-form`,
                     },
+                    {
+                      title: "DS160 Formu",
+                      link: "/ds160-form",
+                    },
                   ]}
                 />
 

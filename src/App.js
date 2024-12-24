@@ -14,6 +14,7 @@ const VisaHome = lazy(() => import("./pages/VisaHome"));
 const EducationHome = lazy(() => import("./pages/EducationHome"));
 const VisaForm = lazy(() => import("./pages/VisaForm"));
 const SchengenForm = lazy(() => import("./pages/SchengenForm"));
+const DS160Form = lazy(() => import("./pages/DS160Form"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const Service = lazy(() => import("./pages/Service"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -116,6 +117,15 @@ function App() {
               element={
                 <PageIncudes title={"Schengen Vize Formu"}>
                   <SchengenForm />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/ds160-form"}
+              element={
+                <PageIncudes title={"DS160 Vize Formu"}>
+                  <DS160Form />
                 </PageIncudes>
               }
             />

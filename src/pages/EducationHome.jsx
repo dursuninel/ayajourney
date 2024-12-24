@@ -215,7 +215,7 @@ export default function EducationHome() {
       <section style={{ position: "relative" }}>
         <img
           className="banner-cover"
-          src={require("../assets/images/ayajourney-banner.png")}
+          src={require("../assets/images/education-banner.png")}
           alt=""
         />
         <div className="banner-content-area">
@@ -232,9 +232,9 @@ export default function EducationHome() {
                 Eğitim, iş, ticaret ve diğer vize danışmanlık ihtiyaçlarınız
                 için AYA Journey olarak her zaman yanınızdayız!
               </p>
-              <NavLink to="/visa" className="btn-style">
+              {/* <NavLink to="/visa" className="btn-style">
                 Hemen Rezervasyon
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
         </div>
@@ -313,7 +313,7 @@ export default function EducationHome() {
       </section>
 
       {/* Paketler */}
-      <section>
+      {/* <section>
         <div className="container">
           <div className="module-head">
             <span className="sm-title center">Paketler</span>
@@ -461,10 +461,10 @@ export default function EducationHome() {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Vize Durum Kontrolü */}
-      <section>
+      {/* <section>
         <div className="container">
           <div className="visa_status">
             <span className="check">
@@ -484,7 +484,7 @@ export default function EducationHome() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Hakkımızda */}
       <section>
@@ -590,7 +590,7 @@ export default function EducationHome() {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <div className="container">
           <div className="rezervation_module">
             <div>
@@ -607,7 +607,7 @@ export default function EducationHome() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

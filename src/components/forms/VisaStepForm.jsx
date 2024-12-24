@@ -128,7 +128,7 @@ const VisaStepForm = () => {
         severity: "error",
         summary: "Hata",
         detail: "Lütfen tüm alanları doldurun",
-        life: "2000"
+        life: "2000",
       });
     }
   };
@@ -205,6 +205,7 @@ const VisaStepForm = () => {
                 <div>
                   <label htmlFor="birthDate">Doğum Tarihiniz</label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
                     id="birthDate"
                     name="birthDate"
                     value={formik.values.birthDate}
@@ -232,6 +233,7 @@ const VisaStepForm = () => {
                     Pasaport Veriliş Tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
                     id="passportIssueDate"
                     name="passportIssueDate"
                     value={formik.values.passportIssueDate}
@@ -249,6 +251,7 @@ const VisaStepForm = () => {
                     Pasaport Bitiş Tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
                     id="passportExpiryDate"
                     name="passportExpiryDate"
                     value={formik.values.passportExpiryDate}
@@ -278,6 +281,7 @@ const VisaStepForm = () => {
                     Kimlik Kartı Son Geçerlilik Tarihi
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
                     id="idExpiryDate"
                     name="idExpiryDate"
                     value={formik.values.idExpiryDate}
@@ -544,6 +548,7 @@ const VisaStepForm = () => {
                     Tahmini Seyahat Tarihleriniz
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
                     id="travelDates"
                     name="travelDates"
                     value={formik.values.travelDates}
@@ -561,6 +566,7 @@ const VisaStepForm = () => {
                     Tahmini Seyahat Tarihleriniz
                   </label>
                   <Calendar
+                    dateFormat="dd/mm/yy"
                     id="travelDates"
                     name="travelDates"
                     value={formik.values.travelDates}

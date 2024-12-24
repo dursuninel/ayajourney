@@ -226,7 +226,7 @@ export default function VisaHome() {
                 src={require("../assets/images/path2.png")}
                 alt=""
               />
-              <span>Hedef Yurt Dışıysa</span>
+              <span>Hedef Vize Alımıysa</span>
               <h1>Doğru Adrestesiniz!</h1>
               <p>
                 Eğitim, iş, ticaret ve diğer vize danışmanlık ihtiyaçlarınız
