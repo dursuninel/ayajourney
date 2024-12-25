@@ -363,9 +363,26 @@ export default function VisaCalculate() {
     });
     totalScore = totalScore > 100 ? 100 : totalScore < 0 ? 0 : totalScore;
 
+    const selectedValues = questions.reduce((result, question) => {
+      const selectedOption = question.options.find(
+        (option) => option.id === formValues[question.id]
+      );
+      if (selectedOption) {
+        result[question.id] = {
+          id: selectedOption.id,
+          title: question.label, // Sorunun başlığı
+          label: selectedOption.label, // Seçilen seçeneğin etiketi
+          value: selectedOption.value, // Seçilen seçeneğin puanı
+        };
+      }
+      return result;
+    }, {});
+
     // Konsola yazdırma
-    console.log("Form Cevapları:", formValues);
-    console.log("Toplam Puan:", totalScore);
+    console.log("Form Cevapları:", {
+      basicInfo: basicInfo,
+      datas: selectedValues,
+    });
 
     setTotalScore(totalScore);
     setShowScoreChart(true);
