@@ -13,14 +13,6 @@ export default function VisaCalculateForm() {
 
       <section>
         <div className="container">
-          <p className="page-description">
-            Lütfen bilgilerinizde Türkçe karakterler kullanmayınız.
-          </p>
-        </div>
-      </section>
-
-      <section>
-        <div className="container">
           <VisaCalculate />
         </div>
       </section>

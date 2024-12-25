@@ -2401,21 +2401,34 @@ div:where(.swal2-container) {
   object-fit: cover;
 }
 
-.education_cards .card-item:hover{
+.education_cards .card-item:hover {
   background-color: var(--blue);
 }
 
-.education_cards .card-item:hover .card-image{
+.education_cards .card-item:hover .card-image {
   background-color: var(--blue);
 }
 
-.education_cards .card-item h3{
-  margin: .75rem 0;
+.education_cards .card-item h3 {
+  margin: 0.75rem 0;
   font-size: 1.1rem;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .education_cards .card-item .card-image {
     height: 12rem;
   }
+}
+
+.container-center .step {
+  justify-content: center;
+}
+.container-center .buttons {
+  justify-content: center;
+}
+
+.score_text {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
