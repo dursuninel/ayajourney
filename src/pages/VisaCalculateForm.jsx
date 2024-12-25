@@ -11,6 +11,15 @@ export default function VisaCalculateForm() {
         </div>
       </section>
 
+      <section className="mb-5">
+        <div className="container">
+          <div className="page-description">
+            Riski en aza indirmek ve şansınızı arttırmak için AYA Journey
+            dünyasına adım atabilirsiniz
+          </div>
+        </div>
+      </section>
+
       <section>
         <div className="container">
           <VisaCalculate />

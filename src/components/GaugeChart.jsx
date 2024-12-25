@@ -2,8 +2,6 @@ import React from "react";
 import ReactECharts from "echarts-for-react";
 
 const GaugeChart = ({ value }) => {
-  const score = value || 50;
-
   const options = {
     series: [
       {
@@ -58,7 +56,7 @@ const GaugeChart = ({ value }) => {
           show: true, // Küçük tik işaretlerini gizler (isteğe bağlı)
         },
 
-        data: [{ value: score, name: `Tahmini Vize Alma İhtimaliniz` }],
+        data: [{ value: value, name: `Tahmini Vize Alma İhtimaliniz` }],
       },
     ],
   };
@@ -69,11 +67,11 @@ const GaugeChart = ({ value }) => {
         <ReactECharts option={options} />
       </div>
       <div className="score_text">
-        {score >= 0 && score <= 50
+        {value >= 0 && value <= 50
           ? "Durumunuz oldukça riskli görünüyor. Vize başvurusu yapmadan önce kıdemli vize danışmanlarımızla değerlendirme yapmanızı öneririz"
-          : score >= 51 && score <= 80
+          : value >= 51 && value <= 80
           ? "Riskli profildesiniz. Süreci AYA Journey ile sürdürüp vize alma ihtimalinizi arttırabilirsiniz."
-          : score >= 81 && score <= 100
+          : value >= 81 && value <= 100
           ? "Durumunuz gayet iyi görünüyor! Yine de riskleri en aza indirmek ve hatasız bir başvuru için AYA Journey size destek vermek için hazır"
           : ""}
       </div>
