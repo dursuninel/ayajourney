@@ -134,7 +134,7 @@ function App() {
             <Route
               path={"/visa-calculate"}
               element={
-                <PageIncudes title={"Vize Alma İhitmalinizi Öğrenin"}>
+                <PageIncudes title={"Vize Alma İhtimalinizi Öğrenin"}>
                   <VisaCalculateForm />
                 </PageIncudes>
               }

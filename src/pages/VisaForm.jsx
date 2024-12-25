@@ -1,5 +1,6 @@
 import React from "react";
 import VisaStepForm from "../components/forms/VisaStepForm";
+import VisaStepFormTest from "../components/forms/VisaStepFormTest";
 export default function VisaForm() {
   return (
     <>
@@ -23,7 +24,7 @@ export default function VisaForm() {
       
       <section>
         <div className="container">
-          <VisaStepForm />
+          <VisaStepFormTest />
         </div>
       </section>
     </>

@@ -6,7 +6,7 @@ export default function VisaCalculateForm() {
       <section className="page-banner">
         <div className="container">
           <div className="page-banner-content">
-            <h1>Vize Alma İhitmalinizi Öğrenin</h1>
+            <h1>Vize Alma İhtimalinizi Öğrenin</h1>
           </div>
         </div>
       </section>
