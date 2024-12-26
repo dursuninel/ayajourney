@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+
 import { Calendar } from "primereact/calendar";
 import { FileUpload } from "primereact/fileupload";
 import { Dropdown } from "primereact/dropdown";
@@ -576,6 +578,7 @@ const VisaStepFormTest = () => {
           if_value: ["Evet"],
         },
       ],
+      step: steps[8],
     },
     {
       id: 34,
@@ -1180,7 +1183,7 @@ const VisaStepFormTest = () => {
           if_value: ["Evet"],
         },
       ],
-      steps: steps[12],
+      step: steps[12],
     },
     {
       id: 52,
@@ -1194,28 +1197,62 @@ const VisaStepFormTest = () => {
 
   const [formValues, setFormValues] = useState({});
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     questions.map((item) => {
-      setFormValues((prev) => ({
+      return setFormValues((prev) => ({
         ...prev,
         [item.name]: {
           label: item.label,
+          name: item.name,
           value: "",
+          step: item.step,
           otherInputs: item.otherInputs
-            ? item.otherInputs.map((input) => ({
-                label: input.label,
-                name: input.name,
-                value: "",
-              }))
-            : [],
+            ? item.otherInputs.reduce((acc, input) => {
+                acc[input.name] = {
+                  label: input.label,
+                  name: input.name,
+                  value: "",
+                };
+                return acc;
+              }, {})
+            : {}, // Eğer otherInputs yoksa boş bir nesne
         },
       }));
     });
+    setLoading(false);
   }, [questions]);
 
-  useEffect(() => {
-    console.log(formValues);
-  }, [formValues]);
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep((prev) => prev + 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log("Form submitted!");
+    // Burada form gönderme işlemleri yapılabilir.
+  };
+
+  const handleAction = (action) => {
+    if (action === "prev") {
+      handlePrev();
+    } else if (action === "next") {
+      handleNext();
+    } else {
+      handleSubmit();
+    }
+  };
 
   return (
     <>
@@ -1240,61 +1277,262 @@ const VisaStepFormTest = () => {
           ))}
         </div>
         <div className="step-line" />
-        <form>
-          <div className="step">
-            {questions.map((item, key) => (
-              <>
-                <div>
-                  <label htmlFor="fullName">{item.label}</label>
-                  {item.type === "text" && (
-                    <InputText
-                      id={item.name}
-                      name={item.name}
-                      placeholder={item.label}
-                      value={formValues[item.name].value}
-                      onChange={(e) => {
-                        setFormValues((prev) => ({
-                          ...prev,
-                          [item.name]: {
-                            ...prev[item.name],
-                            value: e.target.value,
-                          },
-                        }));
-                      }}
-                    />
-                  )}
-                  {item.type === "dropdown" && (
-                    <Dropdown
-                      id={item.name}
-                      name={item.name}
-                      placeholder={item.label}
-                      options={item.options}
-                      value={formValues[item.name].value}
-                      onChange={(e) => {
-                        setFormValues((prev) => ({
-                          ...prev,
-                          [item.name]: {
-                            ...prev[item.name],
-                            value: e.target.value,
-                          },
-                        }));
-                      }}
-                    />
-                  )}
-                  {item.type === "calendary" && (
-                    <Calendar
-                      dateFormat="dd/mm/yy"
-                      locale="tr"
-                      id={item.name}
-                      name={item.name}
-                      placeholder={item.label}
-                    />
-                  )}
-                </div>
-              </>
-            ))}
-          </div>
-        </form>
+        {loading ? (
+          <>Yükleniyor...</>
+        ) : (
+          <>
+            <form>
+              <div className="step">
+                {questions
+                  .filter((item) => item.step.id === currentStep)
+                  .map((item, key) => (
+                    <React.Fragment key={key}>
+                      <div className="step_parent">
+                        <label htmlFor="fullName">{item.label}</label>
+                        {item.type === "text" && (
+                          <InputText
+                            id={item.name}
+                            name={item.name}
+                            placeholder={item.label}
+                            value={formValues[item.name]?.value || ""}
+                            onChange={(e) => {
+                              setFormValues((prev) => ({
+                                ...prev,
+                                [item.name]: {
+                                  ...prev[item.name],
+                                  value: e.target.value,
+                                },
+                              }));
+                            }}
+                          />
+                        )}
+                        {item.type === "textarea" && (
+                          <InputTextarea
+                            id={item.name}
+                            name={item.name}
+                            placeholder={item.label}
+                            value={formValues[item.name]?.value || ""}
+                            onChange={(e) => {
+                              setFormValues((prev) => ({
+                                ...prev,
+                                [item.name]: {
+                                  ...prev[item.name],
+                                  value: e.target.value,
+                                },
+                              }));
+                            }}
+                          />
+                        )}
+                        {item.type === "dropdown" && (
+                          <Dropdown
+                            id={item.name}
+                            name={item.name}
+                            placeholder={item.label}
+                            options={item.options}
+                            value={formValues[item.name]?.value || ""}
+                            onChange={(e) => {
+                              setFormValues((prev) => ({
+                                ...prev,
+                                [item.name]: {
+                                  ...prev[item.name],
+                                  value: e.value, // Dropdown'da genelde `e.value` kullanılır
+                                },
+                              }));
+                            }}
+                          />
+                        )}
+                        {item.type === "calendar" && (
+                          <Calendar
+                            dateFormat="dd/mm/yy"
+                            locale="tr"
+                            id={item.name}
+                            name={item.name}
+                            placeholder={item.label}
+                            value={formValues[item.name]?.value || null}
+                            onChange={(date) => {
+                              setFormValues((prev) => ({
+                                ...prev,
+                                [item.name]: {
+                                  ...prev[item.name],
+                                  value: date.toISOString(), // ISO formatında tarih
+                                },
+                              }));
+                            }}
+                          />
+                        )}
+                      </div>
+                      {item.otherInputs && item.otherInputs.length > 0 ? (
+                        <>
+                          {item.otherInputs
+                            .filter((input) =>
+                              input.if_value.includes(
+                                formValues[item.name]?.value
+                              )
+                            ) // Doğru filtreleme
+                            .map((input) => {
+                              return (
+                                <div className="step_parent" key={input.name}>
+                                  <label htmlFor={input.name}>
+                                    {input.label}
+                                  </label>
+                                  {input.type === "text" && (
+                                    <InputText
+                                      id={input.name}
+                                      name={input.name}
+                                      placeholder={input.label}
+                                      value={
+                                        formValues[item.name]?.otherInputs?.[
+                                          input.name
+                                        ]?.value || ""
+                                      }
+                                      onChange={(e) => {
+                                        setFormValues((prev) => ({
+                                          ...prev,
+                                          [item.name]: {
+                                            ...prev[item.name],
+                                            otherInputs: {
+                                              ...prev[item.name]?.otherInputs,
+                                              [input.name]: {
+                                                ...prev[item.name]
+                                                  ?.otherInputs?.[input.name],
+                                                value: e.target.value,
+                                              },
+                                            },
+                                          },
+                                        }));
+                                      }}
+                                    />
+                                  )}
+                                  {input.type === "textarea" && (
+                                    <InputTextarea
+                                      id={input.name}
+                                      name={input.name}
+                                      placeholder={input.label}
+                                      value={
+                                        formValues[item.name]?.otherInputs?.[
+                                          input.name
+                                        ]?.value || ""
+                                      }
+                                      onChange={(e) => {
+                                        setFormValues((prev) => ({
+                                          ...prev,
+                                          [item.name]: {
+                                            ...prev[item.name],
+                                            otherInputs: {
+                                              ...prev[item.name]?.otherInputs,
+                                              [input.name]: {
+                                                ...prev[item.name]
+                                                  ?.otherInputs?.[input.name],
+                                                value: e.target.value,
+                                              },
+                                            },
+                                          },
+                                        }));
+                                      }}
+                                    />
+                                  )}
+                                  {input.type === "dropdown" && (
+                                    <Dropdown
+                                      id={input.name}
+                                      name={input.name}
+                                      placeholder={input.label}
+                                      options={input.options}
+                                      value={
+                                        formValues[item.name]?.otherInputs?.[
+                                          input.name
+                                        ]?.value || ""
+                                      }
+                                      onChange={(e) => {
+                                        setFormValues((prev) => ({
+                                          ...prev,
+                                          [item.name]: {
+                                            ...prev[item.name],
+                                            otherInputs: {
+                                              ...prev[item.name]?.otherInputs,
+                                              [input.name]: {
+                                                ...prev[item.name]
+                                                  ?.otherInputs?.[input.name],
+                                                value: e.value,
+                                              },
+                                            },
+                                          },
+                                        }));
+                                      }}
+                                    />
+                                  )}
+                                  {input.type === "calendar" && (
+                                    <Calendar
+                                      dateFormat="dd/mm/yy"
+                                      locale="tr"
+                                      id={input.name}
+                                      name={input.name}
+                                      placeholder={input.label}
+                                      value={
+                                        formValues[item.name]?.otherInputs?.[
+                                          input.name
+                                        ]?.value || null
+                                      }
+                                      onChange={(date) => {
+                                        setFormValues((prev) => ({
+                                          ...prev,
+                                          [item.name]: {
+                                            ...prev[item.name],
+                                            otherInputs: {
+                                              ...prev[item.name]?.otherInputs,
+                                              [input.name]: {
+                                                ...prev[item.name]
+                                                  ?.otherInputs?.[input.name],
+                                                value: date.toISOString(),
+                                              },
+                                            },
+                                          },
+                                        }));
+                                      }}
+                                    />
+                                  )}
+                                </div>
+                              );
+                            })}
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </React.Fragment>
+                  ))}
+              </div>
+              <div className="buttons">
+                {currentStep !== 0 && (
+                  <button
+                    onClick={() => handleAction("prev")}
+                    disabled={currentStep === 0}
+                    className="prev-button"
+                    type="button"
+                  >
+                    Geri
+                  </button>
+                )}
+
+                {currentStep < steps.length - 1 ? (
+                  <button
+                    onClick={() => handleAction("next")}
+                    className="next-button"
+                    type="button"
+                  >
+                    İleri
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleAction("submit")}
+                    className="submit-button"
+                    type="button"
+                  >
+                    Gönder
+                  </button>
+                )}
+              </div>
+            </form>
+          </>
+        )}
       </div>
     </>
   );

@@ -1552,14 +1552,16 @@ header.main-header.main .dropdown > div:hover {
   gap: 1rem;
 }
 
-.visa-form-container form .step > div {
+.visa-form-container form .step > div,
+.visa-form-container form .step .step_parent {
   width: calc(50% - 0.5rem);
   display: flex;
   flex-direction: column;
 }
 
 @media (max-width: 768px) {
-  .visa-form-container form .step > div {
+  .visa-form-container form .step > div,
+  .visa-form-container form .step .step_parent {
     width: 100%;
   }
 }
