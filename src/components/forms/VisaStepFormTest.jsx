@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-
 import { Calendar } from "primereact/calendar";
-import { FileUpload } from "primereact/fileupload";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
-
+import React, { useState, useEffect, useRef } from "react";
 import TurkishToEnglish from "../TurkishToEnglish";
 import { t } from "i18next";
 
 const VisaStepFormTest = () => {
   const [currentStep, setCurrentStep] = useState(0);
-
+  const [formValues, setFormValues] = useState({});
+  const [loading, setLoading] = useState(true);
   const toast = useRef(null);
 
   const steps = [
@@ -78,6 +75,7 @@ const VisaStepFormTest = () => {
       name: "email",
       type: "text",
       step: steps[0],
+      required: false,
     },
     {
       id: 2,
@@ -1195,10 +1193,6 @@ const VisaStepFormTest = () => {
     },
   ]);
 
-  const [formValues, setFormValues] = useState({});
-
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     setLoading(true);
     questions.map((item) => {
@@ -1215,42 +1209,153 @@ const VisaStepFormTest = () => {
                   label: input.label,
                   name: input.name,
                   value: "",
+                  required: true,
                 };
                 return acc;
               }, {})
             : {}, // Eğer otherInputs yoksa boş bir nesne
         },
+        required: item.required || true,
       }));
     });
     setLoading(false);
   }, [questions]);
 
+  const handleScrollToForm = () => {
+    const formContainer = document.querySelector(".visa-form-container");
+    if (formContainer) {
+      formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const isStepValid = () => {
+    const currentStepInputs = questions.filter(
+      (item) => item.step.id === currentStep
+    );
+
+    let isValid = true;
+
+    currentStepInputs.forEach((item) => {
+      const value = formValues[item.name]?.value;
+      const inputElement = document.getElementById(item.name);
+
+      if (value === "" || value === undefined || value === null) {
+        isValid = false;
+        if (inputElement) {
+          inputElement.classList.add("required-error");
+        }
+      } else {
+        if (inputElement) {
+          inputElement.classList.remove("required-error");
+        }
+      }
+
+      if (item.otherInputs && item.otherInputs.length > 0) {
+        item.otherInputs.forEach((input) => {
+          if (input.if_value.includes(value)) {
+            const otherValue =
+              formValues[item.name]?.otherInputs?.[input.name]?.value;
+            const otherInputElement = document.getElementById(input.name);
+
+            if (
+              otherValue === "" ||
+              otherValue === undefined ||
+              otherValue === null
+            ) {
+              isValid = false;
+              if (otherInputElement) {
+                otherInputElement.classList.add("required-error");
+              }
+            } else {
+              if (otherInputElement) {
+                otherInputElement.classList.remove("required-error");
+              }
+            }
+          }
+        });
+      }
+    });
+
+    return isValid;
+  };
+
   const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep((prev) => prev + 1);
-      window.scrollTo(0, 0);
+    if (isStepValid()) {
+      if (currentStep < steps.length - 1) {
+        setCurrentStep((prev) => prev + 1);
+        handleScrollToForm();
+      }
+    } else {
+      toast.current.show({
+        severity: "error",
+        summary: "Hata",
+        detail: "Lütfen tüm alanları doldurun",
+        life: 2000,
+      });
     }
   };
 
   const handlePrev = () => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
-      window.scrollTo(0, 0);
+      handleScrollToForm();
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted!");
-    // Burada form gönderme işlemleri yapılabilir.
+  const handleInputChange = (e, item) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: {
+        ...prev[name],
+        value,
+      },
+    }));
+    const inputElement = document.getElementById(name);
+    if (inputElement) {
+      inputElement.classList.remove("required-error");
+    }
   };
 
-  const handleAction = (action) => {
-    if (action === "prev") {
-      handlePrev();
-    } else if (action === "next") {
-      handleNext();
+  const handleOtherInputChange = (e, item, input) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [item.name]: {
+        ...prev[item.name],
+        otherInputs: {
+          ...prev[item.name]?.otherInputs,
+          [name]: {
+            ...prev[item.name]?.otherInputs?.[name],
+            value,
+          },
+        },
+      },
+    }));
+    const inputElement = document.getElementById(name);
+    if (inputElement) {
+      inputElement.classList.remove("required-error");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isStepValid()) {
+      // Perform form submission logic here
+      console.log("Form submitted successfully:", formValues);
+      toast.current.show({
+        severity: "success",
+        summary: "Başarılı",
+        detail: "Form başarıyla gönderildi",
+        life: 2000,
+      });
     } else {
-      handleSubmit();
+      toast.current.show({
+        severity: "error",
+        summary: "Hata",
+        detail: "Lütfen tüm alanları doldurun",
+        life: 2000,
+      });
     }
   };
 
@@ -1295,15 +1400,7 @@ const VisaStepFormTest = () => {
                             name={item.name}
                             placeholder={item.label}
                             value={formValues[item.name]?.value || ""}
-                            onChange={(e) => {
-                              setFormValues((prev) => ({
-                                ...prev,
-                                [item.name]: {
-                                  ...prev[item.name],
-                                  value: e.target.value,
-                                },
-                              }));
-                            }}
+                            onChange={(e) => handleInputChange(e, item)}
                           />
                         )}
                         {item.type === "textarea" && (
@@ -1312,15 +1409,7 @@ const VisaStepFormTest = () => {
                             name={item.name}
                             placeholder={item.label}
                             value={formValues[item.name]?.value || ""}
-                            onChange={(e) => {
-                              setFormValues((prev) => ({
-                                ...prev,
-                                [item.name]: {
-                                  ...prev[item.name],
-                                  value: e.target.value,
-                                },
-                              }));
-                            }}
+                            onChange={(e) => handleInputChange(e, item)}
                           />
                         )}
                         {item.type === "dropdown" && (
@@ -1330,15 +1419,7 @@ const VisaStepFormTest = () => {
                             placeholder={item.label}
                             options={item.options}
                             value={formValues[item.name]?.value || ""}
-                            onChange={(e) => {
-                              setFormValues((prev) => ({
-                                ...prev,
-                                [item.name]: {
-                                  ...prev[item.name],
-                                  value: e.value, // Dropdown'da genelde `e.value` kullanılır
-                                },
-                              }));
-                            }}
+                            onChange={(e) => handleInputChange(e, item)}
                           />
                         )}
                         {item.type === "calendar" && (
@@ -1349,15 +1430,17 @@ const VisaStepFormTest = () => {
                             name={item.name}
                             placeholder={item.label}
                             value={formValues[item.name]?.value || null}
-                            onChange={(date) => {
-                              setFormValues((prev) => ({
-                                ...prev,
-                                [item.name]: {
-                                  ...prev[item.name],
-                                  value: date.toISOString(), // ISO formatında tarih
+                            onChange={(date) =>
+                              handleInputChange(
+                                {
+                                  target: {
+                                    name: item.name,
+                                    value: date.value,
+                                  },
                                 },
-                              }));
-                            }}
+                                item
+                              )
+                            }
                           />
                         )}
                       </div>
@@ -1385,22 +1468,9 @@ const VisaStepFormTest = () => {
                                           input.name
                                         ]?.value || ""
                                       }
-                                      onChange={(e) => {
-                                        setFormValues((prev) => ({
-                                          ...prev,
-                                          [item.name]: {
-                                            ...prev[item.name],
-                                            otherInputs: {
-                                              ...prev[item.name]?.otherInputs,
-                                              [input.name]: {
-                                                ...prev[item.name]
-                                                  ?.otherInputs?.[input.name],
-                                                value: e.target.value,
-                                              },
-                                            },
-                                          },
-                                        }));
-                                      }}
+                                      onChange={(e) =>
+                                        handleOtherInputChange(e, item, input)
+                                      }
                                     />
                                   )}
                                   {input.type === "textarea" && (
@@ -1413,22 +1483,9 @@ const VisaStepFormTest = () => {
                                           input.name
                                         ]?.value || ""
                                       }
-                                      onChange={(e) => {
-                                        setFormValues((prev) => ({
-                                          ...prev,
-                                          [item.name]: {
-                                            ...prev[item.name],
-                                            otherInputs: {
-                                              ...prev[item.name]?.otherInputs,
-                                              [input.name]: {
-                                                ...prev[item.name]
-                                                  ?.otherInputs?.[input.name],
-                                                value: e.target.value,
-                                              },
-                                            },
-                                          },
-                                        }));
-                                      }}
+                                      onChange={(e) =>
+                                        handleOtherInputChange(e, item, input)
+                                      }
                                     />
                                   )}
                                   {input.type === "dropdown" && (
@@ -1442,22 +1499,9 @@ const VisaStepFormTest = () => {
                                           input.name
                                         ]?.value || ""
                                       }
-                                      onChange={(e) => {
-                                        setFormValues((prev) => ({
-                                          ...prev,
-                                          [item.name]: {
-                                            ...prev[item.name],
-                                            otherInputs: {
-                                              ...prev[item.name]?.otherInputs,
-                                              [input.name]: {
-                                                ...prev[item.name]
-                                                  ?.otherInputs?.[input.name],
-                                                value: e.value,
-                                              },
-                                            },
-                                          },
-                                        }));
-                                      }}
+                                      onChange={(e) =>
+                                        handleOtherInputChange(e, item, input)
+                                      }
                                     />
                                   )}
                                   {input.type === "calendar" && (
@@ -1472,22 +1516,18 @@ const VisaStepFormTest = () => {
                                           input.name
                                         ]?.value || null
                                       }
-                                      onChange={(date) => {
-                                        setFormValues((prev) => ({
-                                          ...prev,
-                                          [item.name]: {
-                                            ...prev[item.name],
-                                            otherInputs: {
-                                              ...prev[item.name]?.otherInputs,
-                                              [input.name]: {
-                                                ...prev[item.name]
-                                                  ?.otherInputs?.[input.name],
-                                                value: date.toISOString(),
-                                              },
+                                      onChange={(date) =>
+                                        handleOtherInputChange(
+                                          {
+                                            target: {
+                                              name: input.name,
+                                              value: date.toISOString(),
                                             },
                                           },
-                                        }));
-                                      }}
+                                          item,
+                                          input
+                                        )
+                                      }
                                     />
                                   )}
                                 </div>
@@ -1500,31 +1540,29 @@ const VisaStepFormTest = () => {
                     </React.Fragment>
                   ))}
               </div>
-              <div className="buttons">
+              <div className="buttons center">
                 {currentStep !== 0 && (
                   <button
-                    onClick={() => handleAction("prev")}
-                    disabled={currentStep === 0}
-                    className="prev-button"
                     type="button"
+                    onClick={handlePrev}
+                    className="prev-button"
                   >
-                    Geri
+                    Önceki
                   </button>
                 )}
-
                 {currentStep < steps.length - 1 ? (
                   <button
-                    onClick={() => handleAction("next")}
-                    className="next-button"
                     type="button"
+                    onClick={handleNext}
+                    className="next-button"
                   >
-                    İleri
+                    Sonraki
                   </button>
                 ) : (
                   <button
-                    onClick={() => handleAction("submit")}
+                    type="submit"
+                    onClick={handleSubmit}
                     className="submit-button"
-                    type="button"
                   >
                     Gönder
                   </button>

@@ -29,9 +29,9 @@ export default function Main() {
         >
           <div className="choice-content">
             <img src={require("../assets/images/vize.png")} alt="" />
-            <a href="/">
+            <span>
               Vize <i className="fa-solid fa-arrow-right"></i>
-            </a>
+            </span>
           </div>
         </div>
         <div
@@ -42,9 +42,9 @@ export default function Main() {
         >
           <div className="choice-content">
             <img src={require("../assets/images/yurtdisi.png")} alt="" />
-            <a href="/">
+            <span>
               Yurtdışı Eğitim <i className="fa-solid fa-arrow-right"></i>
-            </a>
+            </span>
           </div>
         </div>
       </div>

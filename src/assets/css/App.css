@@ -249,15 +249,15 @@ ul {
   transition: transform 250ms;
 }
 
-.choice-content a {
+.choice-content span {
   font-size: 2rem;
 }
 
-.visa a {
+.visa span {
   color: var(--blue);
 }
 
-.education a {
+.education span {
   color: var(--dark-blue);
   display: flex;
   align-items: center;
@@ -2433,4 +2433,12 @@ div:where(.swal2-container) {
   text-align: center;
   font-size: 0.95rem;
   font-weight: 600;
+}
+
+
+.required-error,
+.required-error input{
+  background-color: #f8d7da;
+  border-color: #f8d7da;
+  box-shadow: 0 0 5px #f8d7da;
 }
