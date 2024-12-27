@@ -1,14 +1,14 @@
 import React from "react";
 import SchengenStepForm from "../components/forms/SchengenStepForm";
 import TestForm from "../components/forms/TestForm";
-import DS160StepForm from "../components/forms/DS160StepForm";
-export default function DS160Form() {
+import UsaStepForm from "../components/forms/UsaStepForm";
+export default function UsaForm() {
   return (
     <>
       <section className="page-banner">
         <div className="container">
           <div className="page-banner-content">
-            <h1>DS160 Vize Bilgi Formu</h1>
+            <h1>USA Vize Bilgi Formu</h1>
           </div>
         </div>
       </section>
@@ -16,7 +16,7 @@ export default function DS160Form() {
       <section>
         <div className="container">
           <p className="page-description">
-            DS160 vize başvurularında istenen formu dikkatlice doldurunuz.{" "}
+            USA vize başvurularında istenen formu dikkatlice doldurunuz.{" "}
             <br />
             Lütfen bilgilerinizde Türkçe karakterler kullanmayınız.
           </p>
@@ -25,7 +25,7 @@ export default function DS160Form() {
 
       <section>
         <div className="container">
-          <DS160StepForm />
+          <UsaStepForm />
         </div>
       </section>
     </>

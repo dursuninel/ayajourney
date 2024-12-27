@@ -114,8 +114,8 @@ export default function Header() {
                       link: `/schengen-form`,
                     },
                     {
-                      title: "DS160 Formu",
-                      link: "/ds160-form",
+                      title: "USA Formu",
+                      link: "/usa-form",
                     },
                     {
                       title: "Vize İhtimali Hesaplama",
