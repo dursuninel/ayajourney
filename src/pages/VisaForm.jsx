@@ -1,13 +1,12 @@
 import React from "react";
 import VisaStepForm from "../components/forms/VisaStepForm";
-import VisaStepFormTest from "../components/forms/VisaStepFormTest";
 export default function VisaForm() {
   return (
     <>
       <section className="page-banner">
         <div className="container">
           <div className="page-banner-content">
-            <h1>Aya Journey İngiltere Vize Bilgi Fişi</h1>
+            <h1>Birleşik Krallık Vize Başvuru Formu</h1>
           </div>
         </div>
       </section>
@@ -15,16 +14,16 @@ export default function VisaForm() {
       <section>
         <div className="container">
           <p className="page-description">
-            İngiltere vize başvurularında istenen formu dikkatlice doldurunuz.{" "}
-            <br />
+            Birleşik Krallık vize başvurularında istenen formu dikkatlice
+            doldurunuz. <br />
             Lütfen bilgilerinizde Türkçe karakterler kullanmayınız.
           </p>
         </div>
       </section>
-      
+
       <section>
         <div className="container">
-          <VisaStepFormTest />
+          <VisaStepForm />
         </div>
       </section>
     </>

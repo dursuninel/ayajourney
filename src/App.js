@@ -105,7 +105,7 @@ function App() {
             />
 
             <Route
-              path={"/england-form"}
+              path={"/uk-form"}
               element={
                 <PageIncudes title={"İngiltere Vize Formu"}>
                   <VisaForm />

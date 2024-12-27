@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSiteType } from "../context/SiteTypeContext";
 
 export default function Main() {
-  const { mainLoadTime, siteType, changeSiteType, resetSiteType } = useSiteType();
+  const { mainLoadTime, siteType, changeSiteType, resetSiteType } =
+    useSiteType();
 
   const [hideChoiceMain, setHideChoiceMain] = useState(false); // .choice-main görünürlük kontrolü
 

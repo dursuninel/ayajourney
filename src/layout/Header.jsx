@@ -106,8 +106,8 @@ export default function Header() {
                   title={"Formlar"}
                   data={[
                     {
-                      title: "İngiltere Formu",
-                      link: `/england-form`,
+                      title: "Birleşik Krallık Formu",
+                      link: `/uk-form`,
                     },
                     {
                       title: "Schengen Formu",
