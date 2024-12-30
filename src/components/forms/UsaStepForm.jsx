@@ -1060,12 +1060,15 @@ const UsaStepForm = () => {
           name: item.name,
           value: "",
           step: item.step,
+          type: item.type,
           otherInputs: item.otherInputs
             ? item.otherInputs.reduce((acc, input) => {
                 acc[input.name] = {
                   label: input.label,
                   name: input.name,
                   value: "",
+                  type: input.type,
+                  if_value: input.if_value,
                 };
                 return acc;
               }, {})
@@ -1105,28 +1108,30 @@ const UsaStepForm = () => {
       }
 
       if (item.otherInputs && item.otherInputs.length > 0) {
-        item.otherInputs.filter(item => item.required !== false).forEach((input) => {
-          if (input.if_value.includes(value)) {
-            const otherValue =
-              formValues[item.name]?.otherInputs?.[input.name]?.value;
-            const otherInputElement = document.getElementById(input.name);
+        item.otherInputs
+          .filter((item) => item.required !== false)
+          .forEach((input) => {
+            if (input.if_value.includes(value)) {
+              const otherValue =
+                formValues[item.name]?.otherInputs?.[input.name]?.value;
+              const otherInputElement = document.getElementById(input.name);
 
-            if (
-              otherValue === "" ||
-              otherValue === undefined ||
-              otherValue === null
-            ) {
-              isValid = false;
-              if (otherInputElement) {
-                otherInputElement.classList.add("required-error");
-              }
-            } else {
-              if (otherInputElement) {
-                otherInputElement.classList.remove("required-error");
+              if (
+                otherValue === "" ||
+                otherValue === undefined ||
+                otherValue === null
+              ) {
+                isValid = false;
+                if (otherInputElement) {
+                  otherInputElement.classList.add("required-error");
+                }
+              } else {
+                if (otherInputElement) {
+                  otherInputElement.classList.remove("required-error");
+                }
               }
             }
-          }
-        });
+          });
       }
     });
 
@@ -1238,13 +1243,6 @@ const UsaStepForm = () => {
           "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız.",
           "success"
         );
-        // toast.current.show({
-        //   severity: "success",
-        //   summary: "Başarılı",
-        //   detail: "Form başarıyla gönderildi",
-        //   life: 2000,
-        // });
-
         defaultSetValues();
         setCurrentStep(0);
       } else {

@@ -1,5 +1,5 @@
 import React from "react";
-import VisaStepForm from "../components/forms/VisaStepForm";
+import UkStepForm from "../components/forms/UkStepForm";
 export default function VisaForm() {
   return (
     <>
@@ -58,7 +58,7 @@ Hadi Topla Bavulları!
 
       <section>
         <div className="container">
-          <VisaStepForm />
+          <UkStepForm />
         </div>
         <div className="container">
           <h2>AYA Journey ile Adım Adım İngiltere</h2>

@@ -6,12 +6,16 @@ import { Toast } from "primereact/toast";
 import React, { useState, useEffect, useRef } from "react";
 import TurkishToEnglish from "../TurkishToEnglish";
 import { t } from "i18next";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useLanguage } from "../../context/LanguageContext";
 
 const SchengenStepFormTest = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState({});
   const [loading, setLoading] = useState(true);
   const toast = useRef(null);
+  const { activeLanguage } = useLanguage();
 
   const steps = [
     {
@@ -1060,12 +1064,15 @@ const SchengenStepFormTest = () => {
           name: item.name,
           value: "",
           step: item.step,
+          type: item.type,
           otherInputs: item.otherInputs
             ? item.otherInputs.reduce((acc, input) => {
                 acc[input.name] = {
                   label: input.label,
                   name: input.name,
                   value: "",
+                  type: input.type,
+                  if_value: input.if_value,
                 };
                 return acc;
               }, {})
@@ -1106,28 +1113,30 @@ const SchengenStepFormTest = () => {
       }
 
       if (item.otherInputs && item.otherInputs.length > 0) {
-        item.otherInputs.filter(item => item.required !== false).forEach((input) => {
-          if (input.if_value.includes(value)) {
-            const otherValue =
-              formValues[item.name]?.otherInputs?.[input.name]?.value;
-            const otherInputElement = document.getElementById(input.name);
+        item.otherInputs
+          .filter((item) => item.required !== false)
+          .forEach((input) => {
+            if (input.if_value.includes(value)) {
+              const otherValue =
+                formValues[item.name]?.otherInputs?.[input.name]?.value;
+              const otherInputElement = document.getElementById(input.name);
 
-            if (
-              otherValue === "" ||
-              otherValue === undefined ||
-              otherValue === null
-            ) {
-              isValid = false;
-              if (otherInputElement) {
-                otherInputElement.classList.add("required-error");
-              }
-            } else {
-              if (otherInputElement) {
-                otherInputElement.classList.remove("required-error");
+              if (
+                otherValue === "" ||
+                otherValue === undefined ||
+                otherValue === null
+              ) {
+                isValid = false;
+                if (otherInputElement) {
+                  otherInputElement.classList.add("required-error");
+                }
+              } else {
+                if (otherInputElement) {
+                  otherInputElement.classList.remove("required-error");
+                }
               }
             }
-          }
-        });
+          });
       }
     });
 
@@ -1157,7 +1166,7 @@ const SchengenStepFormTest = () => {
     }
   };
 
-    const convertToUppercaseAndReplaceTurkishChars = (value) => {
+  const convertToUppercaseAndReplaceTurkishChars = (value) => {
     const turkishChars = {
       ç: "c",
       ğ: "g",
@@ -1178,11 +1187,13 @@ const SchengenStepFormTest = () => {
       .join("")
       .toUpperCase();
   };
-  
+
   const handleInputChange = (e, item) => {
     const { name, value } = e.target;
     const convertedValue =
-      item.type === "calendar" || item.type === "dropdown" ? value : convertToUppercaseAndReplaceTurkishChars(value);
+      item.type === "calendar" || item.type === "dropdown"
+        ? value
+        : convertToUppercaseAndReplaceTurkishChars(value);
     setFormValues((prev) => ({
       ...prev,
       [name]: {
@@ -1195,11 +1206,13 @@ const SchengenStepFormTest = () => {
       inputElement.classList.remove("invalid-input");
     }
   };
-  
+
   const handleOtherInputChange = (e, item, input) => {
     const { name, value } = e.target;
     const convertedValue =
-      item.type === "calendar" || item.type === "dropdown" ? value : convertToUppercaseAndReplaceTurkishChars(value);
+      item.type === "calendar" || item.type === "dropdown"
+        ? value
+        : convertToUppercaseAndReplaceTurkishChars(value);
     setFormValues((prev) => ({
       ...prev,
       [item.name]: {
@@ -1219,21 +1232,31 @@ const SchengenStepFormTest = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isStepValid()) {
-      // Perform form submission logic here
-      console.log("Form submitted successfully:", formValues);
-      toast.current.show({
-        severity: "success",
-        summary: "Başarılı",
-        detail: "Form başarıyla gönderildi",
-        life: 2000,
+      const response = await axios.post("/addFormValue", {
+        form_id: "2",
+        values: formValues,
+        lang: activeLanguage.code,
       });
 
-      // Reset form values and navigate to the first step
-      defaultSetValues();
-      setCurrentStep(0);
+      if (response.data.insertId) {
+        Swal.fire(
+          "Başarılı",
+          "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız.",
+          "success"
+        );
+        defaultSetValues();
+        setCurrentStep(0);
+      } else {
+        toast.current.show({
+          severity: "error",
+          summary: "Hata",
+          detail: "Form gönderilirken bir hata oluştu",
+          life: 2000,
+        });
+      }
     } else {
       toast.current.show({
         severity: "error",
@@ -1243,11 +1266,6 @@ const SchengenStepFormTest = () => {
       });
     }
   };
-
-  useEffect(() => {
-    console.log(formValues);
-  }, [formValues]);
-
   return (
     <>
       <Toast ref={toast} position="bottom-left" />
