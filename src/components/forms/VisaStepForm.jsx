@@ -6,12 +6,16 @@ import { Toast } from "primereact/toast";
 import React, { useState, useEffect, useRef } from "react";
 import TurkishToEnglish from "../TurkishToEnglish";
 import { t } from "i18next";
+import axios from "axios";
+import { useLanguage } from "../../context/LanguageContext";
 
 const VisaStepForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState({});
   const [loading, setLoading] = useState(true);
   const toast = useRef(null);
+
+  const { activeLanguage } = useLanguage();
 
   const steps = [
     {
@@ -75,7 +79,6 @@ const VisaStepForm = () => {
       name: "email",
       type: "text",
       step: steps[0],
-      required: false,
     },
     {
       id: 2,
@@ -1214,7 +1217,6 @@ const VisaStepForm = () => {
                   label: input.label,
                   name: input.name,
                   value: "",
-                  required: true,
                 };
                 return acc;
               }, {})
@@ -1234,7 +1236,7 @@ const VisaStepForm = () => {
 
   const isStepValid = () => {
     const currentStepInputs = questions.filter(
-      (item) => item.step.id === currentStep
+      (item) => item.step.id === currentStep && item.required !== false
     );
 
     let isValid = true;
@@ -1255,7 +1257,7 @@ const VisaStepForm = () => {
       }
 
       if (item.otherInputs && item.otherInputs.length > 0) {
-        item.otherInputs.forEach((input) => {
+        item.otherInputs.filter(item => item.required !== false).forEach((input) => {
           if (input.if_value.includes(value)) {
             const otherValue =
               formValues[item.name]?.otherInputs?.[input.name]?.value;
@@ -1372,21 +1374,35 @@ const VisaStepForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isStepValid()) {
       // Perform form submission logic here
-      console.log("Form submitted successfully:", formValues);
-      toast.current.show({
-        severity: "success",
-        summary: "Başarılı",
-        detail: "Form başarıyla gönderildi",
-        life: 2000,
+
+      const response = await axios.post("/addFormValue", {
+        form_id: 0,
+        values: formValues,
+        lang: activeLanguage.code,
       });
 
-      // Reset form values and navigate to the first step
-      defaultSetValues();
-      setCurrentStep(0);
+      if (response.data.insertId) {
+        toast.current.show({
+          severity: "success",
+          summary: "Başarılı",
+          detail: "Form başarıyla gönderildi",
+          life: 2000,
+        });
+
+        defaultSetValues();
+        setCurrentStep(0);
+      } else {
+        toast.current.show({
+          severity: "error",
+          summary: "Hata",
+          detail: "Form gönderilirken bir hata oluştu",
+          life: 2000,
+        });
+      }
     } else {
       toast.current.show({
         severity: "error",

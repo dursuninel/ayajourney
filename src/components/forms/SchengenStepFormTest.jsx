@@ -1066,7 +1066,6 @@ const SchengenStepFormTest = () => {
                   label: input.label,
                   name: input.name,
                   value: "",
-                  required: true,
                 };
                 return acc;
               }, {})
@@ -1086,7 +1085,7 @@ const SchengenStepFormTest = () => {
 
   const isStepValid = () => {
     const currentStepInputs = questions.filter(
-      (item) => item.step.id === currentStep
+      (item) => item.step.id === currentStep && item.required !== false
     );
 
     let isValid = true;
@@ -1107,7 +1106,7 @@ const SchengenStepFormTest = () => {
       }
 
       if (item.otherInputs && item.otherInputs.length > 0) {
-        item.otherInputs.forEach((input) => {
+        item.otherInputs.filter(item => item.required !== false).forEach((input) => {
           if (input.if_value.includes(value)) {
             const otherValue =
               formValues[item.name]?.otherInputs?.[input.name]?.value;

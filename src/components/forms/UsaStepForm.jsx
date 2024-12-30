@@ -6,12 +6,17 @@ import { Toast } from "primereact/toast";
 import React, { useState, useEffect, useRef } from "react";
 import TurkishToEnglish from "../TurkishToEnglish";
 import { t } from "i18next";
+import axios from "axios";
+import { useLanguage } from "../../context/LanguageContext";
+import Swal from "sweetalert2";
 
 const UsaStepForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState({});
   const [loading, setLoading] = useState(true);
   const toast = useRef(null);
+
+  const { activeLanguage } = useLanguage();
 
   const steps = [
     {
@@ -372,18 +377,11 @@ const UsaStepForm = () => {
         {
           id: 1,
           name: "travelWithOthersGroup",
-          label: "Bu Bir Grup Mu? Grubun Adı Nedir?",
+          label:
+            "Bu Bir Grup Mu? Grubun Adı Nedir? Değilse Ad-Soyad ve Sizinle Yakınlığı Nedir?",
           type: "text",
           required: true,
           if_value: ["Evet"],
-        },
-        {
-          id: 2,
-          name: "travelWithOthersName",
-          label: "Ad-Soyad ve Sizinle Yakınlığı Nedir?",
-          type: "text",
-          required: true,
-          if_value: ["Hayır"],
         },
       ],
     },
@@ -617,6 +615,7 @@ const UsaStepForm = () => {
         },
         {
           id: 2,
+          name: "socialMediaLink",
           label:
             "İçerik Paylaşmak Amacıyla Web Sitesi, Blog vs. Varsa Link Ekleyiniz",
           type: "textarea",
@@ -830,9 +829,10 @@ const UsaStepForm = () => {
       id: 43,
       step: steps[6],
       name: "maritalStatus",
-      label: "Medeni Durum",
+      label: "Medeni Durumnuz Nedir?",
       type: "dropdown",
       options: [
+        { label: "Bekar", value: "Bekar" },
         { label: "Evli", value: "Evli" },
         { label: "Boşanmış", value: "Boşanmış" },
         { label: "Dul", value: "Dul" },
@@ -862,7 +862,7 @@ const UsaStepForm = () => {
         },
         {
           id: 3,
-          name: "spousePreviousMarriage",
+          name: "spousePreviousMarriageCount",
           label: "Kaç kere evlendiniz?",
           type: "text",
           required: true,
@@ -870,7 +870,7 @@ const UsaStepForm = () => {
         },
         {
           id: 4,
-          name: "spousePreviousMarriage",
+          name: "spousePreviousMarriageInfo",
           label:
             "Eski eş adı, soyadı, doğum tarihi, doğum yeri, uyruk, evlilik tarihi, boşanma tarihi, hangi ülkede boşandınız?",
           type: "textarea",
@@ -890,7 +890,7 @@ const UsaStepForm = () => {
     },
     {
       id: 44,
-      step: steps[6],
+      step: steps[7],
       label:
         "Mesleki dumunuz nedir? (Öğrenci, çalışan, işveren, kamu görevlisi, emekli, işsiz)",
       name: "profession",
@@ -936,7 +936,7 @@ const UsaStepForm = () => {
     },
     {
       id: 45,
-      step: steps[6],
+      step: steps[7],
       label: "Daha önce bir yerde çalıştınız mı?",
       name: "previousJob",
       type: "dropdown",
@@ -958,7 +958,7 @@ const UsaStepForm = () => {
     },
     {
       id: 46,
-      step: steps[6],
+      step: steps[7],
       name: "education",
       label: "Eğitim durumunuz nedir?",
       type: "dropdown",
@@ -984,7 +984,7 @@ const UsaStepForm = () => {
     },
     {
       id: 47,
-      step: steps[6],
+      step: steps[8],
       name: "language",
       label: "Bildiğiniz yabancı dilleri belirtiniz.",
       type: "text",
@@ -992,7 +992,7 @@ const UsaStepForm = () => {
     },
     {
       id: 48,
-      step: steps[6],
+      step: steps[8],
       name: "previusSchengenVisa",
       label: "Daha önce Schengen vizesi aldınız mı?",
       type: "dropdown",
@@ -1015,7 +1015,7 @@ const UsaStepForm = () => {
     },
     {
       id: 49,
-      step: steps[6],
+      step: steps[8],
       name: "travelHistory",
       label: "Daha önce hangi ülkelere seyahat ettiniz?",
       type: "text",
@@ -1023,7 +1023,7 @@ const UsaStepForm = () => {
     },
     {
       id: 50,
-      step: steps[6],
+      step: steps[8],
       name: "militaryService",
       label: "Askerlik durumunuz nedir?",
       type: "dropdown",
@@ -1066,13 +1066,11 @@ const UsaStepForm = () => {
                   label: input.label,
                   name: input.name,
                   value: "",
-                  required: true,
                 };
                 return acc;
               }, {})
             : {}, // Eğer otherInputs yoksa boş bir nesne
         },
-        required: item.required || true,
       }));
     });
   };
@@ -1086,7 +1084,7 @@ const UsaStepForm = () => {
 
   const isStepValid = () => {
     const currentStepInputs = questions.filter(
-      (item) => item.step.id === currentStep
+      (item) => item.step.id === currentStep && item.required !== false
     );
 
     let isValid = true;
@@ -1107,7 +1105,7 @@ const UsaStepForm = () => {
       }
 
       if (item.otherInputs && item.otherInputs.length > 0) {
-        item.otherInputs.forEach((input) => {
+        item.otherInputs.filter(item => item.required !== false).forEach((input) => {
           if (input.if_value.includes(value)) {
             const otherValue =
               formValues[item.name]?.otherInputs?.[input.name]?.value;
@@ -1158,7 +1156,7 @@ const UsaStepForm = () => {
     }
   };
 
-    const convertToUppercaseAndReplaceTurkishChars = (value) => {
+  const convertToUppercaseAndReplaceTurkishChars = (value) => {
     const turkishChars = {
       ç: "c",
       ğ: "g",
@@ -1179,11 +1177,13 @@ const UsaStepForm = () => {
       .join("")
       .toUpperCase();
   };
-  
+
   const handleInputChange = (e, item) => {
     const { name, value } = e.target;
     const convertedValue =
-      item.type === "calendar" || item.type === "dropdown" ? value : convertToUppercaseAndReplaceTurkishChars(value);
+      item.type === "calendar" || item.type === "dropdown"
+        ? value
+        : convertToUppercaseAndReplaceTurkishChars(value);
     setFormValues((prev) => ({
       ...prev,
       [name]: {
@@ -1196,11 +1196,14 @@ const UsaStepForm = () => {
       inputElement.classList.remove("invalid-input");
     }
   };
-  
+
   const handleOtherInputChange = (e, item, input) => {
     const { name, value } = e.target;
     const convertedValue =
-      item.type === "calendar" || item.type === "dropdown" ? value : convertToUppercaseAndReplaceTurkishChars(value);
+      item.type === "calendar"
+        ? value
+        : convertToUppercaseAndReplaceTurkishChars(value);
+
     setFormValues((prev) => ({
       ...prev,
       [item.name]: {
@@ -1220,21 +1223,38 @@ const UsaStepForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isStepValid()) {
-      // Perform form submission logic here
-      console.log("Form submitted successfully:", formValues);
-      toast.current.show({
-        severity: "success",
-        summary: "Başarılı",
-        detail: "Form başarıyla gönderildi",
-        life: 2000,
+      const response = await axios.post("/addFormValue", {
+        form_id: "1",
+        values: formValues,
+        lang: activeLanguage.code,
       });
 
-      // Reset form values and navigate to the first step
-      defaultSetValues();
-      setCurrentStep(0);
+      if (response.data.insertId) {
+        Swal.fire(
+          "Başarılı",
+          "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız.",
+          "success"
+        );
+        // toast.current.show({
+        //   severity: "success",
+        //   summary: "Başarılı",
+        //   detail: "Form başarıyla gönderildi",
+        //   life: 2000,
+        // });
+
+        defaultSetValues();
+        setCurrentStep(0);
+      } else {
+        toast.current.show({
+          severity: "error",
+          summary: "Hata",
+          detail: "Form gönderilirken bir hata oluştu",
+          life: 2000,
+        });
+      }
     } else {
       toast.current.show({
         severity: "error",
@@ -1244,10 +1264,6 @@ const UsaStepForm = () => {
       });
     }
   };
-
-  useEffect(() => {
-    console.log(formValues);
-  }, [formValues]);
 
   return (
     <>
