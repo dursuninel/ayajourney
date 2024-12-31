@@ -420,7 +420,7 @@ const UsaStepForm = () => {
           label:
             "ABD Sürücü Belgeniz Var mı ya da Daha Önce Oldu Mu? Olduysa Sürücü Belgesi Numaranız Nedir, Hangi Eyaletten Aldınız?",
           type: "text",
-          required: true,
+          required: false,
           if_value: ["Evet"],
         },
       ],
@@ -473,16 +473,37 @@ const UsaStepForm = () => {
           required: true,
           if_value: ["Evet"],
         },
+      ],
+    },
+    {
+      id: 19.2,
+      name: "previousUsVisaLostOrStolen",
+      label:
+        "Vizeniz Kayboldu veya Çalındı Mı? Cevap Evet İse: Hangi Yıl – Nasıl Oldu Açıklayınız",
+      type: "dropdown",
+      options: [
+        { label: "Evet", value: "Evet" },
+        { label: "Hayır", value: "Hayır" },
+      ],
+      otherInputs: [
         {
-          id: 5,
-          name: "previousUsVisaLostOrStolen",
-          label:
-            "Vizeniz Kayboldu veya Çalındı Mı? Cevap Evet İse: Hangi Yıl – Nasıl Oldu Açıklayınız",
+          id: 1,
+          name: "previousUsVisaLostOrStolenYear",
+          label: "Hangi Yıl",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 2,
+          name: "previousUsVisaLostOrStolenExplanation",
+          label: "Açıklayınız",
           type: "text",
           required: true,
           if_value: ["Evet"],
         },
       ],
+      required: true,
     },
     {
       id: 20,

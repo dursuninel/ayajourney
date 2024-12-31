@@ -461,6 +461,11 @@ div.active .choice-content img {
   .banner-cover {
     display: none;
   }
+
+  .banner-content h1{
+    font-size: 2.5rem;
+  }
+
 }
 
 /* Kartlar */
@@ -1488,8 +1493,10 @@ header.main-header.main .dropdown > div:hover {
   color: var(--dark-blue);
 }
 
-.main .lang_flex {
-  color: white;
+@media (min-width: 992px){
+  .main .lang_flex {
+    color: white;
+  }
 }
 
 .lang_flex .prev {
@@ -1866,14 +1873,10 @@ span.p-dropdown-item-label {
   transition: transform 250ms !important;
 }
 
-@media (min-width: 992px) {
-  /* .blog_slider .swiper-slide:not(.swiper-slide-next) {
-    transform: scale(0.8) !important;
+@media (max-width: 992px) {
+  .blog-card-content h3 {
+    font-size: 1.2rem;
   }
-
-  .blog_slider .swiper-slide.swiper-slide-next {
-    transform: scale(1) !important;
-  } */
 }
 
 .contact-form {

@@ -17,6 +17,9 @@ const SchengenStepFormTest = () => {
   const toast = useRef(null);
   const { activeLanguage } = useLanguage();
 
+  /*
+  ISISEL BILGILER – PASAPORT BILGILERI – AILE BILGILERI – ILETISIM BILGILERI - MESLEKI DURUM/  EGITIM BILGILERI – SEYAHAT BILGILERI -  	EK BILGILER
+   */
   const steps = [
     {
       id: 0,
@@ -24,11 +27,11 @@ const SchengenStepFormTest = () => {
     },
     {
       id: 1,
-      label: "Seyahat Bilgileri",
+      label: "Pasaport Bilgileri",
     },
     {
       id: 2,
-      label: "Geçmiş ABD Seyahat Bilgileri",
+      label: "Aile Bilgileri",
     },
     {
       id: 3,
@@ -36,23 +39,15 @@ const SchengenStepFormTest = () => {
     },
     {
       id: 4,
-      label: "Pasaport Bilgileri",
+      label: "Mesleki Durum/Eğitim Bilgileri",
     },
     {
       id: 5,
-      label: "ABD Seyahatı İletişim Bilgileri",
+      label: "Seyahat Bilgileri",
     },
     {
       id: 6,
-      label: "Aile Bilgileri",
-    },
-    {
-      id: 7,
-      label: "Güncel ve Geçmiş Mesleki Durum/Eğitim Bilgileri",
-    },
-    {
-      id: 8,
-      label: "Ek Zorunlu Bilgiler",
+      label: "Ek Bilgiler",
     },
   ];
 

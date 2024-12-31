@@ -53,7 +53,7 @@ export default function BlogSlider() {
                   <NavLink to={`/blog/${item.link}`} className="blog-item">
                     <img src={item.image} alt={item.title} />
                     <div className="blog-card-content">
-                      <span className="date">{item.date}</span>
+                      <span className="date">{new Date(item.date).toLocaleDateString("tr-TR")}</span>
                       <h3>{item.title}</h3>
                     </div>
                   </NavLink>

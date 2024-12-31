@@ -152,7 +152,7 @@ export default function Header() {
               </ul>
             </div>
             <div className="header-burger out-check">
-              {main && (
+              {/* {main && (
                 <div className="lang_flex">
                   <div>
                     <span>
@@ -160,7 +160,7 @@ export default function Header() {
                     </span>
                   </div>
                 </div>
-              )}
+              )} */}
 
               <div className="menuToggle" onClick={toggleMenu}>
                 <input type="checkbox" checked={menuActive} readOnly />
