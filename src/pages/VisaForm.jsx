@@ -60,7 +60,7 @@ Hadi Topla Bavulları!
         <div className="container">
           <UkStepForm />
         </div>
-        <div className="container">
+        {/* <div className="container">
           <h2>AYA Journey ile Adım Adım İngiltere</h2>
           <p>
             Yurt dışı seyahat planı yapan pek çok kişi için İngiltere, eskiye
@@ -176,7 +176,7 @@ Hadi Topla Bavulları!
           <p>
             <strong>Hadi Topla Bavulları!</strong>
           </p>
-        </div>
+        </div> */}
       </section>
     </>
   );
