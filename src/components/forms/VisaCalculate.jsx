@@ -58,7 +58,8 @@ export default function VisaCalculate() {
     },
     {
       id: "travelAbroad",
-      label: "Daha önce komşu ülkeler dışında yurtdışına çıktınız mı? ",
+      label:
+        "Komşu ülkeler (Gürcistan, Irak, Azerbaycan vb) hariç, son 5 yılda yurtdışına çıktınız mı ?",
       type: "dropdown",
       options: [
         { id: "travel_abroad_yes", label: "Evet", value: 10 },
@@ -67,35 +68,38 @@ export default function VisaCalculate() {
     },
     {
       id: "travelCategory",
-      label: "Lütfen size en uygun seçeneği seçin?",
+      label: "Son 5 yılda ...",
       type: "dropdown",
       options: [
         {
           id: "travel_canada_uk",
-          label: "Kanada veya İngiltere vizem var",
+          label:
+            "Kanada, İngiltere, Avustralya veya Yeni Zelanda vizesi aldım.",
           value: 15,
         },
         {
           id: "travel_eu",
-          label: "En az bir Schengen ülkesine gittim",
+          label: "En az bir Schengen vizesi aldım",
           value: 7,
         },
         {
           id: "travel_high_tier",
           label:
-            "Japonya, Singapur gibi üst düzey ülkelerden en az birine gittim",
+            "Japonya, Güney Kore, Singapur, Hindistan, Malezya, Güney Afrika gibi ülkelere gittim",
           value: 4,
         },
         {
           id: "travel_no",
-          label: "Yurtdışına hiç çıkmadım",
+          label:
+            "Sadece vizesiz ülkelere gittim (komşu ülkeler, Kuzey Afrika ve Orta Asya ülkeleri dahil)",
           value: 0,
         },
       ],
     },
     {
       id: "schengenCount",
-      label: "Varsa, pasaportunuza basılmış Schengen vizesi sayısı",
+      label:
+        "Varsa, pasaportunuza basılmış toplam vize etiketi sayısı (Schengen, Kanada, İngiltere vb dahil)",
       type: "dropdown",
       options: [
         { id: "schengen_0", label: "0", value: 0 },
@@ -197,9 +201,18 @@ export default function VisaCalculate() {
       label: "İngilizce seviyeniz",
       type: "dropdown",
       options: [
-        { id: "english_fluent", label: "Mülakat yapabilecek", value: 15 },
-        { id: "english_intermediate", label: "Orta seviye", value: 5 },
-        { id: "english_none", label: "Hiç yok", value: 0 },
+        {
+          id: "english_fluent",
+          label: "B2 ve üstü – mülakatı ingilizce yapabilecek seviyede",
+          value: 15,
+        },
+        {
+          id: "english_intermediate",
+          label:
+            "Orta ve altı – mülakatı İngilizce yapamaz, Türkçe tercih eder",
+          value: 5,
+        },
+        { id: "english_none", label: "Yok veya çok az", value: 0 },
       ],
     },
     {
@@ -235,6 +248,8 @@ export default function VisaCalculate() {
       label: "Eğitim durumunuz",
       type: "dropdown",
       options: [
+        { id: "education_high_school", label: "Lise", value: 0 },
+        { id: "education_on_bachelor", label: "Ön Lisans", value: 0 },
         { id: "education_bachelor", label: "Lisans", value: 5 },
         { id: "education_master", label: "Yüksek Lisans", value: 10 },
         { id: "education_phd", label: "Doktora", value: 15 },
@@ -261,7 +276,7 @@ export default function VisaCalculate() {
     },
     {
       id: "awards",
-      label: "Uluslararası bir ödülünüz var mı?",
+      label: "Spor, sanat, akademi gibi alanlarda, uluslararası bir ödülünüz var mı?",
       type: "dropdown",
       options: [
         { id: "awards_yes", label: "Evet", value: 20 },
