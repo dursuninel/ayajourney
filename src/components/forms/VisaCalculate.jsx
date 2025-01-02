@@ -75,23 +75,28 @@ export default function VisaCalculate() {
           id: "travel_canada_uk",
           label:
             "Kanada, İngiltere, Avustralya veya Yeni Zelanda vizesi aldım.",
-          value: 15,
+          value: 8,
         },
         {
           id: "travel_eu",
           label: "En az bir Schengen vizesi aldım",
-          value: 7,
+          value: 5,
         },
         {
           id: "travel_high_tier",
           label:
             "Japonya, Güney Kore, Singapur, Hindistan, Malezya, Güney Afrika gibi ülkelere gittim",
-          value: 4,
+          value: 3,
         },
         {
           id: "travel_no",
           label:
             "Sadece vizesiz ülkelere gittim (komşu ülkeler, Kuzey Afrika ve Orta Asya ülkeleri dahil)",
+          value: 1,
+        },
+        {
+          label: "Komşu ülkelere gittim",
+          id: "travel_neighbour",
           value: 0,
         },
       ],
@@ -103,10 +108,12 @@ export default function VisaCalculate() {
       type: "dropdown",
       options: [
         { id: "schengen_0", label: "0", value: 0 },
-        { id: "schengen_1", label: "1", value: 10 },
-        { id: "schengen_2", label: "2", value: 20 },
-        { id: "schengen_3", label: "3", value: 30 },
-        { id: "schengen_4", label: "4", value: 40 },
+        { id: "schengen_1", label: "1", value: 5 },
+        { id: "schengen_2", label: "2", value: 10 },
+        { id: "schengen_3", label: "3", value: 15 },
+        { id: "schengen_4", label: "4", value: 20 },
+        { id: "schengen_4", label: "5", value: 25 },
+        { id: "schengen_4", label: "6", value: 30 },
       ],
     },
     {
@@ -156,24 +163,26 @@ export default function VisaCalculate() {
       label: "Mesleğiniz",
       type: "dropdown",
       options: [
-        { id: "profession_engineer", label: "Mühendis", value: 10 },
         { id: "profession_doctor", label: "Doktor", value: 10 },
-        { id: "profession_architect", label: "Mimar", value: 10 },
-        { id: "profession_teacher", label: "Öğretmen", value: 10 },
-        { id: "profession_office_worker", label: "Ofis Çalışanı", value: 10 },
-        { id: "profession_technician", label: "Teknisyen", value: 0 },
-        { id: "profession_driver", label: "Şoför", value: 0 },
-        { id: "profession_worker", label: "İşçi", value: 0 },
+        { id: "profession_engineer", label: "Mühendis-Mimar", value: 6 },
+        { id: "profession_teacher", label: "Öğretmen", value: 4 },
+        { id: "profession_technician", label: "Teknisyen", value: 3 },
+        { id: "profession_manager", label: "Yönetici", value: 7 },
         {
-          id: "profession_other_blue_collar",
-          label: "Farklı bir mavi yaka meslek",
-          value: 0,
+          id: "profession_public_basic",
+          label: "Kamu temel çalışan",
+          value: 2,
         },
+        { id: "profession_public_expert", label: "Uzman memur", value: 5 },
         {
-          id: "profession_other_white_collar",
-          label: "Farklı bir beyaz yaka meslek",
+          id: "profession_public_manager",
+          label: "Kamuda yönetici",
           value: 10,
         },
+        { id: "profession_blue_collar", label: "Mavi yaka", value: 2 },
+        { id: "profession_white_collar", label: "Beyaz yaka", value: 4 },
+        { id: "profession_academician", label: "Akademisyen", value: 8 },
+        { id: "profession_lawyer", label: "Avukat", value: 7 },
       ],
     },
     {
@@ -276,7 +285,8 @@ export default function VisaCalculate() {
     },
     {
       id: "awards",
-      label: "Spor, sanat, akademi gibi alanlarda, uluslararası bir ödülünüz var mı?",
+      label:
+        "Spor, sanat, akademi gibi alanlarda, uluslararası bir ödülünüz var mı?",
       type: "dropdown",
       options: [
         { id: "awards_yes", label: "Evet", value: 20 },
