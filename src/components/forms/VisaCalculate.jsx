@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import GaugeChart from "../GaugeChart";
+import axios from "axios";
+import { useLanguage } from "../../context/LanguageContext";
+import Swal from "sweetalert2";
+import { Toast } from "primereact/toast";
 
 export default function VisaCalculate() {
   const questions = [
@@ -303,6 +307,10 @@ export default function VisaCalculate() {
       return values;
     }, {})
   );
+  const { activeLanguage } = useLanguage();
+  const toast = useRef(null);
+
+  const [formId, setFormId] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [basicInfo, setBasicInfo] = useState({
@@ -361,7 +369,7 @@ export default function VisaCalculate() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const allValid = questions.every(
       (question) => formValues[question.id] !== undefined
     );
@@ -409,8 +417,27 @@ export default function VisaCalculate() {
       datas: selectedValues,
     });
 
-    setTotalScore(totalScore);
-    setShowScoreChart(true);
+    const response = await axios.post("/addCalculateValue", {
+      values: {
+        basicInfo: basicInfo,
+        datas: selectedValues,
+      },
+      totalScore: totalScore,
+      lang: activeLanguage.code,
+    });
+
+    if (response.data.insertId) {
+      setFormId(response.data.insertId);
+      setTotalScore(totalScore);
+      setShowScoreChart(true);
+    } else {
+      toast.current.show({
+        severity: "error",
+        summary: "Hata",
+        detail: "Form gönderilirken bir hata oluştu",
+        life: 2000,
+      });
+    }
   };
 
   const resetForm = () => {
@@ -426,109 +453,143 @@ export default function VisaCalculate() {
     setBasicInfoErrors({});
   };
 
+  const updateReach = async () => {
+    const response = await axios.post("/updateCalculateReach", {
+      formId: formId,
+    });
+
+    if (response.data.affectedRows) {
+      Swal.fire(
+        "Teşekkürler",
+        "En kısa sürede sizinle iletişime geçeceğiz.",
+        "success"
+      );
+      setFormId(null);
+    } else {
+      Swal.fire("Hata", "Bir hata oluştu", "error");
+    }
+  };
+
   return (
-    <div className="visa-form-container container-center">
-      {showScoreChart && (
-        <>
-          <GaugeChart value={totalScore} />
-          <div className="buttons">
-            <Button type="button" label="Tekrar Hesapla" onClick={resetForm} />
-          </div>
-        </>
-      )}
-      {!showScoreChart && currentStep === -1 && (
-        <>
-          <form>
-            <div className="step">
-              <div className="field">
-                <label htmlFor="fullName">Ad-Soyad</label>
-                <InputText
-                  id="fullName"
-                  value={basicInfo.fullName}
-                  onChange={(e) =>
-                    setBasicInfo({ ...basicInfo, fullName: e.target.value })
-                  }
-                  placeholder="Ad-Soyad"
+    <>
+      <Toast ref={toast} position="bottom-left" />
+      <div className="visa-form-container container-center">
+        {showScoreChart && (
+          <>
+            <GaugeChart value={totalScore} />
+            <div className="buttons">
+              <Button
+                type="button"
+                label="Tekrar Hesapla"
+                onClick={resetForm}
+              />
+
+              {formId && (
+                <Button
+                  type="button"
+                  label="Size bu konuda ulaşalım mı ?"
+                  onClick={updateReach}
                 />
-                {basicInfoErrors.fullName && (
-                  <small className="p-error">{basicInfoErrors.fullName}</small>
-                )}
+              )}
+            </div>
+          </>
+        )}
+        {!showScoreChart && currentStep === -1 && (
+          <>
+            <form>
+              <div className="step">
+                <div className="field">
+                  <label htmlFor="fullName">Ad-Soyad</label>
+                  <InputText
+                    id="fullName"
+                    value={basicInfo.fullName}
+                    onChange={(e) =>
+                      setBasicInfo({ ...basicInfo, fullName: e.target.value })
+                    }
+                    placeholder="Ad-Soyad"
+                  />
+                  {basicInfoErrors.fullName && (
+                    <small className="p-error">
+                      {basicInfoErrors.fullName}
+                    </small>
+                  )}
+                </div>
+                <div className="field">
+                  <label htmlFor="email">E-posta Adresi</label>
+                  <InputText
+                    id="email"
+                    value={basicInfo.email}
+                    onChange={(e) =>
+                      setBasicInfo({ ...basicInfo, email: e.target.value })
+                    }
+                    placeholder="E-posta"
+                  />
+                  {basicInfoErrors.email && (
+                    <small className="p-error">{basicInfoErrors.email}</small>
+                  )}
+                </div>
+
+                <div className="buttons">
+                  <Button
+                    type="button"
+                    label="Devam Et"
+                    onClick={handleBasicInfoSubmit}
+                  />
+                </div>
               </div>
-              <div className="field">
-                <label htmlFor="email">E-posta Adresi</label>
-                <InputText
-                  id="email"
-                  value={basicInfo.email}
-                  onChange={(e) =>
-                    setBasicInfo({ ...basicInfo, email: e.target.value })
-                  }
-                  placeholder="E-posta"
-                />
-                {basicInfoErrors.email && (
-                  <small className="p-error">{basicInfoErrors.email}</small>
-                )}
+            </form>
+          </>
+        )}
+        {!showScoreChart && currentStep >= 0 && (
+          <>
+            <form>
+              <div className="step">
+                <div className="field">
+                  <label htmlFor={questions[currentStep].id}>
+                    {questions[currentStep].label}
+                  </label>
+                  {questions[currentStep].type === "dropdown" && (
+                    <Dropdown
+                      id={questions[currentStep].id}
+                      value={formValues[questions[currentStep].id]}
+                      options={questions[currentStep].options.map((option) => ({
+                        label: option.label,
+                        value: option.id,
+                      }))}
+                      optionLabel="label"
+                      onChange={(e) =>
+                        handleInputChange(questions[currentStep].id, e.value)
+                      }
+                      placeholder={questions[currentStep].label}
+                    />
+                  )}
+                  {errors[questions[currentStep].id] && (
+                    <small className="p-error">
+                      {errors[questions[currentStep].id]}
+                    </small>
+                  )}
+                </div>
               </div>
 
               <div className="buttons">
-                <Button
-                  type="button"
-                  label="Devam Et"
-                  onClick={handleBasicInfoSubmit}
-                />
-              </div>
-            </div>
-          </form>
-        </>
-      )}
-      {!showScoreChart && currentStep >= 0 && (
-        <>
-          <form>
-            <div className="step">
-              <div className="field">
-                <label htmlFor={questions[currentStep].id}>
-                  {questions[currentStep].label}
-                </label>
-                {questions[currentStep].type === "dropdown" && (
-                  <Dropdown
-                    id={questions[currentStep].id}
-                    value={formValues[questions[currentStep].id]}
-                    options={questions[currentStep].options.map((option) => ({
-                      label: option.label,
-                      value: option.id,
-                    }))}
-                    optionLabel="label"
-                    onChange={(e) =>
-                      handleInputChange(questions[currentStep].id, e.value)
-                    }
-                    placeholder={questions[currentStep].label}
+                {currentStep > 0 && (
+                  <Button type="button" label="Geri" onClick={handlePrevious} />
+                )}
+                {currentStep < questions.length - 1 && (
+                  <Button type="button" label="İleri" onClick={handleNext} />
+                )}
+                {currentStep === questions.length - 1 && (
+                  <Button
+                    type="button"
+                    label="Sonucu Göster"
+                    onClick={handleSubmit}
                   />
                 )}
-                {errors[questions[currentStep].id] && (
-                  <small className="p-error">
-                    {errors[questions[currentStep].id]}
-                  </small>
-                )}
               </div>
-            </div>
-
-            <div className="buttons">
-              {currentStep > 0 && (
-                <Button type="button" label="Geri" onClick={handlePrevious} />
-              )}
-              {currentStep < questions.length - 1 && (
-                <Button type="button" label="İleri" onClick={handleNext} />
-              )}
-              {currentStep === questions.length - 1 && (
-                <Button
-                  type="button"
-                  label="Sonucu Göster"
-                  onClick={handleSubmit}
-                />
-              )}
-            </div>
-          </form>
-        </>
-      )}
-    </div>
+            </form>
+          </>
+        )}
+      </div>
+    </>
   );
 }
