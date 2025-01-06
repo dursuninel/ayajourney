@@ -245,28 +245,44 @@ export default function VisaHome() {
         <div className="container">
           <div className="cards-flex">
             <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/card1.png")} alt="" />
+              <div>
+                <div className="card-image">
+                  <img src={require("../assets/images/crown.png")} alt="" />
+                </div>
+                <h3>Kişiye Özel</h3>
               </div>
-              <h3>Hız</h3>
+              <p>Kişiye özel başvuru</p>
             </div>
             <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/card2.png")} alt="" />
+              <div>
+                <div className="card-image">
+                  <img src={require("../assets/images/film.png")} alt="" />
+                </div>
+                <h3>Biz bu filmi daha önce gördük</h3>
               </div>
-              <h3>Kaliteli Hizmet</h3>
+              <p>
+                Binlerce başvurudan elde ettiğimiz deneyimi size sunmaya hazırız
+              </p>
             </div>
             <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/card3.png")} alt="" />
+              <div>
+                <div className="card-image">
+                  <img src={require("../assets/images/card3.png")} alt="" />
+                </div>
+                <h3>Bize değil yorumlara inanın</h3>
               </div>
-              <h3>Müşteri Memnuniyeti</h3>
+              <p>Google yorumları bizim hakkımızda çok şey anlatır</p>
             </div>
             <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/card4.png")} alt="" />
+              <div>
+                <div className="card-image">
+                  <img src={require("../assets/images/card4.png")} alt="" />
+                </div>
+                <h3>Her zaman yanınızdayız</h3>
               </div>
-              <h3>7/24 İletişim</h3>
+              <p>
+                Sorularınız yanıtsız kalmaz, ofislerimiz sizi ağırlamaya hazır
+              </p>
             </div>
           </div>
         </div>

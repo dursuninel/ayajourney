@@ -126,29 +126,19 @@ export default function VisaCalculate() {
       type: "dropdown",
       options: [
         {
-          id: "travel_private_single",
-          label: "Özel sektörde tek kişi",
-          value: 10, // Özel sektör + Tek kişi: +10 puan
+          id: "travel_alone",
+          label: "Tek",
+          value: 4,
         },
         {
-          id: "travel_public_couple",
-          label: "Kamu çalışanı eşimle",
-          value: 10, // Kamu çalışanı + Eşli seyahat: +10 puan
+          id: "travel_couple",
+          label: "Eşimle birlikte",
+          value: 3,
         },
         {
-          id: "travel_private_couple",
-          label: "Özel sektörde eşimle",
-          value: 0, // Özel sektör + Eşli seyahat: 0 puan
-        },
-        {
-          id: "travel_public_single",
-          label: "Kamu çalışanı tek kişi",
-          value: 0, // Kamu çalışanı + Tek kişi: 0 puan
-        },
-        {
-          id: "travel_other",
-          label: "Diğer",
-          value: 0, // Diğer tüm durumlar: 0 puan
+          id: "travel_family",
+          label: "Ailecek (Çocuklar dahil)",
+          value: 2,
         },
       ],
     },

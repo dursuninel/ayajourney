@@ -30,9 +30,7 @@ export default function Main() {
         >
           <div className="choice-content">
             <img src={require("../assets/images/vize.png")} alt="" />
-            <span>
-              Vize <i className="fa-solid fa-arrow-right"></i>
-            </span>
+            <span>Vize</span>
           </div>
         </div>
         <div
@@ -43,11 +41,13 @@ export default function Main() {
         >
           <div className="choice-content">
             <img src={require("../assets/images/yurtdisi.png")} alt="" />
-            <span>
-              Yurtdışı Eğitim <i className="fa-solid fa-arrow-right"></i>
-            </span>
+            <span>Yurtdışı Eğitim</span>
           </div>
         </div>
+      </div>
+      <div className="choise-cover">
+        <h1>AyaJourney'e Hoşgeldiniz</h1>
+        <img src={require("../assets/images/logo-white.png")} alt="" />
       </div>
     </>
   );

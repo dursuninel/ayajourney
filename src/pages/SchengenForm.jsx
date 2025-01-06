@@ -26,7 +26,7 @@ export default function SchengenForm() {
 
       <section>
         <div className="container">
-          {/* <SchengenStepFormTest /> */}
+          <SchengenStepFormTest />
 
           <h2
             style={{
