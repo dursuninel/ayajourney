@@ -8,6 +8,8 @@ import { NavLink } from "react-router-dom";
 import ContactForm from "../components/forms/ContactForm";
 import BlogSlider from "../components/BlogSlider";
 import { useSiteType } from "../context/SiteTypeContext";
+import axios from "axios";
+import { useLanguage } from "../context/LanguageContext";
 
 const PostSlider = () => {
   const images = [
@@ -198,6 +200,8 @@ const TestimonialSlider = () => {
 export default function VisaHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
+  const { activeLanguage } = useLanguage();
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -207,6 +211,14 @@ export default function VisaHome() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  const [visaCards, setVisaCards] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/visaCards/${activeLanguage.code}`).then((res) => {
+      setVisaCards(res.data);
+    });
   }, []);
 
   return (
@@ -244,7 +256,7 @@ export default function VisaHome() {
       <section className="cards-section">
         <div className="container">
           <div className="cards-flex">
-            <div className="card-item">
+            {/* <div className="card-item">
               <div>
                 <div className="card-image">
                   <img src={require("../assets/images/crown.png")} alt="" />
@@ -283,7 +295,18 @@ export default function VisaHome() {
               <p>
                 Sorularınız yanıtsız kalmaz, ofislerimiz sizi ağırlamaya hazır
               </p>
-            </div>
+            </div> */}
+            {visaCards.map((card, index) => (
+              <div key={index} className="card-item">
+                <div>
+                  <div className="card-image">
+                    <img src={card.image} alt="" />
+                  </div>
+                  <h3>{card.title}</h3>
+                </div>
+                <div dangerouslySetInnerHTML={{ __html: card.text }} />
+              </div>
+            ))}
           </div>
         </div>
       </section>

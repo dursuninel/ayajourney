@@ -325,6 +325,10 @@ div.active .choice-content img {
     transition: opacity 0.75s, visibility 0.75s;
   }
 
+  .education::before{
+    background-image: url("../images/edu.jpg");
+  }
+
   .education:hover::before,
   .visa:hover::before {
     opacity: 0.2;
