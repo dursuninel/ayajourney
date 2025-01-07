@@ -2473,19 +2473,43 @@ div:where(.swal2-container) {
   color: white;
   text-align: center;
   padding: 1rem;
+  animation: fadeIn 2s ease-in-out; /* 2 saniyelik fade-in animasyonu */
+
 }
 
 .choise-cover h1 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Font boyutunu biraz artırdık */
+  color: #ffffff; /* Beyaz renk */
+  text-align: center; /* Ortaya hizalama */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Hafif gölge efekti */
 }
 
-.choise-cover img {
+/* Fade-in animasyonu tanımı */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.choise-cover .cover_logo {
   position: absolute;
   width: 100%;
   left: 0;
   right: 0;
   margin: auto;
-  max-width: 7.5rem;
+  max-width: 7.85rem;
+  height: max-content;
+  background-color: white;
+  border-radius: 2rem;
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
+.choise-cover .cover_logo img {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 992px) {
@@ -2494,8 +2518,8 @@ div:where(.swal2-container) {
   }
 }
 
-@media (min-width: 992px){
-  .choise-cover img {
+@media (min-width: 992px) {
+  .choise-cover .cover_logo {
     top: 0;
     bottom: 0;
   }
@@ -2507,8 +2531,8 @@ div:where(.swal2-container) {
   }
 }
 
-@media (max-width: 768px){
-  .choise-cover{
+@media (max-width: 768px) {
+  .choise-cover {
     display: none;
   }
 }
