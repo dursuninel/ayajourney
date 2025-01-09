@@ -2504,7 +2504,7 @@ div:where(.swal2-container) {
   left: 0;
   right: 0;
   margin: auto;
-  max-width: 7.85rem;
+  max-width: 14.85rem;
   height: max-content;
   background-color: white;
   border-radius: 2rem;

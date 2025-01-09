@@ -1,8 +1,6 @@
 import React from "react";
 import SchengenStepForm from "../components/forms/SchengenStepForm";
 
-import TestForm from "../components/forms/TestForm";
-import SchengenStepFormTest from "../components/forms/SchengenStepFormTest";
 export default function SchengenForm() {
   return (
     <>
@@ -26,7 +24,7 @@ export default function SchengenForm() {
 
       <section>
         <div className="container">
-          {/* <SchengenStepFormTest /> */}
+          <SchengenStepForm />
 
           <h2
             style={{

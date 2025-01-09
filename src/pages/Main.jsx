@@ -47,7 +47,7 @@ export default function Main() {
         </div>
       </div>
       <div className="choise-cover">
-        <h1>AyaJourney'e Hoşgeldiniz</h1>
+        {/* <h1>AyaJourney'e Hoşgeldiniz</h1> */}
         <div className="cover_logo">
         <img src={require("../assets/images/logo.png")} alt="" />
         </div>

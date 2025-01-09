@@ -6,6 +6,9 @@ import { Toast } from "primereact/toast";
 import React, { useState, useEffect, useRef } from "react";
 import TurkishToEnglish from "../TurkishToEnglish";
 import { t } from "i18next";
+import axios from "axios";
+import { useLanguage } from "../../context/LanguageContext";
+import Swal from "sweetalert2";
 
 const SchengenStepForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -13,6 +16,69 @@ const SchengenStepForm = () => {
   const [loading, setLoading] = useState(true);
   const toast = useRef(null);
 
+  const { activeLanguage } = useLanguage();
+
+  /* SCHENGEN WEB SITESI SORULARI
+SCHENGEN WEB SITESI SORULARI
+KİŞİSEEL BİLGİLER
+SOYADINIZ:
+DOGUMLA DAHA ONCE ALDIGINIZ SOYADI: (ZORUNLU DEGIL)
+ADINIZ: 
+DOGUM TARIHINIZ:
+PASAPORTTA BELIRTILEN DOGUM YERINIZ:
+DOGUM ULKENIZ:
+VATANDASLIGINIZ:
+DOGUMDAN FARKLI BIR VATANDASLIGINIZ VARSA BELIRTINIZ: (ZORUNLU DEGIL)
+MEDENI DURUMUNUZ NEDIR? 
+-	BEKAR – EVLI – BOSANMIS- DUL – KAYIT DISI BERABERLIK – 
+EGER 18 YASINDAN KUCUKSE (DOGUM TARIHINE GORE) EBEVEYNIN ADI SOYADI- ADRESI – TELEFONU VE MAIL ADRESI
+KIMLIK NUMARANIZ NEDIR:
+PASAPORT BILGILERI
+PASAPORT NUMARAIZ NEDIR:
+PASAPORT VERILIS TARIHI:
+PASAPORT GECERLILIK TARIHI:
+VEREN MAKAM:
+ILETISIM BILGILERI
+IKAMETGAH BELGENIZDE BELIRTILEN ADRES NEDIR:
+TELEFON NUMARANIZ NEDIR:
+E-POSTANIZ NEDIR:
+IKAMET ETTIGINIZ ULKEDEN FARKLI BIR ULKEDE MI IKAMET EDIYORSUNUZ?
+MESLEKI DURUM/EGITIM BILGILERI
+CALISMA DURUMUNUZ NEDIR? : ISVEREN – CALISAN – OGRENCI – SERBEST MESLEK
+OGRENCI ISENIZ OKUL ADI ADRESI TELEFON NUMARASI (UNIVERSITE OGRENCISI ISENIZ KACINCI SINIF VE BOLUMUNUZU BELIRTINIZ)
+ISVEREN – CALISAN YA DA SERBEST MESLEK SECILDIYSE MESLEGINIZ NEDIR:
+SIRKETIN ADI NEDIR 
+IS ADRESINIZ NEDIR 
+SIRKETIN TELEFON NUMARASI NEDIR?
+SEYAHAT BILGILERI
+TEK MI SEYAHAT EDECEKSINIZ? CEVAP HAYIR İSE: BERABER GIDECEGINIZ KISILERIN AD-SOYAD VE PASAPORT NUMARALARINI BELIRTINIZ 
+SEYAHAT TARIHLERINIZI BELIRTINIZ (GIDIS-DONUS)
+DAHA ONCE SCHENGEN VIZESI ICIN PARMAK IZINIZ ALINDI MI? 
+CEVAP EVET ISE: PARMAK IZI ALINMA TARIHINIZI YAZINIZ (ZORUNLU DEGIL)
+SON SCHENGEN VIZENIZIN ETIKET NUMARASINI BELIRTINIZ (VIZE ETIKET NUMARANIZ; VIZENIZIN SAG UST KOSESINDE BULUNUR, HARFLE BASLAYIP NUMARA ILE DEVAM EDER)
+KALACAGINIZ OTEL BELLI MI? CEVAP EVET ISE: 
+OTELIN ADI NEDIR?
+ADRESI NEDIR?
+TELEFONU NEDIR?
+
+MASRAFLARINIZI KIM KARSILAYACAK? KENDIM – ISVERENIM – DIGER KISI
+DIGER KISI SECILDIYSE: ADI SOYADI NEDIR – YAKINLIGINIZ NEDIR – E-POSTA ADRESI NEDIR TELEFON NUMARASI NEDIR?
+
+DAVETIYENIZ VAR MI? EVET ISE:
+KISI TARAFINDAN GONDERILEN DAVETIYEDEKI KISININ ADI SOYADI ADRESI TELEFON NUMARASI E-POSTA ADRESI VE O KISI ILE YAKINLIGINIZ – O KISININ SCHENGEN ULKESINDEKI DURUMU NEDIR?
+SIRKET TARAFINDAN GONDERILEN DAVETIYE ISE: SIRKET ADI -  ADRESI TELEFON NUMARASI– IRTIBAT KISISI AD SOYADI
+DAVETIYENIZ YOK ISE: KALACAGINIZ OTEL ADI ADRESI (ZORUNLU DEGIL)
+MASRAFLARI BASKA BIRI MI KARSILAYACAK? CEVAP EVET ISE: AD SOYAD – TELEFON NUMARASI – E POSTA ADRESI – MESLEGI – VE YAKINLIK DURUMUNUZU BELIRTINIZ
+EK BILGILER 
+DAHA ONCE SCHENGEN VIZESI ALDINIZ MI? CEVAP EVET ISE: HANGI TARIHTE VE HANGI ULKELERDEN (ORTALAMA BELIRTINIZ) 
+SCHENGEN BOLGESI DISINDA ULKELERE SEYAHAT ETTINIZ MI? BELIRTINIZ.
+
+AKTIF VIZENIZ VAR MI? (INGILTERE, ABD VS.)
+
+
+ */
+
+  /* SCHENGEN FORMU KATEGORILERI : –  */
   const steps = [
     {
       id: 0,
@@ -20,35 +86,23 @@ const SchengenStepForm = () => {
     },
     {
       id: 1,
-      label: "Seyahat Bilgileri",
-    },
-    {
-      id: 2,
-      label: "Geçmiş ABD Seyahat Bilgileri",
-    },
-    {
-      id: 3,
-      label: "İletişim Bilgileri",
-    },
-    {
-      id: 4,
       label: "Pasaport Bilgileri",
     },
     {
+      id: 2,
+      label: "İletişim Bilgileri",
+    },
+    {
+      id: 3,
+      label: "Mesleki Durum / Eğitim Bilgileri",
+    },
+    {
+      id: 4,
+      label: "Seyahat Bilgileri",
+    },
+    {
       id: 5,
-      label: "ABD Seyahatı İletişim Bilgileri",
-    },
-    {
-      id: 6,
-      label: "Aile Bilgileri",
-    },
-    {
-      id: 7,
-      label: "Güncel ve Geçmiş Mesleki Durum/Eğitim Bilgileri",
-    },
-    {
-      id: 8,
-      label: "Ek Zorunlu Bilgiler",
+      label: "Ek Bilgiler",
     },
   ];
 
@@ -56,92 +110,87 @@ const SchengenStepForm = () => {
     {
       id: 1,
       step: steps[0],
+      label: "Soyadınız2",
       name: "surname",
-      label: "Soyadınız",
       type: "text",
       required: true,
     },
     {
       id: 2,
       step: steps[0],
-      name: "name",
-      label: "Adınız",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 3,
-      step: steps[0],
-      name: "birthSurname",
-      label:
-        "Doğum ile Aldığınız Soyad Farklı İse Nedir? (Evlenmeden Önce – Değiştirilmiş Soyad)",
+      label: "Doğumla daha önce aldığınız soyadı",
+      name: "previous_surname",
       type: "text",
       required: false,
     },
     {
+      id: 3,
+      step: steps[0],
+      label: "Adınız",
+      name: "name",
+      type: "text",
+      required: true,
+    },
+    {
       id: 4,
       step: steps[0],
-      name: "birthDate",
-      label: "Doğum Tarihi",
+      label: "Doğum tarihiniz",
+      name: "birth_date",
       type: "calendar",
       required: true,
     },
     {
       id: 5,
       step: steps[0],
-      name: "birthPlace",
-      label: "Doğum Yeri",
+      label: "Pasaportta belirtilen doğum yeriniz",
+      name: "birth_place",
       type: "text",
       required: true,
     },
     {
       id: 6,
       step: steps[0],
-      name: "nationality",
-      label: "Hangi Ülke Vatandaşısınız?",
+      label: "Doğum ülkeniz",
+      name: "birth_country",
       type: "text",
       required: true,
     },
     {
       id: 7,
       step: steps[0],
-      name: "otherCitizenship",
-      label: "Başka Bir Uyruga Sahip Misiniz?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
+      label: "Vatandaşlığınız",
+      name: "citizenship",
+      type: "text",
       required: true,
     },
     {
       id: 8,
       step: steps[0],
-      name: "otherCitizenshipPassport",
-      label: "O Bölgeye Ait Pasaportunuz Var mı?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "otherCitizenshipPassportNumber",
-          label: "Pasaport numarası nedir?",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
+      label: "Doğumdan farklı bir vatandaşlığınız varsa belirtiniz",
+      name: "other_citizenship",
+      type: "text",
+      required: false,
     },
     {
       id: 9,
       step: steps[0],
-      name: "residenceInAnotherCountry",
-      label:
-        "Vatandaşı Olduğunuz Ülkeden Farklı Bir Ülkede Mi İkamet Ediyorsunuz?",
+      label: "Medeni durumunuz nedir?",
+      name: "marital_status",
+      type: "dropdown",
+      options: [
+        { label: "Bekar", value: "Bekar" },
+        { label: "Evli", value: "Evli" },
+        { label: "Boşanmış", value: "Boşanmış" },
+        { label: "Dul", value: "Dul" },
+        { label: "Kayıt dışı beraberlik", value: "Kayıt dışı beraberlik" },
+      ],
+      required: true,
+    },
+    {
+      id: 10,
+      step: steps[0],
+      label: "18 yaşından büyükmüsünüz?",
+      name: "is_adult",
       type: "dropdown",
       options: [
         { label: "Evet", value: "Evet" },
@@ -151,368 +200,208 @@ const SchengenStepForm = () => {
       otherInputs: [
         {
           id: 1,
-          name: "residenceCountry",
-          label: "Hangi ülke belirtiniz.",
+          name: "parent_name",
+          label: "Ebeveynin adı soyadı",
           type: "text",
           required: true,
-          if_value: ["Evet"],
+          if_value: ["Hayır"],
+        },
+        {
+          id: 2,
+          name: "parent_address",
+          label: "Ebeveynin adresi",
+          type: "text",
+          required: true,
+          if_value: ["Hayır"],
+        },
+        {
+          id: 3,
+          name: "parent_phone",
+          label: "Ebeveynin telefonu",
+          type: "text",
+          required: true,
+          if_value: ["Hayır"],
+        },
+        {
+          id: 4,
+          name: "parent_email",
+          label: "Ebeveynin mail adresi",
+          type: "text",
+          required: true,
+          if_value: ["Hayır"],
         },
       ],
     },
     {
-      id: 10,
+      id: 11,
       step: steps[0],
-      name: "tcIdentityNumber",
-      label: "TC Kimlik No",
+      label: "Kimlik numaranız nedir?",
+      name: "identity_number",
       type: "text",
       required: true,
     },
     {
-      id: 11,
-      step: steps[0],
-      name: "ssn",
-      label: "ABD Sosyal Güvenlik Numaranız Varsa Nedir? (SSN)",
-      type: "text",
-      required: false,
-    },
-    {
       id: 12,
-      step: steps[0],
-      name: "taxNumber",
-      label: "ABD Vergi Mükellefi Kimlik Numaranız Varsa Nedir?",
+      step: steps[1],
+      label: "Pasaport numaranız nedir?",
+      name: "passport_number",
       type: "text",
-      required: false,
+      required: true,
     },
     {
       id: 13,
       step: steps[1],
-      name: "visaType",
-      label: "Hangi Vize Tipine Başvuruyorsunuz?",
-      type: "text",
+      label: "Pasaport veriliş tarihi",
+      name: "passport_issue_date",
+      type: "calendar",
       required: true,
     },
     {
       id: 14,
       step: steps[1],
-      name: "specificPlan",
-      label: "Spesifik Bir Tatil Planınız Var mı?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
+      label: "Pasaport geçerlilik tarihi",
+      name: "passport_expire_date",
+      type: "calendar",
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "specificPlanDestination",
-          label: "Varış Tarihi",
-          type: "calendar",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 2,
-          name: "specificPlanCity",
-          label: "Varış Şehri",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 3,
-          name: "specificPlanDepartureDate",
-          label: "Kalkış Tarihi",
-          type: "calendar",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 4,
-          name: "specificPlanDepartureCity",
-          label: "Kalkış Yeri",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 5,
-          name: "specificPlanCities",
-          label: "Hangi Şehir-Şehirleri Ziyaret Edeceksiniz?",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 6,
-          name: "specificPlanDate",
-          label:
-            "Tahmini seyahat tarihiniz nedir, kaç gün kalmayı planlıyorsunuz?",
-          type: "text",
-          required: true,
-          if_value: ["Hayır"],
-        },
-      ],
     },
     {
       id: 15,
       step: steps[1],
-      name: "accommodation",
-      label: "Kalacağınız Adres Belli Mi?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
+      label: "Veren makam",
+      name: "passport_issuing_authority",
+      type: "text",
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "accommodationAddress",
-          label: "Adresi nedir?",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
     },
     {
       id: 16,
-      step: steps[1],
-      name: "travelCosts",
-      label: "Seyahat Masraflarını Kim Karşılayacak?",
-      type: "dropdown",
-      options: [
-        { label: "Kendisi", value: "Kendisi" },
-        { label: "İşveren", value: "İşveren" },
-        { label: "ABD’de İşveren", value: "ABD’de İşveren" },
-        { label: "Diğer Kişi", value: "Diğer Kişi" },
-        { label: "Diğer Şirket", value: "Diğer Şirket" },
-      ],
+      step: steps[2],
+      label: "İkametgah belgenizde belirtilen adres nedir?",
+      name: "residence_address",
+      type: "text",
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "travelCostsPersonName",
-          label: "Kişinin Adı Soyadı",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Kişi"],
-        },
-        {
-          id: 2,
-          name: "travelCostsPersonPhone",
-          label: "Telefon Numarası",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Kişi"],
-        },
-        {
-          id: 3,
-          name: "travelCostsPersonEmail",
-          label: "E-posta Adresi",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Kişi"],
-        },
-        {
-          id: 4,
-          name: "travelCostsPersonRelation",
-          label: "Sizinle Yakınlığı Nedir?",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Kişi"],
-        },
-        {
-          id: 5,
-          name: "travelCostsCompany",
-          label: "Kuruluşun Adı",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Şirket"],
-        },
-        {
-          id: 6,
-          name: "travelCostsCompanyPhone",
-          label: "Telefon Numarası",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Şirket"],
-        },
-        {
-          id: 7,
-          name: "travelCostsCompanyRelation",
-          label: "Şirketle İlişkiniz",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Şirket"],
-        },
-        {
-          id: 8,
-          name: "travelCostsCompanyAddress",
-          label: "Kuruluşun Adresi",
-          type: "text",
-          required: true,
-          if_value: ["Diğer Şirket"],
-        },
-      ],
     },
     {
       id: 17,
-      step: steps[1],
-      name: "travelWithOthers",
-      label: "Sizinle Birlikte Seyahat Edecek Kişiler Var mı?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
+      step: steps[2],
+      label: "Telefon numaranız nedir?",
+      name: "phone_number",
+      type: "text",
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "travelWithOthersGroup",
-          label: "Bu Bir Grup Mu? Grubun Adı Nedir?",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 2,
-          name: "travelWithOthersName",
-          label: "Ad-Soyad ve Sizinle Yakınlığı Nedir?",
-          type: "text",
-          required: true,
-          if_value: ["Hayır"],
-        },
-      ],
     },
     {
       id: 18,
       step: steps[2],
-      name: "travelledToUs",
-      label: "Daha Önce ABD’ye Seyahat Ettiniz Mi?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
+      label: "E-postanız nedir?",
+      name: "email",
+      type: "text",
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "travelledToUsArrivalDate",
-          label: "Varış Tarihi",
-          type: "calendar",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 2,
-          name: "travelledToUsDuration",
-          label:
-            "Ne Kadar Süre Kaldınız? (Tarihlerden Emin Değilseniz En Yakın Tarihleri Belirtiniz)",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 3,
-          name: "travelledToUsDriverLicense",
-          label:
-            "ABD Sürücü Belgeniz Var mı ya da Daha Önce Oldu Mu? Olduysa Sürücü Belgesi Numaranız Nedir, Hangi Eyaletten Aldınız?",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
     },
     {
       id: 19,
       step: steps[2],
-      name: "previousUsVisa",
-      label: "Daha Önce ABD Vizesi Aldınız mı?",
+      label:
+        "İkamet ettiğiniz ülkeden farklı bir ülkede mi ikamet ediyorsunuz?",
+      name: "is_residing_abroad",
       type: "dropdown",
       options: [
         { label: "Evet", value: "Evet" },
         { label: "Hayır", value: "Hayır" },
       ],
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "previousUsVisaIssueDate",
-          label: "Son Aldığınız Vizenin Veriliş Tarihi",
-          type: "calendar",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 2,
-          name: "previousUsVisaNumber",
-          label: "Vize Numarası",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 3,
-          name: "previousUsVisaType",
-          label: "Hangi Vize Türüne Başvuru Yaptığınız",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 4,
-          name: "previousUsVisaBiometrics",
-          label: "Parmak İzinizi Alındı Mı?",
-          type: "dropdown",
-          options: [
-            { label: "Evet", value: "Evet" },
-            { label: "Hayır", value: "Hayır" },
-          ],
-          required: true,
-          if_value: ["Evet"],
-        },
-        {
-          id: 5,
-          name: "previousUsVisaLostOrStolen",
-          label:
-            "Vizeniz Kayboldu veya Çalındı Mı? Cevap Evet İse: Hangi Yıl – Nasıl Oldu Açıklayınız",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
     },
     {
       id: 20,
-      step: steps[2],
-      name: "previousUsVisaCancelled",
-      label: "Vizeniz İptal Edildi veya Geri Alındı mı?",
+      step: steps[3],
+      label: "Çalışma durumunuz nedir?",
+      name: "employment_status",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        { label: "İşveren", value: "İşveren" },
+        { label: "Çalışan", value: "Çalışan" },
+        { label: "Öğrenci", value: "Öğrenci" },
+        { label: "Serbest meslek", value: "Serbest meslek" },
       ],
-      required: true,
       otherInputs: [
         {
           id: 1,
-          name: "previousUsVisaCancelledExplanation",
-          label: "Açıklayınız",
+          name: "school_name",
+          label: "Okul adı",
           type: "text",
           required: true,
-          if_value: ["Evet"],
+          if_value: ["Öğrenci"],
+        },
+        {
+          id: 2,
+          name: "school_address",
+          label: "Okul adresi",
+          type: "text",
+          required: true,
+          if_value: ["Öğrenci"],
+        },
+        {
+          id: 3,
+          name: "school_phone",
+          label: "Okul telefon numarası",
+          type: "text",
+          required: true,
+          if_value: ["Öğrenci"],
+        },
+        {
+          id: 4,
+          name: "school_class",
+          label: "Sınıf",
+          type: "text",
+          required: true,
+          if_value: ["Öğrenci"],
+        },
+        {
+          id: 5,
+          name: "school_department",
+          label: "Bölüm",
+          type: "text",
+          required: true,
+          if_value: ["Öğrenci"],
+        },
+        {
+          id: 6,
+          name: "job_title",
+          label: "Meslek",
+          type: "text",
+          required: true,
+          if_value: ["İşveren", "Çalışan", "Serbest meslek"],
+        },
+        {
+          id: 7,
+          name: "company_name",
+          label: "Şirket adı",
+          type: "text",
+          required: true,
+          if_value: ["İşveren", "Çalışan", "Serbest meslek"],
+        },
+        {
+          id: 8,
+          name: "company_address",
+          label: "İş adresi",
+          type: "text",
+          required: true,
+          if_value: ["İşveren", "Çalışan", "Serbest meslek"],
+        },
+        {
+          id: 9,
+          name: "company_phone",
+          label: "Şirket telefon numarası",
+          type: "text",
+          required: true,
+          if_value: ["İşveren", "Çalışan", "Serbest meslek"],
         },
       ],
+      required: true,
     },
     {
       id: 21,
-      step: steps[2],
-      name: "previousUsVisaRejected",
-      label: "Daha Önce ABD Vize Başvurunuz – Girişiniz – Reddedildi Mi?",
+      step: steps[4],
+      label: "Tek mi seyahat edeceksiniz?",
+      name: "is_traveling_alone",
       type: "dropdown",
       options: [
         { label: "Evet", value: "Evet" },
@@ -522,20 +411,27 @@ const SchengenStepForm = () => {
       otherInputs: [
         {
           id: 1,
-          name: "previousUsVisaRejectedExplanation",
-          label: "Açıklayınız",
+          name: "travel_companions",
+          label: "Beraber gideceğiniz kişiler",
           type: "text",
           required: true,
-          if_value: ["Evet"],
+          if_value: ["Hayır"],
         },
       ],
     },
     {
       id: 22,
-      step: steps[2],
-      name: "previousUsImmigrationPetition",
-      label:
-        "Daha Önce Adınıza ABD Göçmenlik Hizmetlerine Göçmenlik İçin Dilekçe Verildi Mi?",
+      step: steps[4],
+      label: "Seyahat tarihleriniz",
+      name: "travel_dates",
+      type: "text",
+      required: true,
+    },
+    {
+      id: 23,
+      step: steps[4],
+      label: "Daha önce Schengen vizesi için parmak iziniz alındı mı?",
+      name: "is_fingerprint_taken",
       type: "dropdown",
       options: [
         { label: "Evet", value: "Evet" },
@@ -545,8 +441,55 @@ const SchengenStepForm = () => {
       otherInputs: [
         {
           id: 1,
-          name: "previousUsImmigrationPetitionExplanation",
-          label: "Açıklayınız",
+          name: "fingerprint_date",
+          label: "Parmak izi alınma tarihi",
+          type: "calendar",
+          required: true,
+          if_value: ["Evet"],
+        },
+      ],
+    },
+    {
+      id: 24,
+      step: steps[4],
+      label:
+        "Son Schengen vizenizin etiket numarasını belirtiniz (Vize etiket numaranız; vizinizin sağ üst köşesinde bulunur, harfle başlayıp numara ile devam eder)",
+      name: "last_visa_number",
+      type: "text",
+      required: false,
+    },
+    {
+      id: 25,
+      step: steps[4],
+      label: "Kalacağınız otel belli mi?",
+      name: "is_hotel_known",
+      type: "dropdown",
+      options: [
+        { label: "Evet", value: "Evet" },
+        { label: "Hayır", value: "Hayır" },
+      ],
+      required: true,
+      otherInputs: [
+        {
+          id: 1,
+          name: "hotel_name",
+          label: "Otel adı",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 2,
+          name: "hotel_address",
+          label: "Otel adresi",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 3,
+          name: "hotel_phone",
+          label: "Otel telefonu",
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -554,51 +497,159 @@ const SchengenStepForm = () => {
       ],
     },
     {
-      id: 23,
-      step: steps[3],
-      name: "homeAddress",
-      label:
-        "Ev Adresinizi Mahalle – Sokak / Cd Apt Adı Bina No İl İlçe Posta Kodu Şeklinde Belirtiniz.",
-      type: "textarea",
-      required: true,
-    },
-    {
-      id: 24,
-      step: steps[3],
-      name: "phone",
-      label: "Telefon Numaranız Nedir?",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 25,
-      step: steps[3],
-      name: "secondPhone",
-      label: "İkinci Bir Telefon Numarası Belirtiniz.",
-      type: "text",
-      required: false,
-    },
-    {
       id: 26,
-      step: steps[3],
-      name: "workPhone",
-      label: "İş Numaranız Nedir?",
-      type: "text",
-      required: false,
+      step: steps[4],
+      label: "Masraflarınızı kim karşılayacak?",
+      name: "expense_payer",
+      type: "dropdown",
+      options: [
+        { label: "Kendim", value: "Kendim" },
+        { label: "İşverenim", value: "İşverenim" },
+        { label: "Diğer kişi", value: "Diğer kişi" },
+      ],
+      required: true,
+      otherInputs: [
+        {
+          id: 1,
+          name: "payer_name",
+          label: "Ödeyenin adı soyadı",
+          type: "text",
+          required: true,
+          if_value: ["Diğer kişi"],
+        },
+        {
+          id: 2,
+          name: "payer_relation",
+          label: "Yakınlık durumu",
+          type: "text",
+          required: true,
+          if_value: ["Diğer kişi"],
+        },
+        {
+          id: 3,
+          name: "payer_email",
+          label: "E-posta adresi",
+          type: "text",
+          required: true,
+          if_value: ["Diğer kişi"],
+        },
+        {
+          id: 4,
+          name: "payer_phone",
+          label: "Telefon numarası",
+          type: "text",
+          required: true,
+          if_value: ["Diğer kişi"],
+        },
+      ],
     },
     {
       id: 27,
-      step: steps[3],
-      name: "email",
-      label: "E-posta Adresiniz Nedir?",
-      type: "text",
-      required: true,
+      step: steps[4],
+      label: "Davetiyeniz varsa kim tarafından gönderildi?",
+      name: "has_invitation",
+      type: "dropdown",
+      options: [
+        { label: "Kişi", value: "Kişi" },
+        { label: "Şirket", value: "Şirket" },
+        { label: "Davetiyem yok", value: "Davetiyem yok" },
+      ],
+      otherInputs: [
+        {
+          id: 1,
+          name: "inviter_name",
+          label: "Davet eden kişinin adı soyadı",
+          type: "text",
+          required: true,
+          if_value: ["Kişi"],
+        },
+        {
+          id: 2,
+          name: "inviter_address",
+          label: "Adresi",
+          type: "text",
+          required: true,
+          if_value: ["Kişi"],
+        },
+        {
+          id: 3,
+          name: "inviter_phone",
+          label: "Telefon numarası",
+          type: "text",
+          required: true,
+          if_value: ["Kişi"],
+        },
+        {
+          id: 4,
+          name: "inviter_email",
+          label: "E-posta adresi",
+          type: "text",
+          required: true,
+          if_value: ["Kişi"],
+        },
+        {
+          id: 5,
+          name: "inviter_relation",
+          label: "Yakınlık durumu",
+          type: "text",
+          required: true,
+          if_value: ["Kişi"],
+        },
+        {
+          id: 6,
+          name: "inviter_situation",
+          label: "Davet eden kişinin Schengen ülkesindeki durumu",
+          type: "text",
+          required: true,
+          if_value: ["Kişi"],
+        },
+        {
+          id: 7,
+          name: "company_name",
+          label: "Şirket adı",
+          type: "text",
+          required: true,
+          if_value: ["Şirket"],
+        },
+        {
+          id: 8,
+          name: "company_address",
+          label: "Adresi",
+          type: "text",
+          required: true,
+          if_value: ["Şirket"],
+        },
+        {
+          id: 9,
+          name: "company_phone",
+          label: "Telefon numarası",
+          type: "text",
+          required: true,
+          if_value: ["Şirket"],
+        },
+        {
+          id: 10,
+          name: "contact_person",
+          label: "İrtibat kişisi",
+          type: "text",
+          required: true,
+          if_value: ["Şirket"],
+        },
+        {
+          id: 11,
+          label: "Kalacağınız Otel Adresi",
+          name: "hotel_info",
+          type: "textarea",
+          required: false,
+          if_value: ["Davetiyem yok"],
+        },
+      ],
     },
     {
       id: 28,
-      step: steps[3],
-      name: "useSocialMedia",
-      label: "Sosyal Medya Kullanıyor Musunuz?",
+      step: steps[4],
+      label: "Masrafları başka biri mi karşılayacak?",
+      name: "is_expense_payer_other",
       type: "dropdown",
       options: [
         { label: "Evet", value: "Evet" },
@@ -608,18 +659,41 @@ const SchengenStepForm = () => {
       otherInputs: [
         {
           id: 1,
-          name: "socialMedia",
-          label:
-            "Sosyal Medya Adreslerinizi, Uygulama Adı ve Kullanıcı Adı Şeklinde Belirtiniz. Kullanıcı Adınızı Bilmiyorsanız Link Ekleyebilirsiniz. (Ek Olarak Bir İşletme Sahibi vs. iseniz İşletmenin Sosyal Medya Kullanıcı Adını Belirtiniz)",
-          type: "textarea",
+          name: "payer_name",
+          label: "Ödeyenin adı soyadı",
+          type: "text",
           required: true,
           if_value: ["Evet"],
         },
         {
           id: 2,
-          label:
-            "İçerik Paylaşmak Amacıyla Web Sitesi, Blog vs. Varsa Link Ekleyiniz",
-          type: "textarea",
+          name: "payer_phone",
+          label: "Telefon numarası",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 3,
+          name: "payer_email",
+          label: "E-posta adresi",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 4,
+          name: "payer_job",
+          label: "Mesleği",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 5,
+          name: "payer_relation",
+          label: "Yakınlık durumu",
+          type: "text",
           required: true,
           if_value: ["Evet"],
         },
@@ -627,421 +701,67 @@ const SchengenStepForm = () => {
     },
     {
       id: 29,
-      step: steps[4],
-      name: "passportNumber",
-      label: "Pasaport numaranız nedir?",
-      type: "text",
+      step: steps[5],
+      label: "Daha önce Schengen vizesi aldınız mı?",
+      name: "is_visa_taken",
+      type: "dropdown",
+      options: [
+        { label: "Evet", value: "Evet" },
+        { label: "Hayır", value: "Hayır" },
+      ],
       required: true,
+      otherInputs: [
+        {
+          id: 1,
+          name: "visa_date",
+          label: "Vize aldığınız tarih (Ortalama)",
+          type: "calendar",
+          required: true,
+          if_value: ["Evet"],
+        },
+        {
+          id: 2,
+          name: "visa_countries",
+          label: "Vize aldığınız ülkeler (Ortalama)",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+      ],
     },
     {
       id: 30,
-      step: steps[4],
-      name: "passportCountry",
-      label: "Hangi ülkenin pasaportu ile başvuru yapıyorsunuz?",
-      type: "text",
+      step: steps[5],
+      label: "Schengen bölgesi dışında ülkelere seyahat ettiniz mi?",
+      name: "is_travelled_outside_schengen",
+      type: "dropdown",
+      options: [
+        { label: "Evet", value: "Evet" },
+        { label: "Hayır", value: "Hayır" },
+      ],
       required: true,
+      otherInputs: [
+        {
+          id: 1,
+          name: "travelled_countries",
+          label: "Seyahat ettiğiniz ülkeler",
+          type: "text",
+          required: true,
+          if_value: ["Evet"],
+        },
+      ],
     },
     {
       id: 31,
-      step: steps[4],
-      name: "passportAuthority",
-      label: "Veren makam (Pasaportta görünen şekliyle)",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 32,
-      step: steps[4],
-      name: "passportIssueDate",
-      label: "Pasaport verilme tarihi",
-      type: "calendar",
-      required: true,
-    },
-    {
-      id: 33,
-      step: steps[4],
-      name: "passportExpiryDate",
-      label: "Pasaport son geçerlilik tarihi",
-      type: "calendar",
-      required: true,
-    },
-    {
-      id: 34,
-      step: steps[4],
-      name: "passportLostOrStolen",
-      label: "Daha önce pasaportunuz çalındı ya da kayboldu mu?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "passportLostOrStolenExplanation",
-          label:
-            "Pasaport numarası, hangi ülkeden aldığınız ve olayı açıklayınız.",
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 35,
       step: steps[5],
-      name: "usAccommodation",
-      label: "ABD’de kalacağınız adres belli mi?",
+      label: "Aktif vizeniz var mı? (İngiltere, ABD vs.)",
+      name: "is_active_visa",
       type: "dropdown",
       options: [
         { label: "Evet", value: "Evet" },
         { label: "Hayır", value: "Hayır" },
       ],
       required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "usAccommodationAddress",
-          label: "Adresi nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 36,
-      step: steps[5],
-      name: "usRelative",
-      label: "ABD’de bir yakınınızın yanına mı seyahat ediyorsunuz?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "usRelativeName",
-          label: "Kişi adı soyadı, adresi, yakınlığınız nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 37,
-      step: steps[5],
-      name: "usEvent",
-      label: "ABD’de bir etkinliğe katılacak mısınız?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "usEventName",
-          label:
-            "Etkinlik adı, adresi, iletişimde olduğunuz kişi varsa adı soyadı nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 38,
-      step: steps[5],
-      name: "usSchoolOrCompany",
-      label:
-        "Bir okula veya şirket/kuruluşa gidiyorsanız adı, adresini belirtiniz.",
-      type: "textarea",
-      required: true,
-    },
-    {
-      id: 39,
-      step: steps[6],
-      name: "fatherName",
-      label: "Baba adı-soyadı, doğum tarihi (gün, ay, yıl)",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 40,
-      step: steps[6],
-      name: "motherName",
-      label: "Anne adı-soyadı, doğum tarihi (gün, ay, yıl)",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 41,
-      step: steps[6],
-      name: "parentsInUs",
-      label: "Anne veya babanız ABD’de mi?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "parentsInUsStatus",
-          label:
-            "Amerika’daki durumu nedir? (Vatandaş, LPR yasal daimi ikamet sahibi, vize sahibi, diğer)",
-          type: "text",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 42,
-      step: steps[6],
-      name: "relativeInUs",
-      label:
-        "Anne-babanız haricinde ABD’de yaşayan birinci derece akrabanız var mı? (Nişanlı, eş, çocuk veya kardeş)",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "relativeInUsInfo",
-          label: "Ad-soyad, sizinle yakınlığı, ABD’deki durumu belirtiniz.",
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 43,
-      step: steps[6],
-      name: "maritalStatus",
-      label: "Medeni Durum",
-      type: "dropdown",
-      options: [
-        { label: "Evli", value: "Evli" },
-        { label: "Boşanmış", value: "Boşanmış" },
-        { label: "Dul", value: "Dul" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "spouseName",
-          label:
-            "Eşinizin adı, soyadı, doğumla birlikte aldığı soyadı, doğum tarihi, doğum yeri, uyruk nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Evli"],
-        },
-        {
-          id: 2,
-          name: "spouseAddress",
-          label: "Sizinle aynı adreste mi yaşıyor?",
-          type: "dropdown",
-          options: [
-            { label: "Evet", value: "Evet" },
-            { label: "Hayır", value: "Hayır" },
-          ],
-          required: true,
-          if_value: ["Evli"],
-        },
-        {
-          id: 3,
-          name: "spousePreviousMarriage",
-          label: "Kaç kere evlendiniz?",
-          type: "text",
-          required: true,
-          if_value: ["Boşanmış"],
-        },
-        {
-          id: 4,
-          name: "spousePreviousMarriage",
-          label:
-            "Eski eş adı, soyadı, doğum tarihi, doğum yeri, uyruk, evlilik tarihi, boşanma tarihi, hangi ülkede boşandınız?",
-          type: "textarea",
-          required: true,
-          if_value: ["Boşanmış"],
-        },
-        {
-          id: 5,
-          name: "spouseDeathInfo",
-          label:
-            "Vefat eden eş adı-soyadı, doğum tarihi, doğum yeri, uyruk nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Dul"],
-        },
-      ],
-    },
-    {
-      id: 44,
-      step: steps[6],
-      label:
-        "Mesleki dumunuz nedir? (Öğrenci, çalışan, işveren, kamu görevlisi, emekli, işsiz)",
-      name: "profession",
-      type: "dropdown",
-      options: [
-        { label: "Öğrenci", value: "Öğrenci" },
-        { label: "Çalışan", value: "Çalışan" },
-        { label: "İşveren", value: "İşveren" },
-        { label: "Kamu Görevlisi", value: "Kamu Görevlisi" },
-        { label: "Emekli", value: "Emekli" },
-        { label: "İşsiz", value: "İşsiz" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "professionInfo",
-          label:
-            "İş yerinizin adı, adresi, telefon numarası, işe başlama tarihi, aylık geliriniz ve iş tanımınız nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Çalışan", "İşveren"],
-        },
-        {
-          id: 2,
-          name: "professionPublicInfo",
-          label:
-            "İş yerinizin adı, adresi, telefon numarası, kamuda göreve başlama tarihi, aylık geliriniz ve iş tanımınız nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Kamu Görevlisi"],
-        },
-        {
-          id: 3,
-          name: "professionStudentInfo",
-          label:
-            "Okulun adı, adresi, telefon numarası, okula başlama tarihi, bölümünüz ve sınıfınız nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Öğrenci"],
-        },
-      ],
-    },
-    {
-      id: 45,
-      step: steps[6],
-      label: "Daha önce bir yerde çalıştınız mı?",
-      name: "previousJob",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "previousJobInfo",
-          label: `Çalıştığınız yerleri, İş yerinin adı, adresi, telefon numarası, iş unvanınız, amiriniz var ise adı soyadı, işe giriş çıkış bilgilerinizi gün, ay, yıl olarak belirtiniz`,
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 46,
-      step: steps[6],
-      name: "education",
-      label: "Eğitim durumunuz nedir?",
-      type: "dropdown",
-      options: [
-        { label: "İlkokul", value: "İlkokul" },
-        { label: "Ortaokul", value: "Ortaokul" },
-        { label: "Lise", value: "Lise" },
-        { label: "Üniversite", value: "Üniversite" },
-        { label: "Yüksek Lisans", value: "Yüksek Lisans" },
-        { label: "Doktora", value: "Doktora" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "educationInfo",
-          label: "Okulun adı, adresi, bölümünüz ve sınıfınız nedir?",
-          type: "textarea",
-          required: true,
-          if_value: ["Lise", "Üniversite", "Yüksek Lisans", "Doktora"],
-        },
-      ],
-    },
-    {
-      id: 47,
-      step: steps[6],
-      name: "language",
-      label: "Bildiğiniz yabancı dilleri belirtiniz.",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 48,
-      step: steps[6],
-      name: "previusSchengenVisa",
-      label: "Daha önce Schengen vizesi aldınız mı?",
-      type: "dropdown",
-      options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "previusSchengenVisaInfo",
-          label:
-            "Hangi ülkeden, kaç gün kaldınız, Schengen bölgesinde geçiş sağladığınız diğer ülkeler varsa belirtiniz",
-          type: "textarea",
-          required: true,
-          if_value: ["Evet"],
-        },
-      ],
-    },
-    {
-      id: 49,
-      step: steps[6],
-      name: "travelHistory",
-      label: "Daha önce hangi ülkelere seyahat ettiniz?",
-      type: "text",
-      required: true,
-    },
-    {
-      id: 50,
-      step: steps[6],
-      name: "militaryService",
-      label: "Askerlik durumunuz nedir?",
-      type: "dropdown",
-      options: [
-        { label: "Yapıldı", value: "Yapıldı" },
-        { label: "Yapılmadı", value: "Yapılmadı" },
-      ],
-      required: true,
-      otherInputs: [
-        {
-          id: 1,
-          name: "militaryServiceInfo",
-          label: "Ne zaman, terhis tarihini belirtiniz",
-          type: "textarea",
-          required: true,
-          if_value: ["Yapıldı"],
-        },
-      ],
     },
   ]);
 
@@ -1060,19 +780,20 @@ const SchengenStepForm = () => {
           name: item.name,
           value: "",
           step: item.step,
+          type: item.type,
           otherInputs: item.otherInputs
             ? item.otherInputs.reduce((acc, input) => {
                 acc[input.name] = {
                   label: input.label,
                   name: input.name,
                   value: "",
-                  required: true,
+                  type: input.type,
+                  if_value: input.if_value,
                 };
                 return acc;
               }, {})
             : {}, // Eğer otherInputs yoksa boş bir nesne
         },
-        required: item.required || true,
       }));
     });
   };
@@ -1086,7 +807,7 @@ const SchengenStepForm = () => {
 
   const isStepValid = () => {
     const currentStepInputs = questions.filter(
-      (item) => item.step.id === currentStep
+      (item) => item.step.id === currentStep && item.required !== false
     );
 
     let isValid = true;
@@ -1107,28 +828,30 @@ const SchengenStepForm = () => {
       }
 
       if (item.otherInputs && item.otherInputs.length > 0) {
-        item.otherInputs.forEach((input) => {
-          if (input.if_value.includes(value)) {
-            const otherValue =
-              formValues[item.name]?.otherInputs?.[input.name]?.value;
-            const otherInputElement = document.getElementById(input.name);
+        item.otherInputs
+          .filter((item) => item.required !== false)
+          .forEach((input) => {
+            if (input.if_value.includes(value)) {
+              const otherValue =
+                formValues[item.name]?.otherInputs?.[input.name]?.value;
+              const otherInputElement = document.getElementById(input.name);
 
-            if (
-              otherValue === "" ||
-              otherValue === undefined ||
-              otherValue === null
-            ) {
-              isValid = false;
-              if (otherInputElement) {
-                otherInputElement.classList.add("required-error");
-              }
-            } else {
-              if (otherInputElement) {
-                otherInputElement.classList.remove("required-error");
+              if (
+                otherValue === "" ||
+                otherValue === undefined ||
+                otherValue === null
+              ) {
+                isValid = false;
+                if (otherInputElement) {
+                  otherInputElement.classList.add("required-error");
+                }
+              } else {
+                if (otherInputElement) {
+                  otherInputElement.classList.remove("required-error");
+                }
               }
             }
-          }
-        });
+          });
       }
     });
 
@@ -1158,7 +881,7 @@ const SchengenStepForm = () => {
     }
   };
 
-    const convertToUppercaseAndReplaceTurkishChars = (value) => {
+  const convertToUppercaseAndReplaceTurkishChars = (value) => {
     const turkishChars = {
       ç: "c",
       ğ: "g",
@@ -1179,11 +902,13 @@ const SchengenStepForm = () => {
       .join("")
       .toUpperCase();
   };
-  
+
   const handleInputChange = (e, item) => {
     const { name, value } = e.target;
     const convertedValue =
-      item.type === "calendar" || item.type === "dropdown" ? value : convertToUppercaseAndReplaceTurkishChars(value);
+      item.type === "calendar" || item.type === "dropdown"
+        ? value
+        : convertToUppercaseAndReplaceTurkishChars(value);
     setFormValues((prev) => ({
       ...prev,
       [name]: {
@@ -1196,11 +921,14 @@ const SchengenStepForm = () => {
       inputElement.classList.remove("invalid-input");
     }
   };
-  
+
   const handleOtherInputChange = (e, item, input) => {
     const { name, value } = e.target;
     const convertedValue =
-      item.type === "calendar" || item.type === "dropdown" ? value : convertToUppercaseAndReplaceTurkishChars(value);
+      item.type === "calendar"
+        ? value
+        : convertToUppercaseAndReplaceTurkishChars(value);
+
     setFormValues((prev) => ({
       ...prev,
       [item.name]: {
@@ -1220,21 +948,31 @@ const SchengenStepForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isStepValid()) {
-      // Perform form submission logic here
-      console.log("Form submitted successfully:", formValues);
-      toast.current.show({
-        severity: "success",
-        summary: "Başarılı",
-        detail: "Form başarıyla gönderildi",
-        life: 2000,
+      const response = await axios.post("/addFormValue", {
+        form_id: "1",
+        values: formValues,
+        lang: activeLanguage.code,
       });
 
-      // Reset form values and navigate to the first step
-      defaultSetValues();
-      setCurrentStep(0);
+      if (response.data.insertId) {
+        Swal.fire(
+          "Başarılı",
+          "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız.",
+          "success"
+        );
+        defaultSetValues();
+        setCurrentStep(0);
+      } else {
+        toast.current.show({
+          severity: "error",
+          summary: "Hata",
+          detail: "Form gönderilirken bir hata oluştu",
+          life: 2000,
+        });
+      }
     } else {
       toast.current.show({
         severity: "error",
@@ -1244,10 +982,6 @@ const SchengenStepForm = () => {
       });
     }
   };
-
-  useEffect(() => {
-    console.log(formValues);
-  }, [formValues]);
 
   return (
     <>
