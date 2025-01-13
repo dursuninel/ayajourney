@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSiteType } from "../context/SiteTypeContext";
 import ParticlesComponent from "../components/ParticlesComponent";
+import axios from "axios";
 
 export default function Main() {
   const { mainLoadTime, siteType, changeSiteType, resetSiteType } =
@@ -49,7 +50,7 @@ export default function Main() {
       <div className="choise-cover">
         {/* <h1>AyaJourney'e Hoşgeldiniz</h1> */}
         <div className="cover_logo">
-        <img src={require("../assets/images/logo.png")} alt="" />
+          <img src={require("../assets/images/logo.png")} alt="" />
         </div>
       </div>
 

@@ -2540,3 +2540,12 @@ div:where(.swal2-container) {
     display: none;
   }
 }
+
+.module-content.clamp{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}

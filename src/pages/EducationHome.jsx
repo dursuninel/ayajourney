@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import ContactForm from "../components/forms/ContactForm";
 import BlogSlider from "../components/BlogSlider";
 import { useSiteType } from "../context/SiteTypeContext";
+import { useGlobal } from "../context/GlobalContext";
 
 const PostSlider = () => {
   const images = [
@@ -192,6 +193,8 @@ export default function EducationHome() {
 
   const { siteType, runType } = useSiteType();
 
+  const { services, wbContent } = useGlobal();
+
   useEffect(() => {
     if (siteType !== 2) {
       runType(2);
@@ -226,11 +229,29 @@ export default function EducationHome() {
                 src={require("../assets/images/path2.png")}
                 alt=""
               />
-              <span>Hedef Yurt Dışıysa</span>
-              <h1>Doğru Adrestesiniz!</h1>
+              <span>
+                {
+                  wbContent?.webText.find(
+                    (item) =>
+                      item.type === "edu" && item.code_id === "banner_sm_title"
+                  ).text
+                }
+              </span>
+              <h1>
+                {
+                  wbContent?.webText.find(
+                    (item) =>
+                      item.type === "edu" && item.code_id === "banner_title"
+                  ).text
+                }
+              </h1>
               <p>
-                Eğitim, iş, ticaret ve diğer vize danışmanlık ihtiyaçlarınız
-                için AYA Journey olarak her zaman yanınızdayız!
+                {
+                  wbContent?.webText.find(
+                    (item) =>
+                      item.type === "edu" && item.code_id === "banner_content"
+                  ).text
+                }
               </p>
               {/* <NavLink to="/visa" className="btn-style">
                 Hemen Rezervasyon
@@ -244,30 +265,18 @@ export default function EducationHome() {
       <section className="cards-section education_cards">
         <div className="container">
           <div className="cards-flex">
-            <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/fly.png")} alt="" />
-              </div>
-              <h3>Hizmet 1</h3>
-            </div>
-            <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/img1.png")} alt="" />
-              </div>
-              <h3>Hizmet 2</h3>
-            </div>
-            <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/img3.png")} alt="" />
-              </div>
-              <h3>Hizmet 3</h3>
-            </div>
-            <div className="card-item">
-              <div className="card-image">
-                <img src={require("../assets/images/img2.png")} alt="" />
-              </div>
-              <h3>Hizmet 4</h3>
-            </div>
+            {services.map((service, index) => (
+              <NavLink
+                to={`/service/${service.link}`}
+                key={index}
+                className="card-item"
+              >
+                <div className="card-image">
+                  <img src={service.image} alt="" />
+                </div>
+                <h3>{service.title}</h3>
+              </NavLink>
+            ))}
           </div>
         </div>
       </section>
@@ -279,15 +288,22 @@ export default function EducationHome() {
             <div className="col-md-6 col-12">
               <div className="module-head">
                 <span className="sm-title">Hizmetlerimiz</span>
-                <h2 className="module-title">Neler Sunuyoruz</h2>
+                <h2 className="module-title">
+                  {
+                    wbContent?.uniqWebText.find(
+                      (item) => item.code_id === "what_we_title"
+                    ).text
+                  }
+                </h2>
               </div>
 
               <div className="module-content">
                 <p>
-                  ABD turist vizesi başta olmak üzere, yararlanmak istediğiniz
-                  her türlü yurtdışı hizmeti için alanında uzman
-                  danışmanlarımızla yurtdışı planlarınızı birlikte gerçeğe
-                  dönüştürüyoruz.
+                  {
+                    wbContent?.uniqWebText.find(
+                      (item) => item.code_id === "what_we_content"
+                    ).text
+                  }
                 </p>
               </div>
               <NavLink to="/about-us" className="btn-style">
@@ -486,7 +502,7 @@ export default function EducationHome() {
         </div>
       </section> */}
 
-      {/* Hakkımızda */}
+      {/* Neden Bizi Seçmelisiniz */}
       <section>
         <div className="container">
           <div className="row align-items-center">
@@ -500,21 +516,22 @@ export default function EducationHome() {
             <div className="col-md-6 col-12">
               <div className="module-head">
                 <span className="sm-title">Hakkımızda</span>
-                <h2 className="module-title">Neden Bizi Seçmelisiniz?</h2>
+                <h2 className="module-title">
+                  {
+                    wbContent?.uniqWebText.find(
+                      (item) => item.code_id === "why_choose_title"
+                    ).text
+                  }
+                </h2>
               </div>
-              <div className="module-content">
-                <p>
-                  Vize almak, uluslararası seyahatlerde karşılaşabileceğiniz en
-                  önemli adımlardan biridir ve bu sürecin karmaşıklığı herkes
-                  için sorun yaratabilir.
-                </p>
-                <br />
-                <p>
-                  Vize Danışmanlık olarak, sizlere bu süreci daha kolay ve
-                  sorunsuz bir şekilde geçirmeniz için uzman rehberlik
-                  sunuyoruz.
-                </p>
-              </div>
+              <div
+                className="module-content"
+                dangerouslySetInnerHTML={{
+                  __html: wbContent?.uniqWebText.find(
+                    (item) => item.code_id === "why_choose_content"
+                  ).text,
+                }}
+              />
               <NavLink to="/about-us" className="btn-style">
                 Detaylı Bilgi
               </NavLink>

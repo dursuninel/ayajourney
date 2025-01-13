@@ -88,6 +88,11 @@ export default function Header() {
                     Hakkımızda
                   </NavLink>
                 </li>
+
+                {/* {siteType === 2 && (
+                  
+                )} */}
+
                 <Dropdown
                   title={"Hizmetler"}
                   data={services.map((service) => ({

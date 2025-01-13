@@ -10,6 +10,7 @@ import BlogSlider from "../components/BlogSlider";
 import { useSiteType } from "../context/SiteTypeContext";
 import axios from "axios";
 import { useLanguage } from "../context/LanguageContext";
+import { useGlobal } from "../context/GlobalContext";
 
 const PostSlider = () => {
   const images = [
@@ -215,6 +216,8 @@ export default function VisaHome() {
 
   const [visaCards, setVisaCards] = useState([]);
 
+  const { wbContent } = useGlobal();
+
   useEffect(() => {
     axios.get(`/visaCards/${activeLanguage.code}`).then((res) => {
       setVisaCards(res.data);
@@ -238,15 +241,33 @@ export default function VisaHome() {
                 src={require("../assets/images/path2.png")}
                 alt=""
               />
-              <span>Hedef Vize Alımıysa</span>
-              <h1>Doğru Adrestesiniz!</h1>
+              <span>
+                {
+                  wbContent?.webText.find(
+                    (item) =>
+                      item.type === "visa" && item.code_id === "banner_sm_title"
+                  ).text
+                }
+              </span>
+              <h1>
+                {
+                  wbContent?.webText.find(
+                    (item) =>
+                      item.type === "visa" && item.code_id === "banner_title"
+                  ).text
+                }
+              </h1>
               <p>
-                Eğitim, iş, ticaret ve diğer vize danışmanlık ihtiyaçlarınız
-                için AYA Journey olarak her zaman yanınızdayız!
+                {
+                  wbContent?.webText.find(
+                    (item) =>
+                      item.type === "visa" && item.code_id === "banner_content"
+                  ).text
+                }
               </p>
-              <NavLink to="/visa" className="btn-style">
+              {/* <NavLink to="/visa" className="btn-style">
                 Hemen Rezervasyon
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
         </div>
@@ -256,46 +277,6 @@ export default function VisaHome() {
       <section className="cards-section">
         <div className="container">
           <div className="cards-flex">
-            {/* <div className="card-item">
-              <div>
-                <div className="card-image">
-                  <img src={require("../assets/images/crown.png")} alt="" />
-                </div>
-                <h3>Kişiye Özel</h3>
-              </div>
-              <p>Kişiye özel başvuru</p>
-            </div>
-            <div className="card-item">
-              <div>
-                <div className="card-image">
-                  <img src={require("../assets/images/film.png")} alt="" />
-                </div>
-                <h3>Biz bu filmi daha önce gördük</h3>
-              </div>
-              <p>
-                Binlerce başvurudan elde ettiğimiz deneyimi size sunmaya hazırız
-              </p>
-            </div>
-            <div className="card-item">
-              <div>
-                <div className="card-image">
-                  <img src={require("../assets/images/card3.png")} alt="" />
-                </div>
-                <h3>Bize değil yorumlara inanın</h3>
-              </div>
-              <p>Google yorumları bizim hakkımızda çok şey anlatır</p>
-            </div>
-            <div className="card-item">
-              <div>
-                <div className="card-image">
-                  <img src={require("../assets/images/card4.png")} alt="" />
-                </div>
-                <h3>Her zaman yanınızdayız</h3>
-              </div>
-              <p>
-                Sorularınız yanıtsız kalmaz, ofislerimiz sizi ağırlamaya hazır
-              </p>
-            </div> */}
             {visaCards.map((card, index) => (
               <div key={index} className="card-item">
                 <div>
@@ -318,15 +299,22 @@ export default function VisaHome() {
             <div className="col-md-6 col-12">
               <div className="module-head">
                 <span className="sm-title">Hizmetlerimiz</span>
-                <h2 className="module-title">Neler Sunuyoruz</h2>
+                <h2 className="module-title">
+                  {
+                    wbContent?.uniqWebText.find(
+                      (item) => item.code_id === "what_we_title"
+                    ).text
+                  }
+                </h2>
               </div>
 
               <div className="module-content">
                 <p>
-                  ABD turist vizesi başta olmak üzere, yararlanmak istediğiniz
-                  her türlü yurtdışı hizmeti için alanında uzman
-                  danışmanlarımızla yurtdışı planlarınızı birlikte gerçeğe
-                  dönüştürüyoruz.
+                  {
+                    wbContent?.uniqWebText.find(
+                      (item) => item.code_id === "what_we_content"
+                    ).text
+                  }
                 </p>
               </div>
               <NavLink to="/about-us" className="btn-style">
@@ -510,11 +498,24 @@ export default function VisaHome() {
               <i className="fa-solid fa-check"></i>
             </span>
             <div>
-              <h2>Vize görüşmesine hazır mısın?</h2>
+              <h2>
+                {
+                  wbContent?.uniqWebText.find(
+                    (item) => item.code_id === "visa_direct_title"
+                  ).text
+                }
+              </h2>
               <h3>
-                Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
+                {
+                  wbContent?.uniqWebText.find(
+                    (item) => item.code_id === "visa_direct_content"
+                  ).text
+                }
               </h3>
-              <NavLink to="#" className="btn-style transparent mt-4">
+              <NavLink
+                to="/visa-calculate"
+                className="btn-style transparent mt-4"
+              >
                 Hemen İncele
               </NavLink>
             </div>
@@ -539,21 +540,22 @@ export default function VisaHome() {
             <div className="col-md-6 col-12">
               <div className="module-head">
                 <span className="sm-title">Hakkımızda</span>
-                <h2 className="module-title">Neden Bizi Seçmelisiniz?</h2>
+                <h2 className="module-title">
+                  {
+                    wbContent?.uniqWebText.find(
+                      (item) => item.code_id === "why_choose_title"
+                    ).text
+                  }
+                </h2>
               </div>
-              <div className="module-content">
-                <p>
-                  Vize almak, uluslararası seyahatlerde karşılaşabileceğiniz en
-                  önemli adımlardan biridir ve bu sürecin karmaşıklığı herkes
-                  için sorun yaratabilir.
-                </p>
-                <br />
-                <p>
-                  Vize Danışmanlık olarak, sizlere bu süreci daha kolay ve
-                  sorunsuz bir şekilde geçirmeniz için uzman rehberlik
-                  sunuyoruz.
-                </p>
-              </div>
+              <div
+                className="module-content"
+                dangerouslySetInnerHTML={{
+                  __html: wbContent?.uniqWebText.find(
+                    (item) => item.code_id === "why_choose_content"
+                  ).text,
+                }}
+              />
               <NavLink to="/about-us" className="btn-style">
                 Detaylı Bilgi
               </NavLink>
@@ -633,9 +635,19 @@ export default function VisaHome() {
         <div className="container">
           <div className="rezervation_module">
             <div>
-              <h2>Hemen Rezervayon</h2>
+              <h2>
+                {
+                  wbContent?.uniqWebText.find(
+                    (item) => item.code_id === "visa_direct_title"
+                  ).text
+                }
+              </h2>
               <h3>
-                Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
+                {
+                  wbContent?.uniqWebText.find(
+                    (item) => item.code_id === "visa_direct_content"
+                  ).text
+                }
               </h3>
               <NavLink to="#" className="btn-style transparent mt-4">
                 Detaylı Bilgi
