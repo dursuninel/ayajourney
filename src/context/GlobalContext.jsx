@@ -8,19 +8,25 @@ export const GlobalProvider = ({ children }) => {
   const [services, setServices] = useState([]);
   const [wbContent, setwbContent] = useState([]);
 
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     axios.get("/services").then((response) => {
       setServices(response.data);
     });
 
-    axios.get("/getFullText").then((res) => {
-      setwbContent(res.data);
-      console.log(res.data)
-    });
+    axios
+      .get("/getFullText")
+      .then((res) => {
+        setwbContent(res.data);
+      })
+      .then(() => {
+        setLoader(false);
+      });
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ services, wbContent }}>
+    <GlobalContext.Provider value={{ services, wbContent, loader, setLoader }}>
       {children}
     </GlobalContext.Provider>
   );

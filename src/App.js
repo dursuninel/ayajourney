@@ -5,6 +5,7 @@ import { useSiteType } from "./context/SiteTypeContext";
 import PageIncudes from "./layout/PageIncudes";
 import { UserContext } from "./context/UserContext";
 import axios from "axios";
+import Documents from "./pages/Documents";
 
 // Pages
 
@@ -181,6 +182,15 @@ function App() {
               element={
                 <PageIncudes>
                   <BlogDetail />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/my-documents"}
+              element={
+                <PageIncudes title={"Belgelerim"}>
+                  <Documents />
                 </PageIncudes>
               }
             />

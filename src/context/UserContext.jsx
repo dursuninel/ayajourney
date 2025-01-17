@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export const UserContext = createContext();
 
@@ -37,14 +38,14 @@ export const UserProvider = (props) => {
       fullname: `${data.user?.fullname || ""}`,
     });
     setLogin(true);
-    // Cookies.set("token", data.token);
-  };
+    Cookies.set("token", data.token);
+    };
 
   const logout = () => {
     axios.post("/logout").then((res) => {
       if (res.data.status === 200) {
         // Cookies.remove("token");
-        window.location.pathname = "/visa";
+        window.location.reload();
       }
     });
   };
@@ -59,9 +60,12 @@ export const UserProvider = (props) => {
       value={{
         user,
         setUser,
+
         login,
         setLogin,
+
         logout,
+
         saveUserWeb,
 
         authMenu,

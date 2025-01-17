@@ -3,9 +3,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useGlobal } from "../context/GlobalContext";
+import Loader from "../components/Loader";
 
 export default function PageIncudes({ title, children }) {
   const location = useLocation();
+  const { loader } = useGlobal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,9 +20,17 @@ export default function PageIncudes({ title, children }) {
   }, [location, title]);
   return (
     <>
-      <Header />
-      {children}
-      <Footer />
+      {loader ? (
+        <>
+          <Loader />
+        </>
+      ) : (
+        <>
+          <Header />
+          {children}
+          <Footer />
+        </>
+      )}
     </>
   );
 }

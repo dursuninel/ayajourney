@@ -325,7 +325,7 @@ div.active .choice-content img {
     transition: opacity 0.75s, visibility 0.75s;
   }
 
-  .education::before{
+  .education::before {
     background-image: url("../images/edu.jpg");
   }
 
@@ -2478,9 +2478,8 @@ div:where(.swal2-container) {
   color: white;
   text-align: center;
   padding: 1rem;
-  opacity: .75;
+  opacity: 0.75;
   animation: fadeIn 2s ease-in-out; /* 2 saniyelik fade-in animasyonu */
-
 }
 
 .choise-cover h1 {
@@ -2496,7 +2495,7 @@ div:where(.swal2-container) {
     opacity: 0;
   }
   to {
-    opacity: .75;
+    opacity: 0.75;
   }
 }
 
@@ -2543,11 +2542,107 @@ div:where(.swal2-container) {
   }
 }
 
-.module-content.clamp{
+.module-content.clamp {
   display: -webkit-box;
   display: -ms-flexbox;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
+}
+
+.doc-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.doc-item {
+  width: calc((100% / 5) - 0.8632rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.doc-item > div {
+  width: 100%;
+  height: 10rem;
+
+  position: relative;
+
+  cursor: pointer;
+
+  border: 1px solid rgb(126, 126, 126);
+  border-radius: 1rem;
+}
+
+.doc-item p {
+  font-size: 0.75rem;
+  text-align: center;
+  margin: 0;
+}
+
+.doc-item.new > div {
+  border-color: rgb(16, 219, 67);
+}
+
+.doc-item.new > p {
+  color: rgb(16, 219, 67);
+  font-weight: 600;
+}
+
+.doc-item.new > div:after {
+  content: "+";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(16, 219, 67);
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+.doc-item.new:hover > div {
+  background-color: rgb(16, 219, 67);
+}
+
+.doc-item.new:hover > div:after {
+  color: white;
+}
+
+
+@media (max-width: 992px) {
+  .doc-item {
+    width: calc((100% / 4) - 0.75rem);
+  }
+  .doc-item > div {
+    height: 8.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .doc-item {
+    width: calc((100% / 3) - 0.67rem);
+  }
+  .doc-item > div {
+    height: 8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doc-item {
+    width: calc((100% / 2) - 0.5rem);
+  }
+  .doc-item > div {
+    height: 8rem;
+  }
+}
+
+
+.docs-item h2{
+  font-size: 1.5rem;
 }

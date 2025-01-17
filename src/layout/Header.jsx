@@ -34,6 +34,8 @@ export default function Header() {
     } else {
       setMain(false);
     }
+    
+    setMenuActive(false);
   }, [location.pathname]);
 
   return (
