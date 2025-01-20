@@ -50,35 +50,20 @@ export default function DocItem({
     });
   };
 
-  const handleDownload = async () => {
-    try {
-      const response = await axios({
-        url,
-        method: "GET",
-        responseType: "blob", // Important: Set responseType to 'blob'
+  const downloadFile = (url, fileName) => {
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch((error) => {
+        console.error("Error downloading file:", error);
       });
-
-      // Create a temporary URL for the downloaded file
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-
-      // Create a hidden anchor element
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", title); // Set the filename for download
-
-      // Trigger a click on the hidden link
-      document.body.appendChild(link);
-      link.click();
-
-      // Clean up
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "An error occurred while downloading the file.",
-      });
-    }
   };
 
   return (
@@ -86,7 +71,7 @@ export default function DocItem({
       <span onClick={() => removeDocAct(id, url)}>
         <i class="fa-solid fa-xmark"></i>
       </span>
-      <div className="download-file" onClick={handleDownload}>
+      <div className="download-file" onClick={() => downloadFile(url, title)}>
         <i class="fa-solid fa-file-arrow-down"></i>{" "}
       </div>
       <p>{title}</p>
