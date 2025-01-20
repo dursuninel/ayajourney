@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSiteType } from "../context/SiteTypeContext";
 import Modal from "../components/Modal";
 import AuthArea from "../components/AuthArea";
@@ -10,6 +10,8 @@ import Dropdown from "../components/Dropdown";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
+
+  const navigate = useNavigate();
 
   const [dropdownActive, setDropdownActive] = useState(false);
 
@@ -34,7 +36,7 @@ export default function Header() {
     } else {
       setMain(false);
     }
-    
+
     setMenuActive(false);
   }, [location.pathname]);
 
@@ -145,9 +147,12 @@ export default function Header() {
                     </div>
                   ) : login === true ? (
                     // Giriş yapılmış menü
-                    <div className="auth" onClick={logout}>
+                    <div
+                      className="auth"
+                      onClick={() => navigate("/my-documents")}
+                    >
                       <i className="fa-solid fa-user"></i>{" "}
-                      {FormatUserName(user.fullname)}
+                      {/* {FormatUserName(user.fullname)} */} Belgelerim
                     </div>
                   ) : (
                     // Giriş Yap

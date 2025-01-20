@@ -14,6 +14,7 @@ import Alert from "../components/Alert";
 import RandomNumber from "../components/RandomNumber";
 import { useLanguage } from "../context/LanguageContext";
 import { Card } from "primereact/card";
+import UserNotFound from "../components/UserNotFound";
 
 export default function Documents() {
   const { wbContent } = useGlobal();
@@ -36,37 +37,41 @@ export default function Documents() {
   };
 
   const createDoc = (cat_id) => {
-    let requestData = {
-      title,
-      file,
-      cat_id,
-      user_id: user?.id || "0",
-    };
+    if (user?.id) {
+      let requestData = {
+        title,
+        file,
+        cat_id,
+        user_id: user?.id || "0",
+      };
 
-    setSending(true);
+      setSending(true);
 
-    axios.post("/addDoc", requestData).then((res) => {
-      setSending(false);
-      if (res.data.insertId) {
-        setDocModal(false);
-        setTitle("");
-        setRenderFile(res.data.insertId);
-        toast.current.show({
-          severity: "success",
-          summary: "Başarılı",
-          detail: "Belge Eklendi",
-          life: 2000,
-        });
-        setRenderDocs(RandomNumber());
-      } else {
-        toast.current.show({
-          severity: "error",
-          summary: "Hata",
-          detail: "Bir hata oluştu",
-          life: 2000,
-        });
-      }
-    });
+      axios.post("/addDoc", requestData).then((res) => {
+        setSending(false);
+        if (res.data.insertId) {
+          setDocModal(false);
+          setTitle("");
+          setRenderFile(res.data.insertId);
+          toast.current.show({
+            severity: "success",
+            summary: "Başarılı",
+            detail: "Belge Eklendi",
+            life: 2000,
+          });
+          setRenderDocs(RandomNumber());
+        } else {
+          toast.current.show({
+            severity: "error",
+            summary: "Hata",
+            detail: "Bir hata oluştu",
+            life: 2000,
+          });
+        }
+      });
+    } else {
+      UserNotFound();
+    }
   };
 
   const [docs, setDocs] = useState([]);
@@ -79,13 +84,9 @@ export default function Documents() {
   // ${user?.id || "-1"}
   useEffect(() => {
     setPendingDocs(true);
-    axios.get(`/getDocs/2`).then((res) => {
+    axios.get(`/getDocs/${user?.id || "-1"}`).then((res) => {
       if (res.data.success === false) {
-        Alert(
-          "Başarısız",
-          "Kullanıcı bilginiz alınamadı, Lüften hesabınıza tekrar giriş yapıp deneyiniz",
-          "error"
-        );
+        UserNotFound();
         setPendingDocs(false);
       } else {
         setPendingDocs(false);
@@ -99,6 +100,40 @@ export default function Documents() {
     return (
       <>
         <PageBanner title={"Belgelerim"} />
+        <Toast ref={toast} position="bottom-center" />
+
+        <section>
+          <div className="container">
+            <div className="file-upload-welcome-container">
+              <Card
+                title={`Hoş Geldiniz, ${user?.fullname}!`}
+                className="welcome-card"
+              >
+                <p className="welcome-text">
+                  Buradan işleminizi tamamlamak için gerekli olan dosyaları
+                  kolayca yükleyebilirsiniz. Lütfen doğru kategorideki dosyaları
+                  seçtiğinizden emin olun ve yükleme işlemini başlatın.
+                  Yüklediğiniz dosyalar, işleminizin hızlı ve doğru bir şekilde
+                  tamamlanmasına yardımcı olacaktır.
+                </p>
+                <p className="info-text">
+                  Dosya yüklerken dikkat etmeniz gereken herhangi bir kısıtlama
+                  veya format bilgisi varsa, aşağıda belirtilmiştir. Yardıma
+                  ihtiyaç duyarsanız, destek ekibimiz her zaman yanınızda.
+                </p>
+                <p className="file-types">
+                  Yükleyebileceğiniz dosya türleri şunlardır:
+                  <br />- <strong>PNG ve JPEG görselleri</strong> (.png, .jpeg,
+                  .jpg)
+                  <br />- <strong>WebP görselleri</strong> (.webp)
+                  <br />- <strong>PDF dosyaları</strong> (.pdf)
+                  <br />- <strong>Word Belgeleri</strong> (.doc)
+                </p>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         <section>
           <div className="container">
             <p
@@ -118,15 +153,16 @@ export default function Documents() {
 
   return (
     <>
-      <PageBanner
-        title={user?.fullname ? `Hoşgeldin ${user?.fullname}` : "Belgelerim"}
-      />
+      <PageBanner title={"Belgelerim"} />
       <Toast ref={toast} position="bottom-center" />
 
       <section>
         <div className="container">
           <div className="file-upload-welcome-container">
-            <Card title="Hoş Geldiniz!" className="welcome-card">
+            <Card
+              title={`Hoş Geldiniz, ${user?.fullname}!`}
+              className="welcome-card"
+            >
               <p className="welcome-text">
                 Buradan işleminizi tamamlamak için gerekli olan dosyaları
                 kolayca yükleyebilirsiniz. Lütfen doğru kategorideki dosyaları

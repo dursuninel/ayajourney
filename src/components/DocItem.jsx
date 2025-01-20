@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import Swal from "sweetalert2";
 import RandomNumber from "../components/RandomNumber";
+import UserNotFound from "./UserNotFound";
 
 export default function DocItem({
   id,
@@ -23,24 +24,28 @@ export default function DocItem({
       cancelButtonText: "Hayır",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.post("/removeDocUser", { id, user_id, url }).then((res) => {
-          if (res.data.message) {
-            toast.current.show({
-              severity: "success",
-              summary: "Başarılı",
-              detail: "Dosya silindi",
-              life: 2000,
-            });
-            setRenderDocs(RandomNumber());
-          } else {
-            toast.current.show({
-              severity: "error",
-              summary: "Hata",
-              detail: "Bir hata oluştu",
-              life: 2000,
-            });
-          }
-        });
+        if (user_id) {
+          axios.post("/removeDocUser", { id, user_id, url }).then((res) => {
+            if (res.data.message) {
+              toast.current.show({
+                severity: "success",
+                summary: "Başarılı",
+                detail: "Dosya silindi",
+                life: 2000,
+              });
+              setRenderDocs(RandomNumber());
+            } else {
+              toast.current.show({
+                severity: "error",
+                summary: "Hata",
+                detail: "Bir hata oluştu",
+                life: 2000,
+              });
+            }
+          });
+        } else {
+          UserNotFound();
+        }
       }
     });
   };
