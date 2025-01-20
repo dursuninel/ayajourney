@@ -189,8 +189,6 @@ const TestimonialSlider = () => {
 };
 
 export default function EducationHome() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
   const { siteType, runType } = useSiteType();
 
   const { services, wbContent } = useGlobal();
@@ -199,17 +197,6 @@ export default function EducationHome() {
     if (siteType !== 2) {
       runType(2);
     }
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   return (
