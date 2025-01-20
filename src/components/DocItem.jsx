@@ -49,12 +49,44 @@ export default function DocItem({
       }
     });
   };
+
+  const handleDownload = async () => {
+    try {
+      const response = await axios({
+        url,
+        method: "GET",
+        responseType: "blob", // Important: Set responseType to 'blob'
+      });
+
+      // Create a temporary URL for the downloaded file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      // Create a hidden anchor element
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", title); // Set the filename for download
+
+      // Trigger a click on the hidden link
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "An error occurred while downloading the file.",
+      });
+    }
+  };
+
   return (
     <div className="doc-item">
       <span onClick={() => removeDocAct(id, url)}>
         <i class="fa-solid fa-xmark"></i>
       </span>
-      <div>
+      <div className="download-file" onClick={handleDownload}>
         <i class="fa-solid fa-file-arrow-down"></i>{" "}
       </div>
       <p>{title}</p>
