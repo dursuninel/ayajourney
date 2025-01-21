@@ -1905,7 +1905,7 @@ span.p-dropdown-item-label {
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.25rem 0.8rem;
 }
 
 .contact-form > div {
@@ -2722,4 +2722,9 @@ div:where(.swal2-container) {
 .p-card-content {
   margin: 0 !important;
   padding: 0 !important;
+}
+
+small.p-error {
+  position: absolute;
+  font-size: .75rem;
 }
