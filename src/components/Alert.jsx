@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 
 export default function Alert(
@@ -7,11 +8,13 @@ export default function Alert(
   confirmButtonText,
   cancelButtonText
 ) {
-  Swal.fire({
+  const { t } = useTranslation();
+
+  return Swal.fire({
     title: title,
     text: text,
     icon: icon,
-    confirmButtonText: confirmButtonText || "Tamam",
-    cancelButtonText: cancelButtonText || "Tamam",
+    confirmButtonText: confirmButtonText || t("input.ok"),
+    cancelButtonText: cancelButtonText || t("input.ok"),
   });
 }

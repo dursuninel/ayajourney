@@ -21,7 +21,7 @@ export const LanguageProvider = ({ children }) => {
     {
       id: 2,
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg",
-      name: "İngilizce",
+      name: "English",
       title: "EN",
       code: "en",
     },

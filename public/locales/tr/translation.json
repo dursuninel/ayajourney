@@ -1,6 +1,111 @@
 {
+  "siteTitle": "Seyahatlerinizi Kolayca Yönetin",
   "types": {
     "typeOne": "Vize",
     "typeTwo": "Yurtdışı Eğitim"
+  },
+  "valid": {
+    "name": "Adınızı girmek zorunludur.",
+    "nameLimit": "Adınız en az 3 karakter olmalıdır.",
+    "surname": "Soyad girmek zorunludur.",
+    "surnameLimit": "Soyad en az 3 karakter olmalıdır.",
+    "fullname": "Ad soyad girmek zorunludur.",
+    "trueEmail": "Geçerli bir email adresi girin.",
+    "email": "Email adresi zorunludur.",
+    "profession": "Mesleğinizi girmek zorunludur.",
+    "professionLimit": "Meslek en az 2 karakter olmalıdır.",
+    "message": "Mesajınızı girmek zorunludur.",
+    "messageLimit": "Mesajınız en az 10 karakter olmalıdır.",
+    "password": "Şifre zorunludur",
+    "minPassword": "Şifreniz en az 6 karakter olmalıdır",
+    "passwordMatch": "Şifreler uyuşmuyor",
+    "passwordRepeat": "Şifre tekrarı zorunludur",
+    "phone": "Telefon numarası girmek zorunludur."
+  },
+  "swal": {
+    "success": "Başarılı",
+    "error": "Başarısız",
+    "messageSuccess": "Mesajınız gönderildi",
+    "errorMessage": "Bir hata oluştu",
+    "consoleAlert": "Bir hata oluştu, lütfen console'a bakınız",
+    "notFoundUser": "Kullanıcı bulunamadı, girilen bilgileri kontrol ediniz",
+    "okSuccess": "Hesabınıza başarıyla giris yaptınız",
+    "emailUsing": "Girilen email adresi kullanılmaktadır",
+    "emailNotFound": "Girilen email adresi bulunamadı",
+    "successRegister": "Kayıt Başarılı",
+    "successRegisterMessage": "Kullanıcı bilgilerinizle giriş yapabilirsiniz",
+    "errorRegister": "Kayıt sırasında bir hata oluştu, tekrar deneyiniz",
+    "sure": "Emin misiniz?",
+    "sureText": "Bu belgeyi silmek istediğinizden emin misiniz?",
+    "confirmButtonText": "Evet",
+    "cancelButtonText": "Hayır",
+    "removeDocText": "Dosya silindi",
+    "userNotFound": "Kullanıcı bilginiz alınamadı, Lüften hesabınıza tekrar giriş yapıp deneyiniz"
+  },
+  "input": {
+    "name": "Adınız",
+    "surname": "Soyadınız",
+    "fullname": "Ad Soyad",
+    "phone": "Telefon Numaranız",
+    "email": "Email Adresiniz",
+    "emailRegister": "Email",
+    "password": "Şifreniz",
+    "passwordRepeat": "Şifreyi Onayla",
+    "profession": "Meslek",
+    "message": "Mesajınız",
+    "send": "Gönder",
+    "sendPending": "Gönderiliyor...",
+    "ok": "Tamam",
+    "repeat": "Yeniden dene",
+    "login": "Giriş Yap",
+    "loginPending": "Giriş Yapılıyor...",
+    "register": "Kayıt Ol",
+    "registerPending": "Kayıt Olunuyor...",
+    "logout": "Çıkış Yap",
+    "next": "İleri",
+    "back": "Geri"
+  },
+  "text": {
+    "packageText": "Uzman ekiplerimiz sizinle aşağıdaki bilgiler aracığıyle iletişime geçecek. Lütfen bilgilerinizi eksiksiz ve doğru bir şekilde doldurunuz."
+  },
+  "file": {
+    "drag": "Veya yüklemek istediğiniz dosyayı buraya sürükleyip bırakın",
+    "select": "Dosya Seç",
+    "confirm": "Dosyayı Onayla",
+    "remove": "Sil",
+    "size": "Seçilen dosyanın boyutu maximum limiti aşıyor"
+  },
+  "pages": {
+    "home": "Anasayfa",
+    "about": "Hakkımızda",
+    "blogs": "Bloglar",
+    "services": "Hizmetler",
+    "contact": "İletişim",
+    "docs": "Belgelerim",
+    "login": "Giriş Yap",
+    "forms": "Formlar",
+
+    "register": "Kayıt Ol",
+    "profile": "Profil",
+    "logout": "Çıkış Yap",
+    "dashboard": "Panel",
+    "documents": "Belgeler",
+    "document": "Belge",
+    "users": "Kullanıcılar",
+    "user": "Kullanıcı",
+    "settings": "Ayarlar",
+    "404": "Sayfa Bulunamadı",
+    "500": "Sunucu Hatası"
+  },
+  "copyright": "Tüm hakları saklıdır.",
+  "forms": {
+    "uk": "Birleşik Krallık Formu",
+    "schengen": "Schengen Formu",
+    "usa": "USA Formu",
+    "visa": "Vize İhtimali Hesaplama"
+  },
+  "pageText": {
+    "contactSmTitle": "İletişim",
+    "contactTitle": "Bizimle İletişime Geçin"
   }
 }

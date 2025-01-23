@@ -2736,3 +2736,7 @@ p.pckg-price-message {
   margin: 1rem 0;
   user-select: none;
 }
+
+.auth_area small.p-error {
+  position: relative;
+}

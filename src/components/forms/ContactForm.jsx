@@ -3,9 +3,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Toast } from "primereact/toast";
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
   const toast = useRef(null);
+  const { t } = useTranslation();
 
   const [sending, setSending] = useState(false);
 
@@ -17,18 +19,16 @@ const ContactForm = () => {
       message: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string()
-        .required("Adınızı girmek zorunludur.")
-        .min(3, "Adınız en az 3 karakter olmalıdır."),
+      name: Yup.string().required(t("valid.name")).min(3, t("valid.nameLimit")),
       email: Yup.string()
-        .email("Geçerli bir email adresi girin.")
-        .required("Email adresi zorunludur."),
+        .email(t("valid.trueEmail"))
+        .required(t("valid.email")),
       profession: Yup.string()
-        .required("Mesleğinizi girmek zorunludur.")
-        .min(2, "Meslek en az 2 karakter olmalıdır."),
+        .required(t("valid.profession"))
+        .min(2, t("valid.professionLimit")),
       message: Yup.string()
-        .required("Mesajınızı girmek zorunludur.")
-        .min(10, "Mesajınız en az 10 karakter olmalıdır."),
+        .required(t("valid.message"))
+        .min(10, t("valid.messageLimit")),
     }),
     onSubmit: (values, { resetForm }) => {
       setSending(true);
@@ -38,16 +38,16 @@ const ContactForm = () => {
           if (res.data.insertId) {
             toast.current.show({
               severity: "success",
-              summary: "Başarılı",
-              detail: "Mesajınız gönderildi",
+              summary: t("swal.success"),
+              detail: t("swal.messageSuccess"),
               life: 2000,
             });
             resetForm();
           } else {
             toast.current.show({
               severity: "error",
-              summary: "Hata",
-              detail: "Bir hata oluştu",
+              summary: t("swal.error"),
+              detail: t("swal.errorMessage"),
               life: 2000,
             });
           }
@@ -73,7 +73,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Adınız"
+                placeholder={t("input.name")}
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -96,7 +96,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="email"
-                placeholder="Email Adresiniz"
+                placeholder={t("input.email")}
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -119,7 +119,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="profession"
-                placeholder="Meslek"
+                placeholder={t("input.profession")}
                 value={formik.values.profession}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -142,7 +142,7 @@ const ContactForm = () => {
             <div>
               <textarea
                 name="message"
-                placeholder="Mesajınız"
+                placeholder={t("input.message")}
                 value={formik.values.message}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -155,7 +155,7 @@ const ContactForm = () => {
           </div>
         </div>
         <button className="btn-style" type="submit" disabled={sending}>
-          {sending ? "Gönderiliyor..." : "Gönder"}
+          {sending ? t("input.sendPending") : t("input.send")}
         </button>
       </form>
     </>

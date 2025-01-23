@@ -2,9 +2,11 @@ import React, { useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const TakePackageForm = ({ toast, pacID }) => {
   const [sending, setSending] = useState(false);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -15,16 +17,14 @@ const TakePackageForm = ({ toast, pacID }) => {
       package: pacID,
     },
     validationSchema: Yup.object({
-      name: Yup.string()
-        .required("Ad girmek zorunludur.")
-        .min(3, "Adınız en az 3 karakter olmalıdır."),
+      name: Yup.string().required(t("valid.name")).min(3, t("valid.nameLimit")),
       surname: Yup.string()
-        .required("Soyad girmek zorunludur.")
-        .min(3, "Soyadınız en az 3 karakter olmalıdır."),
+        .required(t("valid.surname"))
+        .min(3, t("valid.surnameLimit")),
       email: Yup.string()
-        .email("Geçerli bir email adresi girin.")
-        .required("Email adresi zorunludur."),
-      phone: Yup.string().required("Telefon numarası girmek zorunludur."),
+        .email(t("valid.trueEmail"))
+        .required(t("valid.email")),
+      phone: Yup.string().required(t("valid.phone")),
     }),
     onSubmit: (values, { resetForm }) => {
       setSending(true);
@@ -34,16 +34,16 @@ const TakePackageForm = ({ toast, pacID }) => {
           if (res.data.insertId) {
             toast.current.show({
               severity: "success",
-              summary: "Başarılı",
-              detail: "Mesajınız gönderildi",
+              summary: t("swal.success"),
+              detail: t("swal.messageSuccess"),
               life: 2000,
             });
             resetForm();
           } else {
             toast.current.show({
               severity: "error",
-              summary: "Hata",
-              detail: "Bir hata oluştu",
+              summary: t("swal.error"),
+              detail: t("swal.errorMessage"),
               life: 2000,
             });
           }
@@ -56,10 +56,7 @@ const TakePackageForm = ({ toast, pacID }) => {
 
   return (
     <>
-      <p className="text-center">
-        Uzman ekiplerimiz sizinle aşağıdaki bilgiler aracığıyle iletişime
-        geçecek. Lütfen bilgilerinizi eksiksiz ve doğru bir şekilde doldurunuz.
-      </p>
+      <p className="text-center">{t("text.packageText")}</p>
 
       <form className="contact-form" onSubmit={formik.handleSubmit}>
         <div>
@@ -72,7 +69,7 @@ const TakePackageForm = ({ toast, pacID }) => {
               <input
                 type="text"
                 name="name"
-                placeholder="Adınız"
+                placeholder={t("input.name")}
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -95,7 +92,7 @@ const TakePackageForm = ({ toast, pacID }) => {
               <input
                 type="text"
                 name="surname"
-                placeholder="Soyadınız"
+                placeholder={t("input.surname")}
                 value={formik.values.surname}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -117,7 +114,7 @@ const TakePackageForm = ({ toast, pacID }) => {
               <input
                 type="text"
                 name="email"
-                placeholder="Email Adresiniz"
+                placeholder={t("input.email")}
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -138,7 +135,7 @@ const TakePackageForm = ({ toast, pacID }) => {
               <input
                 type="text"
                 name="phone"
-                placeholder="Telefon Numaranız"
+                placeholder={t("input.phone")}
                 value={formik.values.phone}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -156,7 +153,7 @@ const TakePackageForm = ({ toast, pacID }) => {
           type="submit"
           disabled={sending}
         >
-          {sending ? "Gönderiliyor..." : "Gönder"}
+          {sending ? t("input.sendPending") : t("input.send")}
         </button>
       </form>
     </>

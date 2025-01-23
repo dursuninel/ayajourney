@@ -7,17 +7,17 @@ import { Button } from "primereact/button";
 import Alert from "../Alert";
 import { UserContext } from "../../context/UserContext";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const [pending, setPending] = useState(false);
+  const { t } = useTranslation();
 
   const { saveUserWeb, setAuthMenu } = useContext(UserContext);
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Geçersiz email adresi")
-      .required("Email zorunldur"),
-    password: Yup.string().required("Şifre zorunludur"),
+    email: Yup.string().email(t("valid.trueEmail")).required(t("valid.email")),
+    password: Yup.string().required(t("valid.password")),
   });
 
   const formik = useFormik({
@@ -28,8 +28,6 @@ export default function Login() {
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
-
-      console.log("Form data:", values);
       try {
         setPending(true);
 
@@ -37,31 +35,27 @@ export default function Login() {
 
         if (response.data.error === 0) {
           console.log(response.data.message);
-          Alert(
-            "Başarısız",
-            `Bir hata oluştu, lütfen console'a bakınız`,
-            "error"
-          );
+          Alert(t("valid.error"), t("valid.consoleAlert"), "error");
         } else if (response.data.error === 1) {
           Alert(
-            "Başarısız",
-            `Kullanıcı bulunamadı, girilen bilgileri kontrol ediniz`,
+            t("valid.success"),
+            t("valid.notFoundUser"),
             "error",
-            "Tamam",
-            "Yeniden dene"
+            t("input.ok"),
+            t("input.repeat")
           );
         } else {
-          Alert("Başarılı", `Hesabınıza başarıyla giris yaptınız`, "success");
+          Alert(t("valid.success"), t("swal.okSuccess"), "success");
           saveUserWeb(response.data);
           setAuthMenu(false);
         }
       } catch (error) {
         Alert(
-          "Başarısız",
-          `Bir hata oluştu, lütfen console'a bakınız`,
+          t("valid.error"),
+          t("valid.consoleAlert"),
           "error",
-          "Tamam",
-          "Yeniden dene"
+          t("input.ok"),
+          t("input.repeat")
         );
         console.log("Error:", error);
       } finally {
@@ -76,14 +70,14 @@ export default function Login() {
       <div>
         <form onSubmit={formik.handleSubmit}>
           <div className="p-field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t("input.email")}</label>
             <InputText
               id="email"
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              placeholder="Email adresinizi giriniz"
+              placeholder={t("input.email")}
               className={`p-inputtext-sm ${
                 formik.touched.email && formik.errors.email ? "p-invalid" : ""
               }`}
@@ -93,7 +87,7 @@ export default function Login() {
             )}
           </div>
           <div className="p-field">
-            <label htmlFor="password">Şifre</label>
+            <label htmlFor="password">{t("input.password")}</label>
             <Password
               id="password"
               name="password"
@@ -102,7 +96,7 @@ export default function Login() {
               onBlur={formik.handleBlur}
               feedback={false}
               toggleMask
-              placeholder="Şifrenizi giriniz"
+              placeholder={t("input.password")}
               className={`p-inputtext-sm ${
                 formik.touched.password && formik.errors.password
                   ? "p-invalid"
@@ -115,7 +109,7 @@ export default function Login() {
           </div>
           <Button
             type="submit"
-            label={pending ? "Giriş Yapılıyor..." : "Giriş Yap"}
+            label={pending ? t("input.loginPending") : t("input.login")}
             icon="pi pi-sign-in"
             className="p-button-sm"
           />

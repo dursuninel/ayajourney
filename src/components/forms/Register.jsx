@@ -7,22 +7,25 @@ import { Button } from "primereact/button";
 import axios from "axios";
 import Alert from "../Alert";
 import { UserContext } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 export default function Register() {
   const { setAuthType } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object({
-    fullname: Yup.string().required("Ad soyad zorunludur"),
-    email: Yup.string()
-      .email("Geçersiz email adresi")
-      .required("Email adresi zorunludur"),
+    fullname: Yup.string().required(t("valid.fullname")),
+    email: Yup.string().email(t("valid.trueEmail")).required(t("valid.email")),
     password: Yup.string()
-      .min(6, "Şifreniz en az 6 karakter olmalıdır")
-      .required("Şifre zorunludur"),
+      .min(6, t("valid.minPassword"))
+      .required(t("valid.password")),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Şifreler eşleşmiyor")
-      .required("Şifre tekrarı zorunludur"),
+      .oneOf([Yup.ref("password"), null], t("valid.passwordMatch"))
+      .required(t("valid.passwordRepeat")),
   });
+
+  const [sending, setSending] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -34,25 +37,24 @@ export default function Register() {
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
+        setSending(true);
         const response = await axios.post("/register", values);
 
         if (response.data.error === 0) {
-          Alert("Başarısız", "Girilen email adresi kullanılmaktadır", "error");
+          Alert(t("swal.error"), t("swal.emailUsing"), "error");
         } else {
           Alert(
-            "Kayıt Başarılı",
-            "Kullanıcı bilgilerinizle giriş yapabilirsiniz",
+            t("swal.successRegister"),
+            t("swal.successRegisterMessage"),
             "success"
           );
           resetForm();
           setAuthType(0);
         }
       } catch (error) {
-        Alert(
-          "Başarısız",
-          "Kayıt sırasında bir hata oluştu, tekrar deneyiniz",
-          "error"
-        );
+        Alert(t("swal.error"), t("swal.errorRegister"), "error");
+      } finally {
+        setSending(false);
       }
     },
   });
@@ -61,14 +63,14 @@ export default function Register() {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <div className="p-field">
-          <label htmlFor="fullname">Ad Soyad</label>
+          <label htmlFor="fullname">{t("input.fullname")}</label>
           <InputText
             id="fullname"
             name="fullname"
             value={formik.values.fullname}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Adınız Soyadınız"
+            placeholder={t("input.fullname")}
             className={`p-inputtext-sm ${
               formik.touched.fullname && formik.errors.fullname
                 ? "p-invalid"
@@ -80,14 +82,14 @@ export default function Register() {
           )}
         </div>
         <div className="p-field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t("input.emailRegister")}</label>
           <InputText
             id="email"
             name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Email adresiniz"
+            placeholder={t("input.emailRegister")}
             className={`p-inputtext-sm ${
               formik.touched.email && formik.errors.email ? "p-invalid" : ""
             }`}
@@ -98,7 +100,7 @@ export default function Register() {
         </div>
         <div className="d-flex w-100 gap-3">
           <div className="p-field w-100">
-            <label htmlFor="password">Şifre</label>
+            <label htmlFor="password">{t("input.password")}</label>
             <Password
               id="password"
               name="password"
@@ -107,7 +109,7 @@ export default function Register() {
               onBlur={formik.handleBlur}
               feedback={false}
               toggleMask
-              placeholder="Şifre"
+              placeholder={t("input.password")}
               className={`p-inputtext-sm ${
                 formik.touched.password && formik.errors.password
                   ? "p-invalid"
@@ -119,7 +121,7 @@ export default function Register() {
             )}
           </div>
           <div className="p-field w-100">
-            <label htmlFor="confirmPassword">Şifreyi Onayla</label>
+            <label htmlFor="confirmPassword">{t("input.passwordRepeat")}</label>
             <Password
               id="confirmPassword"
               name="confirmPassword"
@@ -128,7 +130,7 @@ export default function Register() {
               onBlur={formik.handleBlur}
               feedback={false}
               toggleMask
-              placeholder="Şifreyi onayla"
+              placeholder={t("input.passwordRepeat")}
               className={`p-inputtext-sm ${
                 formik.touched.confirmPassword && formik.errors.confirmPassword
                   ? "p-invalid"
@@ -145,7 +147,7 @@ export default function Register() {
         </div>
         <Button
           type="submit"
-          label="Kayıt Ol"
+          label={sending ? t("input.registerPending") : t("input.register")}
           icon="pi pi-user-plus"
           className="p-button-sm"
         />

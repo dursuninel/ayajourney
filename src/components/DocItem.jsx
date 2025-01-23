@@ -3,6 +3,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import RandomNumber from "../components/RandomNumber";
 import UserNotFound from "./UserNotFound";
+import { useTranslation } from "react-i18next";
 
 export default function DocItem({
   id,
@@ -12,16 +13,18 @@ export default function DocItem({
   toast,
   setRenderDocs,
 }) {
+  const { t } = useTranslation();
+
   const removeDocAct = (id, url) => {
     Swal.fire({
-      title: "Emin misiniz?",
-      text: "Bu belgeyi silmek istediğinizden emin misiniz?",
+      title: t("swal.sure"),
+      text: t("swal.sureText"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Evet",
-      cancelButtonText: "Hayır",
+      confirmButtonText: t("swal.confirmButtonText"),
+      cancelButtonText: t("swal.cancelButtonText"),
     }).then((result) => {
       if (result.isConfirmed) {
         if (user_id) {
@@ -29,16 +32,16 @@ export default function DocItem({
             if (res.data.message) {
               toast.current.show({
                 severity: "success",
-                summary: "Başarılı",
-                detail: "Dosya silindi",
+                summary: t("swal.success"),
+                detail: t("swal.removeDocText"),
                 life: 2000,
               });
               setRenderDocs(RandomNumber());
             } else {
               toast.current.show({
                 severity: "error",
-                summary: "Hata",
-                detail: "Bir hata oluştu",
+                summary: t("swal.error"),
+                detail: t("swal.errorMessage"),
                 life: 2000,
               });
             }

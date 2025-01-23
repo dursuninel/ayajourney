@@ -7,19 +7,17 @@ import { UserContext } from "../context/UserContext";
 import FormatUserName from "../components/FormatUserName";
 import { useGlobal } from "../context/GlobalContext";
 import Dropdown from "../components/Dropdown";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
 
   const navigate = useNavigate();
 
-  const [dropdownActive, setDropdownActive] = useState(false);
-
   const { siteType, resetSiteType } = useSiteType();
   const { services } = useGlobal();
 
-  const { user, login, logout, authMenu, setAuthMenu } =
-    useContext(UserContext);
+  const { login, logout, authMenu, setAuthMenu } = useContext(UserContext);
 
   const location = useLocation();
 
@@ -39,6 +37,8 @@ export default function Header() {
 
     setMenuActive(false);
   }, [location.pathname]);
+
+  const { t } = useTranslation(); // i18n hook
 
   return (
     <>
@@ -84,12 +84,12 @@ export default function Header() {
                     to={siteType === 1 ? "/visa" : "/education"}
                     title="Anasayfa"
                   >
-                    Anasayfa
+                    {t("pages.home")}
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/about-us" title="Hakkımızda">
-                    Hakkımızda
+                    {t("pages.about")}
                   </NavLink>
                 </li>
 
@@ -98,7 +98,7 @@ export default function Header() {
                 )} */}
 
                 <Dropdown
-                  title={"Hizmetler"}
+                  title={t("pages.services")}
                   data={services.map((service) => ({
                     title: service.title,
                     link: `/service/${service.link}`,
@@ -107,27 +107,27 @@ export default function Header() {
 
                 <li>
                   <NavLink to="/blog" title="Blog">
-                    Bloglar
+                    {t("pages.blogs")}
                   </NavLink>
                 </li>
 
                 <Dropdown
-                  title={"Formlar"}
+                  title={t("pages.forms")}
                   data={[
                     {
-                      title: "Birleşik Krallık Formu",
+                      title: t("forms.uk"),
                       link: `/uk-form`,
                     },
                     {
-                      title: "Schengen Formu",
+                      title: t("forms.schengen"),
                       link: `/schengen-form`,
                     },
                     {
-                      title: "USA Formu",
+                      title: t("forms.usa"),
                       link: "/usa-form",
                     },
                     {
-                      title: "Vize İhtimali Hesaplama",
+                      title: t("forms.visa"),
                       link: "/visa-calculate",
                     },
                   ]}
@@ -135,7 +135,7 @@ export default function Header() {
 
                 <li>
                   <NavLink to="/contact" title="İletişim">
-                    İletişim
+                    {t("pages.contact")}
                   </NavLink>
                 </li>
                 <li className="auth_btn">
@@ -152,12 +152,12 @@ export default function Header() {
                       onClick={() => navigate("/my-documents")}
                     >
                       <i className="fa-solid fa-user"></i>{" "}
-                      {/* {FormatUserName(user.fullname)} */} Belgelerim
+                      {/* {FormatUserName(user.fullname)} */} {t("pages.docs")}
                     </div>
                   ) : (
                     // Giriş Yap
                     <div className="auth" onClick={() => setAuthMenu(true)}>
-                      <i className="fa-solid fa-user"></i> Giriş Yap
+                      <i className="fa-solid fa-user"></i> {t("pages.login")}
                     </div>
                   )}
                 </li>
@@ -193,7 +193,7 @@ export default function Header() {
       <Modal
         state={authMenu}
         setState={setAuthMenu}
-        title={"Giriş Yap / Kayıt Ol"}
+        title={`${t("pages.login")} / ${t("pages.register")}`}
       >
         <AuthArea />
       </Modal>

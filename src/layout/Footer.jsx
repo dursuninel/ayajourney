@@ -2,10 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useGlobal } from "../context/GlobalContext";
 import { useSiteType } from "../context/SiteTypeContext";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
   const { services } = useGlobal();
   const { siteType } = useSiteType();
+  const { t } = useTranslation(); // i18n hook
 
   return (
     <>
@@ -14,29 +16,29 @@ export default function Footer() {
           <img
             src={require("../assets/images/path.png")}
             className="clipped"
-            alt=""
+            alt="Path"
           />
-          <img src={require("../assets/images/logo.png")} alt="" />
+          <img src={require("../assets/images/logo.png")} alt="Aya Journey" />
         </div>
         <div className="footer-content">
           <div className="container">
             <ul className="navigation-list">
               <li>
                 <NavLink to={siteType === 1 ? "/visa" : "/education"}>
-                  Anasayfa
+                  {t("pages.home")}
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/about-us"}>Hakkımızda</NavLink>
+                <NavLink to={"/about-us"}>{t("pages.about")}</NavLink>
               </li>
               <li>
-                <NavLink to={"/blog"}>Bloglar</NavLink>
+                <NavLink to={"/blog"}>{t("pages.blogs")}</NavLink>
               </li>
               {/* <li>
                 <NavLink to={"/form"}>Form</NavLink>
               </li> */}
               <li>
-                <NavLink to={"/contact"}>İletişim</NavLink>
+                <NavLink to={"/contact"}>{t("pages.contact")}</NavLink>
               </li>
             </ul>
 
@@ -97,7 +99,7 @@ export default function Footer() {
 
             <hr style={{ color: "#fff", opacity: 1 }} />
             <p className="copyright">
-              © {new Date().getFullYear()} Aya Journey, Tüm Hakları Saklıdır.
+              © {new Date().getFullYear()} Aya Journey, {t("copyright")}
             </p>
             <br />
           </div>

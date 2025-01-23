@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSiteType } from "../context/SiteTypeContext";
 import ParticlesComponent from "../components/ParticlesComponent";
-import axios from "axios";
 import logo from "../assets/images/aya_journey_logo.svg";
 
 export default function Main() {

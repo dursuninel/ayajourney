@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import Login from "./forms/Login";
 import Register from "./forms/Register";
 import { UserContext } from "../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 export default function AuthArea() {
   const { authType, setAuthType } = useContext(UserContext);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -13,13 +15,13 @@ export default function AuthArea() {
           className={authType === 0 ? "active" : ""}
           onClick={() => setAuthType(0)}
         >
-          Giriş Yap
+          {t("input.login")}
         </div>
         <div
           className={authType === 1 ? "active" : ""}
           onClick={() => setAuthType(1)}
         >
-          Kayıt Ol
+          {t("input.register")}
         </div>
       </div>
 
