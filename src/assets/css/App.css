@@ -788,10 +788,10 @@ div.active .choice-content img {
   }
 
   .package-item.most-populer:after {
-    width: calc(100% + 1.3rem);
+    width: calc(100% + .6rem);
     height: calc(100% + 3rem);
     top: -1.5rem;
-    left: -0.65rem;
+    left: -0.3rem;
     box-shadow: 0 0 5px var(--blue);
   }
 }
@@ -800,7 +800,7 @@ div.active .choice-content img {
   margin: 0;
 }
 
-.package-item > a {
+.package-item > button {
   position: relative;
   z-index: 3;
 }
@@ -813,6 +813,8 @@ div.active .choice-content img {
   text-align: center;
   gap: 0.6rem;
   margin-top: 0.6rem;
+  list-style: none;
+  padding: 0;
 }
 
 .package-item h3 {
@@ -834,7 +836,7 @@ div.active .choice-content img {
   font-size: 0.8rem;
 }
 
-.package-item a {
+.package-item button {
   width: 100%;
   margin: 1rem 0;
   background-color: transparent;
@@ -864,8 +866,8 @@ div.active .choice-content img {
   color: var(--blue);
 }
 
-.package-item:hover a,
-.package-item.most-populer a {
+.package-item:hover button,
+.package-item.most-populer button {
   background-color: var(--blue);
   color: white !important;
   border-color: var(--blue);
@@ -2727,4 +2729,10 @@ div:where(.swal2-container) {
 small.p-error {
   position: absolute;
   font-size: .75rem;
+}
+
+p.pckg-price-message {
+  font-weight: 600;
+  margin: 1rem 0;
+  user-select: none;
 }

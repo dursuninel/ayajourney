@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 import "swiper/css/effect-coverflow";
@@ -11,6 +17,10 @@ import { useSiteType } from "../context/SiteTypeContext";
 import axios from "axios";
 import { useLanguage } from "../context/LanguageContext";
 import { useGlobal } from "../context/GlobalContext";
+import { UserContext } from "../context/UserContext";
+import { Toast } from "primereact/toast";
+import Modal from "../components/Modal";
+import TakePackageForm from "../components/forms/TakePackageForm";
 
 const PostSlider = () => {
   const images = [
@@ -200,6 +210,7 @@ const TestimonialSlider = () => {
 
 export default function VisaHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const { user } = useContext(UserContext);
 
   const { activeLanguage } = useLanguage();
 
@@ -215,6 +226,9 @@ export default function VisaHome() {
   }, []);
 
   const [visaCards, setVisaCards] = useState([]);
+  const [packages, setPackages] = useState([]);
+
+  const toast = useRef();
 
   const { wbContent } = useGlobal();
 
@@ -222,7 +236,19 @@ export default function VisaHome() {
     axios.get(`/visaCards/${activeLanguage.code}`).then((res) => {
       setVisaCards(res.data);
     });
+
+    axios.get(`/getPackages/${activeLanguage.code}`).then((res) => {
+      setPackages(res.data);
+    });
   }, []);
+
+  const [pacID, setPacID] = useState(0);
+  const [pacModal, setPacModal] = useState(false);
+
+  const handleTakePackage = (id) => {
+    setPacID(id);
+    setPacModal(true);
+  };
 
   return (
     <>
@@ -348,146 +374,87 @@ export default function VisaHome() {
           </div>
           {isMobile ? (
             <Swiper autoHeight={true} spaceBetween={16} slidesPerView={1}>
-              <SwiperSlide className="package-item">
-                <div>
+              {packages.map((item, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={`package-item${
+                    Number(item.popular) === 1 ? "most-populer" : ""
+                  }`}
+                >
                   <div>
-                    <h3 className="pckg-title">Vize Hizmeti</h3>
-                    <p className="pckg-price">$89</p>
-                    <span>* Devlet ücretleri dahildir</span>
+                    {Number(item.popular) === 1 && (
+                      <div className="most-populer-btn">En Popüler</div>
+                    )}
+                    <div>
+                      <h3 className="pckg-title">{item.title}</h3>
+                      {user?.id ? (
+                        <p className="pckg-price">{item.price}</p>
+                      ) : (
+                        <p className="pckg-price-message">
+                          Fiyatı görmek için giriş yapın
+                        </p>
+                      )}
+
+                      <span>* Devlet ücretleri dahildir</span>
+                    </div>
+                    <button
+                      onClick={() => handleTakePackage(item.id)}
+                      className="btn-style w-100"
+                    >
+                      Hemen Al
+                    </button>
+                    <div>
+                      <h4>Pakete Dahil olan özellikler</h4>
+                      <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                    </div>
                   </div>
-                  <NavLink to="#" className="btn-style">
-                    Hemen Al
-                  </NavLink>
-                  <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
-                    <ul>
-                      <li>Kişisel vize danışmanının tüm avantajları</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Onlarca yıllık deneyim</li>
-                    </ul>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="package-item most-populer">
-                <div>
-                  <div className="most-populer-btn">En Popüler</div>
-                  <div>
-                    <h3 className="pckg-title">ABD Vize Hizmeti</h3>
-                    <p className="pckg-price">$175</p>
-                    <span>* Devlet ücretleri dahildir</span>
-                  </div>
-                  <NavLink to="#" className="btn-style">
-                    Hemen Al
-                  </NavLink>
-                  <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
-                    <ul>
-                      <li>Kişisel vize danışmanının tüm avantajları</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Onlarca yıllık deneyim</li>
-                      <li>Bir kerelik nezaketen yeniden işleme</li>
-                      <li>Çok daha fazlası ...</li>
-                    </ul>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="package-item">
-                <div>
-                  <div>
-                    <h3 className="pckg-title">VIP Vize Hizmeti</h3>
-                    <p className="pckg-price">$495</p>
-                    <span>* Devlet ücretleri dahildir</span>
-                  </div>
-                  <NavLink to="#" className="btn-style">
-                    Hemen Al
-                  </NavLink>
-                  <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
-                    <ul>
-                      <li>Kişisel vize danışmanının tüm avantajları</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Onlarca yıllık deneyim</li>
-                      <li>Bir kerelik nezaketen yeniden işleme</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Çok daha fazlası ...</li>
-                    </ul>
-                  </div>
-                </div>
-              </SwiperSlide>
+                </SwiperSlide>
+              ))}
+              +
             </Swiper>
           ) : (
             <div className="packages-flex">
-              <div className="package-item">
-                <div>
-                  <h3 className="pckg-title">Vize Hizmeti</h3>
-                  <p className="pckg-price">$89</p>
-                  <span>* Devlet ücretleri dahildir</span>
+              {packages.map((item, index) => (
+                <div
+                  key={index}
+                  className={`package-item${
+                    Number(item.popular) === 1 ? " most-populer" : ""
+                  }`}
+                >
+                  {Number(item.popular) === 1 && (
+                    <div className="most-populer-btn">En Popüler</div>
+                  )}
+
+                  <div>
+                    <h3 className="pckg-title">{item.title}</h3>
+                    {user?.id ? (
+                      <p className="pckg-price">{item.price}</p>
+                    ) : (
+                      <p className="pckg-price-message">
+                        Fiyatı görmek için giriş yapın
+                      </p>
+                    )}
+                    <span>* Devlet ücretleri dahildir</span>
+                  </div>
+                  <button
+                    onClick={() => handleTakePackage(item.id)}
+                    className="btn-style w-100"
+                  >
+                    Hemen Al
+                  </button>
+                  <div>
+                    <h4>Pakete Dahil olan özellikler</h4>
+                    <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                  </div>
                 </div>
-                <NavLink to="#" className="btn-style">
-                  Hemen Al
-                </NavLink>
-                <div>
-                  <h4>Pakete Dahil olan özellikler</h4>
-                  <ul>
-                    <li>Kişisel vize danışmanının tüm avantajları</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Onlarca yıllık deneyim</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="package-item most-populer">
-                <div className="most-populer-btn">En Popüler</div>
-                <div>
-                  <h3 className="pckg-title">ABD Vize Hizmeti</h3>
-                  <p className="pckg-price">$175</p>
-                  <span>* Devlet ücretleri dahildir</span>
-                </div>
-                <NavLink to="#" className="btn-style">
-                  Hemen Al
-                </NavLink>
-                <div>
-                  <h4>Pakete Dahil olan özellikler</h4>
-                  <ul>
-                    <li>Kişisel vize danışmanının tüm avantajları</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Onlarca yıllık deneyim</li>
-                    <li>Bir kerelik nezaketen yeniden işleme</li>
-                    <li>Çok daha fazlası ...</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="package-item">
-                <div>
-                  <h3 className="pckg-title">VIP Vize Hizmeti</h3>
-                  <p className="pckg-price">$495</p>
-                  <span>* Devlet ücretleri dahildir</span>
-                </div>
-                <NavLink to="#" className="btn-style">
-                  Hemen Al
-                </NavLink>
-                <div>
-                  <h4>Pakete Dahil olan özellikler</h4>
-                  <ul>
-                    <li>Kişisel vize danışmanının tüm avantajları</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Onlarca yıllık deneyim</li>
-                    <li>Bir kerelik nezaketen yeniden işleme</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Çok daha fazlası ...</li>
-                  </ul>
-                </div>
-              </div>
+              ))}
             </div>
           )}
         </div>
+        <Toast ref={toast} position="bottom-center" />
+        <Modal setState={setPacModal} state={pacModal} title={"Paket Alın"}>
+          <TakePackageForm toast={toast} pacID={pacID} />
+        </Modal>
       </section>
 
       {/* Vize Durum Kontrolü */}
