@@ -15,6 +15,7 @@ import RandomNumber from "../components/RandomNumber";
 import { useLanguage } from "../context/LanguageContext";
 import { Card } from "primereact/card";
 import UserNotFound from "../components/UserNotFound";
+import { useTranslation } from "react-i18next";
 
 export default function Documents() {
   const { wbContent } = useGlobal();
@@ -80,6 +81,7 @@ export default function Documents() {
   const [activeCat, setActiveCat] = useState(0);
 
   const { activeLanguage } = useLanguage();
+  const { t } = useTranslation();
 
   // ${user?.id || "-1"}
   useEffect(() => {
@@ -99,36 +101,24 @@ export default function Documents() {
   if (pendingDocs)
     return (
       <>
-        <PageBanner title={"Belgelerim"} />
+        <PageBanner title={t("pageText.docs")} />
         <Toast ref={toast} position="bottom-center" />
 
         <section>
           <div className="container">
             <div className="file-upload-welcome-container">
               <Card
-                title={`Hoş Geldiniz, ${user?.fullname}!`}
+                title={`${t("pageText.hi")} ${user?.fullname}!`}
                 className="welcome-card"
               >
-                <p className="welcome-text">
-                  Buradan işleminizi tamamlamak için gerekli olan dosyaları
-                  kolayca yükleyebilirsiniz. Lütfen doğru kategorideki dosyaları
-                  seçtiğinizden emin olun ve yükleme işlemini başlatın.
-                  Yüklediğiniz dosyalar, işleminizin hızlı ve doğru bir şekilde
-                  tamamlanmasına yardımcı olacaktır.
-                </p>
-                <p className="info-text">
-                  Dosya yüklerken dikkat etmeniz gereken herhangi bir kısıtlama
-                  veya format bilgisi varsa, aşağıda belirtilmiştir. Yardıma
-                  ihtiyaç duyarsanız, destek ekibimiz her zaman yanınızda.
-                </p>
-                <p className="file-types">
-                  Yükleyebileceğiniz dosya türleri şunlardır:
-                  <br />- <strong>PNG ve JPEG görselleri</strong> (.png, .jpeg,
-                  .jpg)
-                  <br />- <strong>WebP görselleri</strong> (.webp)
-                  <br />- <strong>PDF dosyaları</strong> (.pdf)
-                  <br />- <strong>Word Belgeleri</strong> (.doc)
-                </p>
+                <p className="welcome-text">{t("pageText.docsWelcome")}</p>
+                <p className="info-text">{t("pageText.docsWelcome2")}</p>
+                <p
+                  className="file-types"
+                  dangerouslySetInnerHTML={{
+                    __html: t("pageText.docsWelcome3"),
+                  }}
+                />
               </Card>
             </div>
           </div>
@@ -144,7 +134,7 @@ export default function Documents() {
                 padding: "2rem 0",
               }}
             >
-              Dosyalar yükleniyor. Lütfen bekleyiniz.
+              {t("pageText.docLoading")}
             </p>
           </div>
         </section>
@@ -153,36 +143,24 @@ export default function Documents() {
 
   return (
     <>
-      <PageBanner title={"Belgelerim"} />
+      <PageBanner title={t("pageText.docs")} />
       <Toast ref={toast} position="bottom-center" />
 
       <section>
         <div className="container">
           <div className="file-upload-welcome-container">
             <Card
-              title={`Hoş Geldiniz, ${user?.fullname}!`}
+              title={`${t("pageText.hi")} ${user?.fullname}!`}
               className="welcome-card"
             >
-              <p className="welcome-text">
-                Buradan işleminizi tamamlamak için gerekli olan dosyaları
-                kolayca yükleyebilirsiniz. Lütfen doğru kategorideki dosyaları
-                seçtiğinizden emin olun ve yükleme işlemini başlatın.
-                Yüklediğiniz dosyalar, işleminizin hızlı ve doğru bir şekilde
-                tamamlanmasına yardımcı olacaktır.
-              </p>
-              <p className="info-text">
-                Dosya yüklerken dikkat etmeniz gereken herhangi bir kısıtlama
-                veya format bilgisi varsa, aşağıda belirtilmiştir. Yardıma
-                ihtiyaç duyarsanız, destek ekibimiz her zaman yanınızda.
-              </p>
-              <p className="file-types">
-                Yükleyebileceğiniz dosya türleri şunlardır:
-                <br />- <strong>PNG ve JPEG görselleri</strong> (.png, .jpeg,
-                .jpg)
-                <br />- <strong>WebP görselleri</strong> (.webp)
-                <br />- <strong>PDF dosyaları</strong> (.pdf)
-                <br />- <strong>Word Belgeleri</strong> (.doc)
-              </p>
+              <p className="welcome-text">{t("pageText.docsWelcome")}</p>
+              <p className="info-text">{t("pageText.docsWelcome2")}</p>
+              <p
+                className="file-types"
+                dangerouslySetInnerHTML={{
+                  __html: t("pageText.docsWelcome3"),
+                }}
+              />
             </Card>
           </div>
         </div>
@@ -197,8 +175,8 @@ export default function Documents() {
                   {activeLanguage.code === "en" ? item.en_title : item.title}{" "}
                   <small>
                     {" "}
-                    ( {Number(item.doc_limit) - Number(item.doc_count)} dosya
-                    daha yüklenebilir ){" "}
+                    ( {Number(item.doc_limit) - Number(item.doc_count)}{" "}
+                    {t("pageText.docLimit")} ){" "}
                   </small>
                 </h2>
                 <div className="doc-flex">
@@ -221,7 +199,7 @@ export default function Documents() {
                       onClick={() => modalAction(item.category_id)}
                     >
                       <div></div>
-                      <p>Yeni Belge Ekle</p>
+                      <p>{t("pageText.addDoc")}</p>
                     </div>
                   )}
                 </div>
@@ -232,16 +210,16 @@ export default function Documents() {
       </section>
 
       <Modal state={docModal} setState={setDocModal} title="Belge Yükle">
-        <p className="text-center">Her seferinde tek bir belge yükleyiniz</p>
+        <p className="text-center">{t("pageText.docInfo")}</p>
         <div>
           <div className="p-field">
-            <label htmlFor="title">Belgeyi isimlendirin</label>
+            <label htmlFor="title">{t("pageText.docInfoTitle")}</label>
             <InputText
               id="title"
               name="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Belge Adı"
+              placeholder={t("pageText.docInfoName")}
             />
           </div>
           <div className="p-field mt-3">
@@ -249,7 +227,7 @@ export default function Documents() {
           </div>
           <Button
             type="submit"
-            label={sending ? "Kaydediliyor..." : "Kaydet"}
+            label={sending ? t("input.savePending") : t("input.save")}
             className="mt-3 w-100"
             onClick={() => createDoc(activeCat)}
             disabled={sending}

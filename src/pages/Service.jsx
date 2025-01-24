@@ -5,9 +5,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Contact from "./Modules/Contact";
+import { useTranslation } from "react-i18next";
 
 export default function Service() {
   const { link } = useParams();
+  const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
@@ -32,7 +34,9 @@ export default function Service() {
               <div className="row flex-md-row flex-column-reverse gap-md-0 gap-2">
                 <div className="col-md-6 col-12">
                   <div className="module-head">
-                    <span className="sm-title">Hizmetler</span>
+                    <span className="sm-title">
+                      {t("pageText.service_title")}
+                    </span>
                     <h2 className="module-title">{data.title}</h2>
                   </div>
                   <div

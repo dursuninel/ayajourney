@@ -1,24 +1,26 @@
 import React from "react";
 import SchengenStepForm from "../components/forms/SchengenStepForm";
+import { useTranslation } from "react-i18next";
 
 export default function SchengenForm() {
+  const { t } = useTranslation();
+
   return (
     <>
       <section className="page-banner">
         <div className="container">
           <div className="page-banner-content">
-            <h1>Schengen Vize Bilgi Formu</h1>
+            <h1>{t("pageText.schengen_banner")}</h1>
           </div>
         </div>
       </section>
 
       <section>
         <div className="container">
-          <p className="page-description">
-            Schengen vize başvurularında istenen formu dikkatlice doldurunuz.{" "}
-            <br />
-            Lütfen bilgilerinizde Türkçe karakterler kullanmayınız.
-          </p>
+          <p
+            className="page-description"
+            dangerouslySetInnerHTML={{ __html: t("pageText.schengen_text") }}
+          />
         </div>
       </section>
 
@@ -26,7 +28,7 @@ export default function SchengenForm() {
         <div className="container">
           <SchengenStepForm />
 
-          <h2
+          {/* <h2
             style={{
               backgroundColor: "var(--blue)",
               color: "white",
@@ -35,7 +37,7 @@ export default function SchengenForm() {
             }}
           >
             Yapım aşamasında
-          </h2>
+          </h2> */}
         </div>
       </section>
     </>

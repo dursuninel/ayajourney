@@ -8,6 +8,7 @@ import ContactForm from "../components/forms/ContactForm";
 import BlogSlider from "../components/BlogSlider";
 import { useSiteType } from "../context/SiteTypeContext";
 import { useGlobal } from "../context/GlobalContext";
+import { useTranslation } from "react-i18next";
 
 const PostSlider = () => {
   const images = [
@@ -199,6 +200,8 @@ export default function EducationHome() {
     }
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <>
       {/* Banner */}
@@ -274,7 +277,7 @@ export default function EducationHome() {
           <div className="row align-items-center flex-md-row flex-column-reverse">
             <div className="col-md-6 col-12">
               <div className="module-head">
-                <span className="sm-title">Hizmetlerimiz</span>
+                <span className="sm-title">{t("pageText.services")}</span>
                 <h2 className="module-title">
                   {
                     wbContent?.uniqWebText.find(
@@ -294,7 +297,7 @@ export default function EducationHome() {
                 </p>
               </div>
               <NavLink to="/about-us" className="btn-style">
-                Detaylı Bilgi
+                {t("pageText.detail_info")}
               </NavLink>
             </div>
 
@@ -315,180 +318,6 @@ export default function EducationHome() {
         </div>
       </section>
 
-      {/* Paketler */}
-      {/* <section>
-        <div className="container">
-          <div className="module-head">
-            <span className="sm-title center">Paketler</span>
-            <h2 className="module-title center">Paket Hizmetlerimiz</h2>
-          </div>
-          {isMobile ? (
-            <Swiper autoHeight={true} spaceBetween={16} slidesPerView={1}>
-              <SwiperSlide className="package-item">
-                <div>
-                  <div>
-                    <h3 className="pckg-title">Vize Hizmeti</h3>
-                    <p className="pckg-price">$89</p>
-                    <span>* Devlet ücretleri dahildir</span>
-                  </div>
-                  <NavLink to="#" className="btn-style">
-                    Hemen Al
-                  </NavLink>
-                  <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
-                    <ul>
-                      <li>Kişisel vize danışmanının tüm avantajları</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Onlarca yıllık deneyim</li>
-                    </ul>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="package-item most-populer">
-                <div>
-                  <div className="most-populer-btn">En Popüler</div>
-                  <div>
-                    <h3 className="pckg-title">ABD Vize Hizmeti</h3>
-                    <p className="pckg-price">$175</p>
-                    <span>* Devlet ücretleri dahildir</span>
-                  </div>
-                  <NavLink to="#" className="btn-style">
-                    Hemen Al
-                  </NavLink>
-                  <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
-                    <ul>
-                      <li>Kişisel vize danışmanının tüm avantajları</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Onlarca yıllık deneyim</li>
-                      <li>Bir kerelik nezaketen yeniden işleme</li>
-                      <li>Çok daha fazlası ...</li>
-                    </ul>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="package-item">
-                <div>
-                  <div>
-                    <h3 className="pckg-title">VIP Vize Hizmeti</h3>
-                    <p className="pckg-price">$495</p>
-                    <span>* Devlet ücretleri dahildir</span>
-                  </div>
-                  <NavLink to="#" className="btn-style">
-                    Hemen Al
-                  </NavLink>
-                  <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
-                    <ul>
-                      <li>Kişisel vize danışmanının tüm avantajları</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Onlarca yıllık deneyim</li>
-                      <li>Bir kerelik nezaketen yeniden işleme</li>
-                      <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                      <li>Kullanıcı dostu dijital araçlar</li>
-                      <li>Çok daha fazlası ...</li>
-                    </ul>
-                  </div>
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          ) : (
-            <div className="packages-flex">
-              <div className="package-item">
-                <div>
-                  <h3 className="pckg-title">Vize Hizmeti</h3>
-                  <p className="pckg-price">$89</p>
-                  <span>* Devlet ücretleri dahildir</span>
-                </div>
-                <NavLink to="#" className="btn-style">
-                  Hemen Al
-                </NavLink>
-                <div>
-                  <h4>Pakete Dahil olan özellikler</h4>
-                  <ul>
-                    <li>Kişisel vize danışmanının tüm avantajları</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Onlarca yıllık deneyim</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="package-item most-populer">
-                <div className="most-populer-btn">En Popüler</div>
-                <div>
-                  <h3 className="pckg-title">ABD Vize Hizmeti</h3>
-                  <p className="pckg-price">$175</p>
-                  <span>* Devlet ücretleri dahildir</span>
-                </div>
-                <NavLink to="#" className="btn-style">
-                  Hemen Al
-                </NavLink>
-                <div>
-                  <h4>Pakete Dahil olan özellikler</h4>
-                  <ul>
-                    <li>Kişisel vize danışmanının tüm avantajları</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Onlarca yıllık deneyim</li>
-                    <li>Bir kerelik nezaketen yeniden işleme</li>
-                    <li>Çok daha fazlası ...</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="package-item">
-                <div>
-                  <h3 className="pckg-title">VIP Vize Hizmeti</h3>
-                  <p className="pckg-price">$495</p>
-                  <span>* Devlet ücretleri dahildir</span>
-                </div>
-                <NavLink to="#" className="btn-style">
-                  Hemen Al
-                </NavLink>
-                <div>
-                  <h4>Pakete Dahil olan özellikler</h4>
-                  <ul>
-                    <li>Kişisel vize danışmanının tüm avantajları</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Onlarca yıllık deneyim</li>
-                    <li>Bir kerelik nezaketen yeniden işleme</li>
-                    <li>Dünyanın her yerinde 7/24 sınırsız destek</li>
-                    <li>Kullanıcı dostu dijital araçlar</li>
-                    <li>Çok daha fazlası ...</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </section> */}
-
-      {/* Vize Durum Kontrolü */}
-      {/* <section>
-        <div className="container">
-          <div className="visa_status">
-            <span className="check">
-              <i className="fa-solid fa-check"></i>
-            </span>
-            <div>
-              <h2>Vize görüşmesine hazır mısın?</h2>
-              <h3>
-                Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
-              </h3>
-              <NavLink to="#" className="btn-style transparent mt-4">
-                Hemen İncele
-              </NavLink>
-            </div>
-            <div>
-              <img src={require("../assets/images/visa_status.png")} alt="" />
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       {/* Neden Bizi Seçmelisiniz */}
       <section>
         <div className="container">
@@ -502,7 +331,7 @@ export default function EducationHome() {
             </div>
             <div className="col-md-6 col-12">
               <div className="module-head">
-                <span className="sm-title">Hakkımızda</span>
+                <span className="sm-title">{t("pageText.aboutTitle")}</span>
                 <h2 className="module-title">
                   {
                     wbContent?.uniqWebText.find(
@@ -520,7 +349,7 @@ export default function EducationHome() {
                 }}
               />
               <NavLink to="/about-us" className="btn-style">
-                Detaylı Bilgi
+                {t("pageText.detail_info")}
               </NavLink>
             </div>
           </div>
@@ -531,8 +360,10 @@ export default function EducationHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Sosyal Medya</span>
-            <h2 className="module-title center">İnstagram Paylaşımlarımız</h2>
+            <span className="sm-title center">
+              {t("pageText.social_media")}
+            </span>
+            <h2 className="module-title center">{t("pageText.insta_title")}</h2>
           </div>
           <div className="post_slider">
             <PostSlider />
@@ -544,8 +375,12 @@ export default function EducationHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Müşteri Yorumları</span>
-            <h2 className="module-title center">Müşterilerimizden Hikayeler</h2>
+            <span className="sm-title center">
+              {t("pageText.person_reviews")}
+            </span>
+            <h2 className="module-title center">
+              {t("pageText.person_story")}
+            </h2>
           </div>
 
           <div className="">
@@ -558,8 +393,8 @@ export default function EducationHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Bloglar</span>
-            <h2 className="module-title center">Son Bloglar</h2>
+            <span className="sm-title center">{t("pageText.blogs")}</span>
+            <h2 className="module-title center">{t("pageText.lastBlog")}</h2>
           </div>
           <div className="blog_slider">
             <BlogSlider />
@@ -573,8 +408,8 @@ export default function EducationHome() {
           <div className="row align-items-center">
             <div className="col-lg-6">
               <div className="module-head">
-                <span className="sm-title">İletişim</span>
-                <h2 className="module-title">Bizimle İletişime Geçin</h2>
+                <span className="sm-title">{t("pageText.contactSmTitle")}</span>
+                <h2 className="module-title">{t("pageText.contactTitle")}</h2>
               </div>
 
               <div>
@@ -593,25 +428,6 @@ export default function EducationHome() {
           </div>
         </div>
       </section>
-
-      {/* <section>
-        <div className="container">
-          <div className="rezervation_module">
-            <div>
-              <h2>Hemen Rezervayon</h2>
-              <h3>
-                Her 4 vizeden 1'i reddediliyor. Aya Journey ile hemen mümkün!
-              </h3>
-              <NavLink to="#" className="btn-style transparent mt-4">
-                Detaylı Bilgi
-              </NavLink>
-            </div>
-            <div>
-              <img src={require("../assets/images/flags.png")} alt="" />
-            </div>
-          </div>
-        </div>
-      </section> */}
     </>
   );
 }

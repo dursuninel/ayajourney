@@ -49,7 +49,7 @@ const SchengenStepForm = () => {
     {
       id: 1,
       step: steps[0],
-      label: "Soyadınız2",
+      label: "Soyadınız",
       name: "surname",
       type: "text",
       required: true,

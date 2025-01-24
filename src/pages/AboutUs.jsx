@@ -2,9 +2,11 @@ import React from "react";
 
 import PageBanner from "../components/PageBanner";
 import { useGlobal } from "../context/GlobalContext";
+import { useTranslation } from "react-i18next";
 
 export default function AboutUs() {
   const { wbContent } = useGlobal();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -22,7 +24,7 @@ export default function AboutUs() {
             </div>
             <div className="col-md-6 col-12">
               <div className="module-head">
-                <span className="sm-title">Hakkımızda</span>
+                <span className="sm-title">{t("pageText.aboutTitle")}</span>
                 <h2 className="module-title">
                   {
                     wbContent?.uniqWebText.find(
@@ -49,7 +51,7 @@ export default function AboutUs() {
           <div className="row align-items-center flex-md-row flex-column-reverse gap-md-0 gap-2">
             <div className="col-md-6 col-12">
               <div className="module-head">
-                <span className="sm-title">Biz Kimiz ?</span>
+                <span className="sm-title">{t("pageText.weWho")}</span>
                 <h2 className="module-title">
                   {
                     wbContent?.uniqWebText.find(

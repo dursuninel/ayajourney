@@ -5,6 +5,7 @@ import TiltBox from "../components/TiltBox";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { useTranslation } from "react-i18next";
 
 export default function Blog() {
   const [datas, setDatas] = useState([]);
@@ -16,9 +17,11 @@ export default function Blog() {
     });
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <>
-      <PageBanner title={"Bloglar"} />
+      <PageBanner title={t("pageText.blogs")} />
 
       <section>
         <div
@@ -33,7 +36,9 @@ export default function Blog() {
                   <NavLink to={`/blog/${item.link}`} className="blog-item">
                     <img src={item.image} alt={item.title} />
                     <div className="blog-card-content">
-                      <span className="date">{new Date(item.date).toLocaleDateString("tr-TR")}</span>
+                      <span className="date">
+                        {new Date(item.date).toLocaleDateString("tr-TR")}
+                      </span>
                       <h3>{item.title}</h3>
                     </div>
                   </NavLink>

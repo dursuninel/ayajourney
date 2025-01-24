@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSiteType } from "../context/SiteTypeContext";
 import ParticlesComponent from "../components/ParticlesComponent";
 import logo from "../assets/images/aya_journey_logo.svg";
+import { useTranslation } from "react-i18next";
 
 export default function Main() {
   const { mainLoadTime, siteType, changeSiteType, resetSiteType } =
     useSiteType();
+  const { t } = useTranslation();
 
   const [hideChoiceMain, setHideChoiceMain] = useState(false); // .choice-main görünürlük kontrolü
 
@@ -31,8 +33,11 @@ export default function Main() {
           }`}
         >
           <div className="choice-content">
-            <img src={require("../assets/images/vize.png")} alt="" />
-            <span>Vize</span>
+            <img
+              src={require("../assets/images/vize.png")}
+              alt={t("types.typeOne")}
+            />
+            <span>{t("types.typeOne")}</span>
           </div>
         </div>
         <div
@@ -42,15 +47,18 @@ export default function Main() {
           }`}
         >
           <div className="choice-content">
-            <img src={require("../assets/images/yurtdisi.png")} alt="" />
-            <span>Yurtdışı Eğitim</span>
+            <img
+              src={require("../assets/images/yurtdisi.png")}
+              alt={t("types.typeTwo")}
+            />
+            <span>{t("types.typeTwo")}</span>
           </div>
         </div>
       </div>
       <div className="choise-cover">
         {/* <h1>AyaJourney'e Hoşgeldiniz</h1> */}
         <div className="cover_logo">
-          <img src={logo} alt="" />
+          <img src={logo} alt="Aya Journey" />
         </div>
       </div>
 

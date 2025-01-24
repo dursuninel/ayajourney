@@ -21,6 +21,7 @@ import { UserContext } from "../context/UserContext";
 import { Toast } from "primereact/toast";
 import Modal from "../components/Modal";
 import TakePackageForm from "../components/forms/TakePackageForm";
+import { useTranslation } from "react-i18next";
 
 const PostSlider = () => {
   const images = [
@@ -211,6 +212,7 @@ const TestimonialSlider = () => {
 export default function VisaHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const { user } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const { activeLanguage } = useLanguage();
 
@@ -324,7 +326,7 @@ export default function VisaHome() {
           <div className="row align-items-center flex-md-row flex-column-reverse">
             <div className="col-md-6 col-12">
               <div className="module-head">
-                <span className="sm-title">Hizmetlerimiz</span>
+                <span className="sm-title">{t("pageText.services")}</span>
                 <h2 className="module-title">
                   {
                     wbContent?.uniqWebText.find(
@@ -344,7 +346,7 @@ export default function VisaHome() {
                 </p>
               </div>
               <NavLink to="/about-us" className="btn-style">
-                Detaylı Bilgi
+                {t("pageText.detail_info")}
               </NavLink>
             </div>
 
@@ -369,8 +371,12 @@ export default function VisaHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Paketler</span>
-            <h2 className="module-title center">Paket Hizmetlerimiz</h2>
+            <span className="sm-title center">
+              {t("pageText.packagesSmTitle")}
+            </span>
+            <h2 className="module-title center">
+              {t("pageText.packagesTitle")}
+            </h2>
           </div>
           {isMobile ? (
             <Swiper autoHeight={true} spaceBetween={16} slidesPerView={1}>
@@ -383,7 +389,9 @@ export default function VisaHome() {
                 >
                   <div>
                     {Number(item.popular) === 1 && (
-                      <div className="most-populer-btn">En Popüler</div>
+                      <div className="most-populer-btn">
+                        {t("pageText.bestPopuler")}
+                      </div>
                     )}
                     <div>
                       <h3 className="pckg-title">{item.title}</h3>
@@ -391,20 +399,20 @@ export default function VisaHome() {
                         <p className="pckg-price">{item.price}</p>
                       ) : (
                         <p className="pckg-price-message">
-                          Fiyatı görmek için giriş yapın
+                          {t("pageText.showPrice")}
                         </p>
                       )}
 
-                      <span>* Devlet ücretleri dahildir</span>
+                      <span>{t("pageText.inPriceText")}</span>
                     </div>
                     <button
                       onClick={() => handleTakePackage(item.id)}
                       className="btn-style w-100"
                     >
-                      Hemen Al
+                      {t("pageText.nowTake")}
                     </button>
                     <div>
-                      <h4>Pakete Dahil olan özellikler</h4>
+                      <h4>{t("pageText.packageAttr")}</h4>
                       <div dangerouslySetInnerHTML={{ __html: item.content }} />
                     </div>
                   </div>
@@ -422,7 +430,9 @@ export default function VisaHome() {
                   }`}
                 >
                   {Number(item.popular) === 1 && (
-                    <div className="most-populer-btn">En Popüler</div>
+                    <div className="most-populer-btn">
+                      {t("pageText.bestPopuler")}
+                    </div>
                   )}
 
                   <div>
@@ -431,19 +441,19 @@ export default function VisaHome() {
                       <p className="pckg-price">{item.price}</p>
                     ) : (
                       <p className="pckg-price-message">
-                        Fiyatı görmek için giriş yapın
+                        {t("pageText.showPrice")}
                       </p>
                     )}
-                    <span>* Devlet ücretleri dahildir</span>
+                    <span>{t("pageText.inPriceText")}</span>
                   </div>
                   <button
                     onClick={() => handleTakePackage(item.id)}
                     className="btn-style w-100"
                   >
-                    Hemen Al
+                    {t("pageText.nowTake")}
                   </button>
                   <div>
-                    <h4>Pakete Dahil olan özellikler</h4>
+                    <h4>{t("pageText.packageAttr")}</h4>
                     <div dangerouslySetInnerHTML={{ __html: item.content }} />
                   </div>
                 </div>
@@ -483,7 +493,7 @@ export default function VisaHome() {
                 to="/visa-calculate"
                 className="btn-style transparent mt-4"
               >
-                Hemen İncele
+                {t("pageText.now_examine")}
               </NavLink>
             </div>
             <div>
@@ -506,7 +516,7 @@ export default function VisaHome() {
             </div>
             <div className="col-md-6 col-12">
               <div className="module-head">
-                <span className="sm-title">Hakkımızda</span>
+                <span className="sm-title">{t("pageText.aboutTitle")}</span>
                 <h2 className="module-title">
                   {
                     wbContent?.uniqWebText.find(
@@ -524,7 +534,7 @@ export default function VisaHome() {
                 }}
               />
               <NavLink to="/about-us" className="btn-style">
-                Detaylı Bilgi
+                {t("pageText.detail_info")}
               </NavLink>
             </div>
           </div>
@@ -535,8 +545,10 @@ export default function VisaHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Sosyal Medya</span>
-            <h2 className="module-title center">İnstagram Paylaşımlarımız</h2>
+            <span className="sm-title center">
+              {t("pageText.social_media")}
+            </span>
+            <h2 className="module-title center">{t("pageText.insta_title")}</h2>
           </div>
           <div className="post_slider">
             <PostSlider />
@@ -548,8 +560,12 @@ export default function VisaHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Müşteri Yorumları</span>
-            <h2 className="module-title center">Müşterilerimizden Hikayeler</h2>
+            <span className="sm-title center">
+              {t("pageText.person_reviews")}
+            </span>
+            <h2 className="module-title center">
+              {t("pageText.person_story")}
+            </h2>
           </div>
 
           <div className="">
@@ -562,8 +578,8 @@ export default function VisaHome() {
       <section>
         <div className="container">
           <div className="module-head">
-            <span className="sm-title center">Bloglar</span>
-            <h2 className="module-title center">Son Bloglar</h2>
+            <span className="sm-title center">{t("pageText.blogs")}</span>
+            <h2 className="module-title center">{t("pageText.lastBlog")}</h2>
           </div>
           <div className="blog_slider">
             <BlogSlider />
@@ -577,8 +593,8 @@ export default function VisaHome() {
           <div className="row align-items-center">
             <div className="col-lg-6">
               <div className="module-head">
-                <span className="sm-title">İletişim</span>
-                <h2 className="module-title">Bizimle İletişime Geçin</h2>
+                <span className="sm-title">{t("pageText.contactSmTitle")}</span>
+                <h2 className="module-title">{t("pageText.contactTitle")}</h2>
               </div>
 
               <div>
@@ -617,11 +633,14 @@ export default function VisaHome() {
                 }
               </h3>
               <NavLink to="#" className="btn-style transparent mt-4">
-                Detaylı Bilgi
+                {t("pageText.detail_info")}
               </NavLink>
             </div>
             <div>
-              <img src={require("../assets/images/flags.png")} alt="" />
+              <img
+                src={require("../assets/images/flags.png")}
+                alt="Aya Journey"
+              />
             </div>
           </div>
         </div>

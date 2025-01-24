@@ -6,6 +6,7 @@ import PageIncudes from "./layout/PageIncudes";
 import { UserContext } from "./context/UserContext";
 import axios from "axios";
 import Documents from "./pages/Documents";
+import { useTranslation } from "react-i18next";
 
 // Pages
 
@@ -75,6 +76,9 @@ function App() {
     };
   }, []);
 
+  const { t } = useTranslation();
+
+
   return (
     <>
       <main>
@@ -90,7 +94,7 @@ function App() {
             <Route
               path={"/visa"}
               element={
-                <PageIncudes title={"Vize"}>
+                <PageIncudes title={t("pageTitle.visa")}>
                   <VisaHome />
                 </PageIncudes>
               }
@@ -99,7 +103,7 @@ function App() {
             <Route
               path={"/education"}
               element={
-                <PageIncudes title={"Yurtdışı Eğitim"}>
+                <PageIncudes title={t("pageTitle.education_abroad")}>
                   <EducationHome />
                 </PageIncudes>
               }
@@ -108,7 +112,7 @@ function App() {
             <Route
               path={"/uk-form"}
               element={
-                <PageIncudes title={"İngiltere Vize Formu"}>
+                <PageIncudes title={t("pageTitle.uk_visa_form")}>
                   <VisaForm />
                 </PageIncudes>
               }
@@ -117,7 +121,7 @@ function App() {
             <Route
               path={"/schengen-form"}
               element={
-                <PageIncudes title={"Schengen Vize Formu"}>
+                <PageIncudes title={t("pageTitle.schengen_visa_form")}>
                   <SchengenForm />
                 </PageIncudes>
               }
@@ -126,7 +130,7 @@ function App() {
             <Route
               path={"/usa-form"}
               element={
-                <PageIncudes title={"USA Vize Formu"}>
+                <PageIncudes title={t("pageTitle.usa_visa_form")}>
                   <UsaForm />
                 </PageIncudes>
               }
@@ -135,7 +139,7 @@ function App() {
             <Route
               path={"/visa-calculate"}
               element={
-                <PageIncudes title={"Vize Alma İhtimalinizi Öğrenin"}>
+                <PageIncudes title={t("pageTitle.visa_calc")}>
                   <VisaCalculateForm />
                 </PageIncudes>
               }
@@ -144,7 +148,7 @@ function App() {
             <Route
               path={"/about-us"}
               element={
-                <PageIncudes title={"Hakkımızda"}>
+                <PageIncudes title={t("pageTitle.about")}>
                   <AboutUs />
                 </PageIncudes>
               }
@@ -162,7 +166,7 @@ function App() {
             <Route
               path={"/contact"}
               element={
-                <PageIncudes title={"İletişim"}>
+                <PageIncudes title={t("pageTitle.contact")}>
                   <Contact />
                 </PageIncudes>
               }
@@ -171,7 +175,7 @@ function App() {
             <Route
               path={"/blog"}
               element={
-                <PageIncudes title={"Bloglar"}>
+                <PageIncudes title={t("pageTitle.blogs")}>
                   <Blog />
                 </PageIncudes>
               }
@@ -189,7 +193,7 @@ function App() {
             <Route
               path={"/my-documents"}
               element={
-                <PageIncudes title={"Belgelerim"}>
+                <PageIncudes title={t("pageTitle.docs")}>
                   <Documents />
                 </PageIncudes>
               }
