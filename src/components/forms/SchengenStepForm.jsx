@@ -22,26 +22,32 @@ const SchengenStepForm = () => {
     {
       id: 0,
       label: "Kişisel Bilgiler",
+      text: t("schengenForm.step1"),
     },
     {
       id: 1,
       label: "Pasaport Bilgileri",
+      text: t("schengenForm.step2"),
     },
     {
       id: 2,
       label: "İletişim Bilgileri",
+      text: t("schengenForm.step3"),
     },
     {
       id: 3,
       label: "Mesleki Durum / Eğitim Bilgileri",
+      text: t("schengenForm.step4"),
     },
     {
       id: 4,
       label: "Seyahat Bilgileri",
+      text: t("schengenForm.step5"),
     },
     {
       id: 5,
       label: "Ek Bilgiler",
+      text: t("schengenForm.step6"),
     },
   ];
 
@@ -53,6 +59,7 @@ const SchengenStepForm = () => {
       name: "surname",
       type: "text",
       required: true,
+      text: t("schengenForm.question1"),
     },
     {
       id: 2,
@@ -61,6 +68,7 @@ const SchengenStepForm = () => {
       name: "previous_surname",
       type: "text",
       required: false,
+      text: t("schengenForm.question2"),
     },
     {
       id: 3,
@@ -69,6 +77,7 @@ const SchengenStepForm = () => {
       name: "name",
       type: "text",
       required: true,
+      text: t("schengenForm.question3"),
     },
     {
       id: 4,
@@ -77,6 +86,7 @@ const SchengenStepForm = () => {
       name: "birth_date",
       type: "calendar",
       required: true,
+      text: t("schengenForm.question4"),
     },
     {
       id: 5,
@@ -85,6 +95,7 @@ const SchengenStepForm = () => {
       name: "birth_place",
       type: "text",
       required: true,
+      text: t("schengenForm.question5"),
     },
     {
       id: 6,
@@ -93,6 +104,7 @@ const SchengenStepForm = () => {
       name: "birth_country",
       type: "text",
       required: true,
+      text: t("schengenForm.question6"),
     },
     {
       id: 7,
@@ -101,6 +113,7 @@ const SchengenStepForm = () => {
       name: "citizenship",
       type: "text",
       required: true,
+      text: t("schengenForm.question7"),
     },
     {
       id: 8,
@@ -109,6 +122,7 @@ const SchengenStepForm = () => {
       name: "other_citizenship",
       type: "text",
       required: false,
+      text: t("schengenForm.question8"),
     },
     {
       id: 9,
@@ -116,12 +130,38 @@ const SchengenStepForm = () => {
       label: "Medeni durumunuz nedir?",
       name: "marital_status",
       type: "dropdown",
+      text: t("schengenForm.question9"),
       options: [
-        { label: "Bekar", value: "Bekar" },
-        { label: "Evli", value: "Evli" },
-        { label: "Boşanmış", value: "Boşanmış" },
-        { label: "Dul", value: "Dul" },
-        { label: "Kayıt dışı beraberlik", value: "Kayıt dışı beraberlik" },
+        {
+          label: "Bekar",
+          showValue: "Bekar",
+          text: t("schengenForm.question9_1"),
+          value: t("schengenForm.question9_1"),
+        },
+        {
+          label: "Evli",
+          showValue: "Evli",
+          text: t("schengenForm.question9_2"),
+          value: t("schengenForm.question9_2"),
+        },
+        {
+          label: "Boşanmış",
+          showValue: "Boşanmış",
+          text: t("schengenForm.question9_3"),
+          value: t("schengenForm.question9_3"),
+        },
+        {
+          label: "Dul",
+          showValue: "Dul",
+          text: t("schengenForm.question9_4"),
+          value: t("schengenForm.question9_4"),
+        },
+        {
+          label: "Kayıt dışı beraberlik",
+          showValue: "Kayıt dışı beraberlik",
+          text: t("schengenForm.question9_5"),
+          value: t("schengenForm.question9_5"),
+        },
       ],
       required: true,
     },
@@ -131,9 +171,20 @@ const SchengenStepForm = () => {
       label: "18 yaşından büyükmüsünüz?",
       name: "is_adult",
       type: "dropdown",
+      text: t("schengenForm.question10"),
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question10_1"),
+          value: t("schengenForm.question10_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question10_2"),
+          value: t("schengenForm.question10_2"),
+        },
       ],
       required: true,
       otherInputs: [
@@ -143,6 +194,7 @@ const SchengenStepForm = () => {
           label: "Ebeveynin adı soyadı",
           type: "text",
           required: true,
+          text: t("schengenForm.question10_2_1"),
           if_value: ["Hayır"],
         },
         {
@@ -151,6 +203,7 @@ const SchengenStepForm = () => {
           label: "Ebeveynin adresi",
           type: "text",
           required: true,
+          text: t("schengenForm.question10_2_2"),
           if_value: ["Hayır"],
         },
         {
@@ -159,6 +212,7 @@ const SchengenStepForm = () => {
           label: "Ebeveynin telefonu",
           type: "text",
           required: true,
+          text: t("schengenForm.question10_2_3"),
           if_value: ["Hayır"],
         },
         {
@@ -167,6 +221,7 @@ const SchengenStepForm = () => {
           label: "Ebeveynin mail adresi",
           type: "text",
           required: true,
+          text: t("schengenForm.question10_2_4"),
           if_value: ["Hayır"],
         },
       ],
@@ -177,10 +232,12 @@ const SchengenStepForm = () => {
       label: "Kimlik numaranız nedir?",
       name: "identity_number",
       type: "text",
+      text: t("schengenForm.question11"),
       required: true,
     },
     {
       id: 12,
+      text: t("schengenForm.question12"),
       step: steps[1],
       label: "Pasaport numaranız nedir?",
       name: "passport_number",
@@ -189,6 +246,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 13,
+      text: t("schengenForm.question13"),
       step: steps[1],
       label: "Pasaport veriliş tarihi",
       name: "passport_issue_date",
@@ -197,6 +255,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 14,
+      text: t("schengenForm.question14"),
       step: steps[1],
       label: "Pasaport geçerlilik tarihi",
       name: "passport_expire_date",
@@ -205,6 +264,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 15,
+      text: t("schengenForm.question15"),
       step: steps[1],
       label: "Veren makam",
       name: "passport_issuing_authority",
@@ -213,6 +273,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 16,
+      text: t("schengenForm.question16"),
       step: steps[2],
       label: "İkametgah belgenizde belirtilen adres nedir?",
       name: "residence_address",
@@ -221,6 +282,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 17,
+      text: t("schengenForm.question17"),
       step: steps[2],
       label: "Telefon numaranız nedir?",
       name: "phone_number",
@@ -229,6 +291,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 18,
+      text: t("schengenForm.question18"),
       step: steps[2],
       label: "E-postanız nedir?",
       name: "email",
@@ -237,32 +300,65 @@ const SchengenStepForm = () => {
     },
     {
       id: 19,
+      text: t("schengenForm.question19"),
       step: steps[2],
       label:
         "İkamet ettiğiniz ülkeden farklı bir ülkede mi ikamet ediyorsunuz?",
       name: "is_residing_abroad",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question19_1"),
+          value: t("schengenForm.question19_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question19_2"),
+          value: t("schengenForm.question19_2"),
+        },
       ],
       required: true,
     },
     {
       id: 20,
+      text: t("schengenForm.question20"),
       step: steps[3],
       label: "Çalışma durumunuz nedir?",
       name: "employment_status",
       type: "dropdown",
       options: [
-        { label: "İşveren", value: "İşveren" },
-        { label: "Çalışan", value: "Çalışan" },
-        { label: "Öğrenci", value: "Öğrenci" },
-        { label: "Serbest meslek", value: "Serbest meslek" },
+        {
+          label: "İşveren",
+          showValue: "İşveren",
+          text: t("schengenForm.question20_1"),
+          value: t("schengenForm.question20_1"),
+        },
+        {
+          label: "Çalışan",
+          showValue: "Çalışan",
+          text: t("schengenForm.question20_2"),
+          value: t("schengenForm.question20_2"),
+        },
+        {
+          label: "Öğrenci",
+          showValue: "Öğrenci",
+          text: t("schengenForm.question20_3"),
+          value: t("schengenForm.question20_3"),
+        },
+        {
+          label: "Serbest meslek",
+          showValue: "Serbest meslek",
+          text: t("schengenForm.question20_4"),
+          value: t("schengenForm.question20_4"),
+        },
       ],
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question20_3_1"),
           name: "school_name",
           label: "Okul adı",
           type: "text",
@@ -271,6 +367,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 2,
+          text: t("schengenForm.question20_3_2"),
           name: "school_address",
           label: "Okul adresi",
           type: "text",
@@ -279,6 +376,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 3,
+          text: t("schengenForm.question20_3_3"),
           name: "school_phone",
           label: "Okul telefon numarası",
           type: "text",
@@ -287,6 +385,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 4,
+          text: t("schengenForm.question20_3_4"),
           name: "school_class",
           label: "Sınıf",
           type: "text",
@@ -295,6 +394,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 5,
+          text: t("schengenForm.question20_3_5"),
           name: "school_department",
           label: "Bölüm",
           type: "text",
@@ -303,6 +403,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 6,
+          text: t("schengenForm.question20_1_1"),
           name: "job_title",
           label: "Meslek",
           type: "text",
@@ -311,6 +412,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 7,
+          text: t("schengenForm.question20_1_2"),
           name: "company_name",
           label: "Şirket adı",
           type: "text",
@@ -319,6 +421,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 8,
+          text: t("schengenForm.question20_1_3"),
           name: "company_address",
           label: "İş adresi",
           type: "text",
@@ -327,6 +430,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 9,
+          text: t("schengenForm.question20_1_4"),
           name: "company_phone",
           label: "Şirket telefon numarası",
           type: "text",
@@ -338,18 +442,30 @@ const SchengenStepForm = () => {
     },
     {
       id: 21,
+      text: t("schengenForm.question21"),
       step: steps[4],
       label: "Tek mi seyahat edeceksiniz?",
       name: "is_traveling_alone",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question21_1"),
+          value: t("schengenForm.question21_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question21_2"),
+          value: t("schengenForm.question21_2"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question21_2_1"),
           name: "travel_companions",
           label: "Beraber gideceğiniz kişiler",
           type: "text",
@@ -360,6 +476,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 22,
+      text: t("schengenForm.question22"),
       step: steps[4],
       label: "Seyahat tarihleriniz",
       name: "travel_dates",
@@ -368,18 +485,30 @@ const SchengenStepForm = () => {
     },
     {
       id: 23,
+      text: t("schengenForm.question23"),
       step: steps[4],
       label: "Daha önce Schengen vizesi için parmak iziniz alındı mı?",
       name: "is_fingerprint_taken",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question23_1"),
+          value: t("schengenForm.question23_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question23_2"),
+          value: t("schengenForm.question23_2"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question23_1_1"),
           name: "fingerprint_date",
           label: "Parmak izi alınma tarihi",
           type: "calendar",
@@ -390,6 +519,7 @@ const SchengenStepForm = () => {
     },
     {
       id: 24,
+      text: t("schengenForm.question24"),
       step: steps[4],
       label:
         "Son Schengen vizenizin etiket numarasını belirtiniz (Vize etiket numaranız; vizinizin sağ üst köşesinde bulunur, harfle başlayıp numara ile devam eder)",
@@ -399,18 +529,30 @@ const SchengenStepForm = () => {
     },
     {
       id: 25,
+      text: t("schengenForm.question25"),
       step: steps[4],
       label: "Kalacağınız otel belli mi?",
       name: "is_hotel_known",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question25_1"),
+          value: t("schengenForm.question25_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question25_2"),
+          value: t("schengenForm.question25_2"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question25_1_1"),
           name: "hotel_name",
           label: "Otel adı",
           type: "text",
@@ -419,6 +561,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 2,
+          text: t("schengenForm.question25_1_2"),
           name: "hotel_address",
           label: "Otel adresi",
           type: "text",
@@ -427,6 +570,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 3,
+          text: t("schengenForm.question25_1_3"),
           name: "hotel_phone",
           label: "Otel telefonu",
           type: "text",
@@ -438,18 +582,35 @@ const SchengenStepForm = () => {
     {
       id: 26,
       step: steps[4],
+      text: t("schengenForm.question26"),
       label: "Masraflarınızı kim karşılayacak?",
       name: "expense_payer",
       type: "dropdown",
       options: [
-        { label: "Kendim", value: "Kendim" },
-        { label: "İşverenim", value: "İşverenim" },
-        { label: "Diğer kişi", value: "Diğer kişi" },
+        {
+          label: "Kendim",
+          showValue: "Kendim",
+          text: t("schengenForm.question26_1"),
+          value: t("schengenForm.question26_1"),
+        },
+        {
+          label: "İşverenim",
+          showValue: "İşverenim",
+          text: t("schengenForm.question26_2"),
+          value: t("schengenForm.question26_2"),
+        },
+        {
+          label: "Diğer kişi",
+          showValue: "Diğer kişi",
+          text: t("schengenForm.question26_3"),
+          value: t("schengenForm.question26_3"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question26_3_1"),
           name: "payer_name",
           label: "Ödeyenin adı soyadı",
           type: "text",
@@ -458,6 +619,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 2,
+          text: t("schengenForm.question26_3_2"),
           name: "payer_relation",
           label: "Yakınlık durumu",
           type: "text",
@@ -466,6 +628,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 3,
+          text: t("schengenForm.question26_3_3"),
           name: "payer_email",
           label: "E-posta adresi",
           type: "text",
@@ -474,6 +637,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 4,
+          text: t("schengenForm.question26_3_4"),
           name: "payer_phone",
           label: "Telefon numarası",
           type: "text",
@@ -485,17 +649,34 @@ const SchengenStepForm = () => {
     {
       id: 27,
       step: steps[4],
+      text: t("schengenForm.question27"),
       label: "Davetiyeniz varsa kim tarafından gönderildi?",
       name: "has_invitation",
       type: "dropdown",
       options: [
-        { label: "Kişi", value: "Kişi" },
-        { label: "Şirket", value: "Şirket" },
-        { label: "Davetiyem yok", value: "Davetiyem yok" },
+        {
+          label: "Kişi",
+          showValue: "Kişi",
+          text: t("schengenForm.question27_1"),
+          value: t("schengenForm.question27_1"),
+        },
+        {
+          label: "Şirket",
+          showValue: "Şirket",
+          text: t("schengenForm.question27_2"),
+          value: t("schengenForm.question27_2"),
+        },
+        {
+          label: "Davetiyem yok",
+          showValue: "Davetiyem yok",
+          text: t("schengenForm.question27_3"),
+          value: t("schengenForm.question27_3"),
+        },
       ],
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question27_1_1"),
           name: "inviter_name",
           label: "Davet eden kişinin adı soyadı",
           type: "text",
@@ -504,6 +685,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 2,
+          text: t("schengenForm.question27_1_2"),
           name: "inviter_address",
           label: "Adresi",
           type: "text",
@@ -512,6 +694,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 3,
+          text: t("schengenForm.question27_1_3"),
           name: "inviter_phone",
           label: "Telefon numarası",
           type: "text",
@@ -520,6 +703,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 4,
+          text: t("schengenForm.question27_1_4"),
           name: "inviter_email",
           label: "E-posta adresi",
           type: "text",
@@ -528,6 +712,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 5,
+          text: t("schengenForm.question27_1_5"),
           name: "inviter_relation",
           label: "Yakınlık durumu",
           type: "text",
@@ -536,6 +721,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 6,
+          text: t("schengenForm.question27_1_6"),
           name: "inviter_situation",
           label: "Davet eden kişinin Schengen ülkesindeki durumu",
           type: "text",
@@ -544,6 +730,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 7,
+          text: t("schengenForm.question27_2_1"),
           name: "company_name",
           label: "Şirket adı",
           type: "text",
@@ -552,6 +739,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 8,
+          text: t("schengenForm.question27_2_2"),
           name: "company_address",
           label: "Adresi",
           type: "text",
@@ -560,6 +748,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 9,
+          text: t("schengenForm.question27_2_3"),
           name: "company_phone",
           label: "Telefon numarası",
           type: "text",
@@ -568,6 +757,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 10,
+          text: t("schengenForm.question27_2_4"),
           name: "contact_person",
           label: "İrtibat kişisi",
           type: "text",
@@ -576,6 +766,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 11,
+          text: t("schengenForm.question27_3_1"),
           label: "Kalacağınız Otel Adresi",
           name: "hotel_info",
           type: "textarea",
@@ -587,17 +778,29 @@ const SchengenStepForm = () => {
     {
       id: 28,
       step: steps[4],
+      text: t("schengenForm.question28"),
       label: "Masrafları başka biri mi karşılayacak?",
       name: "is_expense_payer_other",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question28_1"),
+          value: t("schengenForm.question28_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question28_2"),
+          value: t("schengenForm.question28_2"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question28_1_1"),
           name: "payer_name",
           label: "Ödeyenin adı soyadı",
           type: "text",
@@ -606,6 +809,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 2,
+          text: t("schengenForm.question28_1_2"),
           name: "payer_phone",
           label: "Telefon numarası",
           type: "text",
@@ -614,6 +818,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 3,
+          text: t("schengenForm.question28_1_3"),
           name: "payer_email",
           label: "E-posta adresi",
           type: "text",
@@ -622,6 +827,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 4,
+          text: t("schengenForm.question28_1_4"),
           name: "payer_job",
           label: "Mesleği",
           type: "text",
@@ -630,6 +836,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 5,
+          text: t("schengenForm.question28_1_5"),
           name: "payer_relation",
           label: "Yakınlık durumu",
           type: "text",
@@ -641,17 +848,29 @@ const SchengenStepForm = () => {
     {
       id: 29,
       step: steps[5],
+      text: t("schengenForm.question29"),
       label: "Daha önce Schengen vizesi aldınız mı?",
       name: "is_visa_taken",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question29_1"),
+          value: t("schengenForm.question29_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question29_2"),
+          value: t("schengenForm.question29_2"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question29_1_1"),
           name: "visa_date",
           label: "Vize aldığınız tarih (Ortalama)",
           type: "calendar",
@@ -660,6 +879,7 @@ const SchengenStepForm = () => {
         },
         {
           id: 2,
+          text: t("schengenForm.question29_1_2"),
           name: "visa_countries",
           label: "Vize aldığınız ülkeler (Ortalama)",
           type: "text",
@@ -671,17 +891,29 @@ const SchengenStepForm = () => {
     {
       id: 30,
       step: steps[5],
+      text: t("schengenForm.question30"),
       label: "Schengen bölgesi dışında ülkelere seyahat ettiniz mi?",
       name: "is_travelled_outside_schengen",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question30_1"),
+          value: t("schengenForm.question30_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question30_2"),
+          value: t("schengenForm.question30_2"),
+        },
       ],
       required: true,
       otherInputs: [
         {
           id: 1,
+          text: t("schengenForm.question30_1_1"),
           name: "travelled_countries",
           label: "Seyahat ettiğiniz ülkeler",
           type: "text",
@@ -693,12 +925,23 @@ const SchengenStepForm = () => {
     {
       id: 31,
       step: steps[5],
+      text: t("schengenForm.question31"),
       label: "Aktif vizeniz var mı? (İngiltere, ABD vs.)",
       name: "is_active_visa",
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          showValue: "Evet",
+          text: t("schengenForm.question31_1"),
+          value: t("schengenForm.question31_1"),
+        },
+        {
+          label: "Hayır",
+          showValue: "Hayır",
+          text: t("schengenForm.question31_2"),
+          value: t("schengenForm.question31_2"),
+        },
       ],
       required: true,
     },
@@ -717,15 +960,13 @@ const SchengenStepForm = () => {
         [item.name]: {
           label: item.label,
           name: item.name,
-          value: "",
-          step: item.step,
+          step: { id: item.step.id, label: item.step.label },
           type: item.type,
           otherInputs: item.otherInputs
             ? item.otherInputs.reduce((acc, input) => {
                 acc[input.name] = {
                   label: input.label,
                   name: input.name,
-                  value: "",
                   type: input.type,
                   if_value: input.if_value,
                 };
@@ -806,8 +1047,8 @@ const SchengenStepForm = () => {
     } else {
       toast.current.show({
         severity: "error",
-        summary: "Hata",
-        detail: "Lütfen tüm alanları doldurun",
+        summary: t("swal.error"),
+        detail: t("swal.formError"),
         life: 2000,
       });
     }
@@ -863,8 +1104,9 @@ const SchengenStepForm = () => {
 
   const handleOtherInputChange = (e, item, input) => {
     const { name, value } = e.target;
+
     const convertedValue =
-      item.type === "calendar"
+      input.type === "calendar"
         ? value
         : convertToUppercaseAndReplaceTurkishChars(value);
 
@@ -897,29 +1139,41 @@ const SchengenStepForm = () => {
       });
 
       if (response.data.insertId) {
-        Swal.fire(
-          "Başarılı",
-          "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız.",
-          "success"
-        );
+        Swal.fire(t("swal.success"), t("swal.formSendSuccess"), "success");
         defaultSetValues();
         setCurrentStep(0);
       } else {
         toast.current.show({
           severity: "error",
-          summary: "Hata",
-          detail: "Form gönderilirken bir hata oluştu",
+          summary: t("swal.error"),
+          detail: t("swal.formSendError"),
           life: 2000,
         });
       }
     } else {
       toast.current.show({
         severity: "error",
-        summary: "Hata",
-        detail: "Lütfen tüm alanları doldurun",
+        summary: t("swal.error"),
+        detail: t("swal.formError"),
         life: 2000,
       });
     }
+  };
+
+  const valueTemplate = (option, props) => {
+    if (option) {
+      return <div>{option.text}</div>;
+    }
+
+    return <span>{props.placeholder}</span>;
+  };
+
+  const itemTemplate = (option, props) => {
+    if (option) {
+      return <div>{option.text}</div>;
+    }
+
+    return <span>{props.placeholder}</span>;
   };
 
   return (
@@ -940,7 +1194,7 @@ const SchengenStepForm = () => {
               }}
             >
               <span className="index">{item.id}</span>
-              <span className="step-name">{item.label}</span>
+              <span className="step-name">{item.text}</span>
             </div>
           ))}
         </div>
@@ -956,12 +1210,12 @@ const SchengenStepForm = () => {
                   .map((item, key) => (
                     <React.Fragment key={key}>
                       <div className="step_parent">
-                        <label htmlFor="fullName">{item.label}</label>
+                        <label htmlFor="fullName">{item.text}</label>
                         {item.type === "text" && (
                           <InputText
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             value={formValues[item.name]?.value || ""}
                             onChange={(e) => handleInputChange(e, item)}
                           />
@@ -970,7 +1224,7 @@ const SchengenStepForm = () => {
                           <InputTextarea
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             value={formValues[item.name]?.value || ""}
                             onChange={(e) => handleInputChange(e, item)}
                           />
@@ -979,8 +1233,10 @@ const SchengenStepForm = () => {
                           <Dropdown
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             options={item.options}
+                            valueTemplate={valueTemplate}
+                            itemTemplate={itemTemplate}
                             value={formValues[item.name]?.value || ""}
                             onChange={(e) => handleInputChange(e, item)}
                           />
@@ -991,7 +1247,7 @@ const SchengenStepForm = () => {
                             locale="tr"
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             value={formValues[item.name]?.value || null}
                             onChange={(date) =>
                               handleInputChange(
@@ -1019,13 +1275,13 @@ const SchengenStepForm = () => {
                               return (
                                 <div className="step_parent" key={input.name}>
                                   <label htmlFor={input.name}>
-                                    {input.label}
+                                    {input.text}
                                   </label>
                                   {input.type === "text" && (
                                     <InputText
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
@@ -1040,7 +1296,7 @@ const SchengenStepForm = () => {
                                     <InputTextarea
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
@@ -1055,8 +1311,10 @@ const SchengenStepForm = () => {
                                     <Dropdown
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       options={input.options}
+                                      valueTemplate={valueTemplate}
+                                      itemTemplate={itemTemplate}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
@@ -1073,7 +1331,7 @@ const SchengenStepForm = () => {
                                       locale="tr"
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name

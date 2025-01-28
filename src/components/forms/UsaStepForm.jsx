@@ -4,7 +4,6 @@ import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
 import React, { useState, useEffect, useRef } from "react";
-import TurkishToEnglish from "../TurkishToEnglish";
 import { t } from "i18next";
 import axios from "axios";
 import { useLanguage } from "../../context/LanguageContext";
@@ -22,38 +21,47 @@ const UsaStepForm = () => {
     {
       id: 0,
       label: "Kişisel Bilgiler",
+      text: t("usaForm.step1"),
     },
     {
       id: 1,
       label: "Seyahat Bilgileri",
+      text: t("usaForm.step2"),
     },
     {
       id: 2,
       label: "Geçmiş ABD Seyahat Bilgileri",
+      text: t("usaForm.step3"),
     },
     {
       id: 3,
       label: "İletişim Bilgileri",
+      text: t("usaForm.step4"),
     },
     {
       id: 4,
       label: "Pasaport Bilgileri",
+      text: t("usaForm.step5"),
     },
     {
       id: 5,
       label: "ABD Seyahatı İletişim Bilgileri",
+      text: t("usaForm.step6"),
     },
     {
       id: 6,
       label: "Aile Bilgileri",
+      text: t("usaForm.step7"),
     },
     {
       id: 7,
       label: "Güncel ve Geçmiş Mesleki Durum/Eğitim Bilgileri",
+      text: t("usaForm.step8"),
     },
     {
       id: 8,
       label: "Ek Zorunlu Bilgiler",
+      text: t("usaForm.step9"),
     },
   ];
 
@@ -62,6 +70,7 @@ const UsaStepForm = () => {
       id: 1,
       step: steps[0],
       name: "surname",
+      text: t("usaForm.question1"),
       label: "Soyadınız",
       type: "text",
       required: true,
@@ -71,6 +80,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "name",
       label: "Adınız",
+      text: t("usaForm.question2"),
       type: "text",
       required: true,
     },
@@ -78,6 +88,7 @@ const UsaStepForm = () => {
       id: 3,
       step: steps[0],
       name: "birthSurname",
+      text: t("usaForm.question3"),
       label:
         "Doğum ile Aldığınız Soyad Farklı İse Nedir? (Evlenmeden Önce – Değiştirilmiş Soyad)",
       type: "text",
@@ -88,6 +99,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "birthDate",
       label: "Doğum Tarihi",
+      text: t("usaForm.question4"),
       type: "calendar",
       required: true,
     },
@@ -96,6 +108,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "birthPlace",
       label: "Doğum Yeri",
+      text: t("usaForm.question5"),
       type: "text",
       required: true,
     },
@@ -104,6 +117,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "nationality",
       label: "Hangi Ülke Vatandaşısınız?",
+      text: t("usaForm.question6"),
       type: "text",
       required: true,
     },
@@ -112,10 +126,21 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "otherCitizenship",
       label: "Başka Bir Uyruga Sahip Misiniz?",
+      text: t("usaForm.question7"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question7_1"),
+          text: t("usaForm.question7_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question7_2"),
+          text: t("usaForm.question7_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
     },
@@ -124,10 +149,21 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "otherCitizenshipPassport",
       label: "O Bölgeye Ait Pasaportunuz Var mı?",
+      text: t("usaForm.question8"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question8_1"),
+          text: t("usaForm.question8_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question8_2"),
+          text: t("usaForm.question8_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -135,6 +171,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "otherCitizenshipPassportNumber",
           label: "Pasaport numarası nedir?",
+          text: t("usaForm.question8_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -147,10 +184,21 @@ const UsaStepForm = () => {
       name: "residenceInAnotherCountry",
       label:
         "Vatandaşı Olduğunuz Ülkeden Farklı Bir Ülkede Mi İkamet Ediyorsunuz?",
+      text: t("usaForm.question9"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question9_1"),
+          text: t("usaForm.question9_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question9_2"),
+          text: t("usaForm.question9_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -158,6 +206,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "residenceCountry",
           label: "Hangi ülke belirtiniz.",
+          text: t("usaForm.question9_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -169,6 +218,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "tcIdentityNumber",
       label: "TC Kimlik No",
+      text: t("usaForm.question10"),
       type: "text",
       required: true,
     },
@@ -177,6 +227,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "ssn",
       label: "ABD Sosyal Güvenlik Numaranız Varsa Nedir? (SSN)",
+      text: t("usaForm.question11"),
       type: "text",
       required: false,
     },
@@ -185,6 +236,7 @@ const UsaStepForm = () => {
       step: steps[0],
       name: "taxNumber",
       label: "ABD Vergi Mükellefi Kimlik Numaranız Varsa Nedir?",
+      text: t("usaForm.question12"),
       type: "text",
       required: false,
     },
@@ -193,6 +245,7 @@ const UsaStepForm = () => {
       step: steps[1],
       name: "visaType",
       label: "Hangi Vize Tipine Başvuruyorsunuz?",
+      text: t("usaForm.question13"),
       type: "text",
       required: true,
     },
@@ -201,10 +254,21 @@ const UsaStepForm = () => {
       step: steps[1],
       name: "specificPlan",
       label: "Spesifik Bir Tatil Planınız Var mı?",
+      text: t("usaForm.question14"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question14_1"),
+          text: t("usaForm.question14_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question14_2"),
+          text: t("usaForm.question14_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -212,6 +276,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "specificPlanDestination",
           label: "Varış Tarihi",
+          text: t("usaForm.question14_1_1"),
           type: "calendar",
           required: true,
           if_value: ["Evet"],
@@ -220,6 +285,7 @@ const UsaStepForm = () => {
           id: 2,
           name: "specificPlanCity",
           label: "Varış Şehri",
+          text: t("usaForm.question14_1_2"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -228,6 +294,7 @@ const UsaStepForm = () => {
           id: 3,
           name: "specificPlanDepartureDate",
           label: "Kalkış Tarihi",
+          text: t("usaForm.question14_1_3"),
           type: "calendar",
           required: true,
           if_value: ["Evet"],
@@ -236,6 +303,7 @@ const UsaStepForm = () => {
           id: 4,
           name: "specificPlanDepartureCity",
           label: "Kalkış Yeri",
+          text: t("usaForm.question14_1_4"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -244,6 +312,7 @@ const UsaStepForm = () => {
           id: 5,
           name: "specificPlanCities",
           label: "Hangi Şehir-Şehirleri Ziyaret Edeceksiniz?",
+          text: t("usaForm.question14_1_5"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -253,6 +322,7 @@ const UsaStepForm = () => {
           name: "specificPlanDate",
           label:
             "Tahmini seyahat tarihiniz nedir, kaç gün kalmayı planlıyorsunuz?",
+          text: t("usaForm.question14_1_6"),
           type: "text",
           required: true,
           if_value: ["Hayır"],
@@ -264,10 +334,21 @@ const UsaStepForm = () => {
       step: steps[1],
       name: "accommodation",
       label: "Kalacağınız Adres Belli Mi?",
+      text: t("usaForm.question15"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question15_1"),
+          text: t("usaForm.question15_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question15_2"),
+          text: t("usaForm.question15_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -275,6 +356,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "accommodationAddress",
           label: "Adresi nedir?",
+          text: t("usaForm.question15_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -286,13 +368,39 @@ const UsaStepForm = () => {
       step: steps[1],
       name: "travelCosts",
       label: "Seyahat Masraflarını Kim Karşılayacak?",
+      text: t("usaForm.question16"),
       type: "dropdown",
       options: [
-        { label: "Kendisi", value: "Kendisi" },
-        { label: "İşveren", value: "İşveren" },
-        { label: "ABD’de İşveren", value: "ABD’de İşveren" },
-        { label: "Diğer Kişi", value: "Diğer Kişi" },
-        { label: "Diğer Şirket", value: "Diğer Şirket" },
+        {
+          label: "Kendisi",
+          value: t("usaForm.question16_1"),
+          text: t("usaForm.question16_1"),
+          showValue: "Kendisi",
+        },
+        {
+          label: "İşveren",
+          value: t("usaForm.question16_2"),
+          text: t("usaForm.question16_2"),
+          showValue: "İşveren",
+        },
+        {
+          label: "ABD’de İşveren",
+          value: t("usaForm.question16_3"),
+          text: t("usaForm.question16_3"),
+          showValue: "ABD’de İşveren",
+        },
+        {
+          label: "Diğer Kişi",
+          value: t("usaForm.question16_4"),
+          text: t("usaForm.question16_4"),
+          showValue: "Diğer Kişi",
+        },
+        {
+          label: "Diğer Şirket",
+          value: t("usaForm.question16_5"),
+          text: t("usaForm.question16_5"),
+          showValue: "Diğer Şirket",
+        },
       ],
       required: true,
       otherInputs: [
@@ -300,6 +408,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "travelCostsPersonName",
           label: "Kişinin Adı Soyadı",
+          text: t("usaForm.question16_4_1"),
           type: "text",
           required: true,
           if_value: ["Diğer Kişi"],
@@ -308,6 +417,7 @@ const UsaStepForm = () => {
           id: 2,
           name: "travelCostsPersonPhone",
           label: "Telefon Numarası",
+          text: t("usaForm.question16_4_2"),
           type: "text",
           required: true,
           if_value: ["Diğer Kişi"],
@@ -316,6 +426,7 @@ const UsaStepForm = () => {
           id: 3,
           name: "travelCostsPersonEmail",
           label: "E-posta Adresi",
+          text: t("usaForm.question16_4_3"),
           type: "text",
           required: true,
           if_value: ["Diğer Kişi"],
@@ -324,6 +435,7 @@ const UsaStepForm = () => {
           id: 4,
           name: "travelCostsPersonRelation",
           label: "Sizinle Yakınlığı Nedir?",
+          text: t("usaForm.question16_4_4"),
           type: "text",
           required: true,
           if_value: ["Diğer Kişi"],
@@ -332,6 +444,7 @@ const UsaStepForm = () => {
           id: 5,
           name: "travelCostsCompany",
           label: "Kuruluşun Adı",
+          text: t("usaForm.question16_5_1"),
           type: "text",
           required: true,
           if_value: ["Diğer Şirket"],
@@ -340,6 +453,7 @@ const UsaStepForm = () => {
           id: 6,
           name: "travelCostsCompanyPhone",
           label: "Telefon Numarası",
+          text: t("usaForm.question16_5_2"),
           type: "text",
           required: true,
           if_value: ["Diğer Şirket"],
@@ -348,6 +462,7 @@ const UsaStepForm = () => {
           id: 7,
           name: "travelCostsCompanyRelation",
           label: "Şirketle İlişkiniz",
+          text: t("usaForm.question16_5_3"),
           type: "text",
           required: true,
           if_value: ["Diğer Şirket"],
@@ -356,6 +471,7 @@ const UsaStepForm = () => {
           id: 8,
           name: "travelCostsCompanyAddress",
           label: "Kuruluşun Adresi",
+          text: t("usaForm.question16_5_4"),
           type: "text",
           required: true,
           if_value: ["Diğer Şirket"],
@@ -367,10 +483,21 @@ const UsaStepForm = () => {
       step: steps[1],
       name: "travelWithOthers",
       label: "Sizinle Birlikte Seyahat Edecek Kişiler Var mı?",
+      text: t("usaForm.question17"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question17_1"),
+          text: t("usaForm.question17_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question17_2"),
+          text: t("usaForm.question17_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -379,6 +506,7 @@ const UsaStepForm = () => {
           name: "travelWithOthersGroup",
           label:
             "Bu Bir Grup Mu? Grubun Adı Nedir? Değilse Ad-Soyad ve Sizinle Yakınlığı Nedir?",
+          text: t("usaForm.question17_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -390,10 +518,21 @@ const UsaStepForm = () => {
       step: steps[2],
       name: "travelledToUs",
       label: "Daha Önce ABD’ye Seyahat Ettiniz Mi?",
+      text: t("usaForm.question18"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question18_1"),
+          text: t("usaForm.question18_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question18_2"),
+          text: t("usaForm.question18_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -401,6 +540,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "travelledToUsArrivalDate",
           label: "Varış Tarihi",
+          text: t("usaForm.question18_1_1"),
           type: "calendar",
           required: true,
           if_value: ["Evet"],
@@ -410,6 +550,7 @@ const UsaStepForm = () => {
           name: "travelledToUsDuration",
           label:
             "Ne Kadar Süre Kaldınız? (Tarihlerden Emin Değilseniz En Yakın Tarihleri Belirtiniz)",
+          text: t("usaForm.question18_1_2"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -419,6 +560,7 @@ const UsaStepForm = () => {
           name: "travelledToUsDriverLicense",
           label:
             "ABD Sürücü Belgeniz Var mı ya da Daha Önce Oldu Mu? Olduysa Sürücü Belgesi Numaranız Nedir, Hangi Eyaletten Aldınız?",
+          text: t("usaForm.question18_1_3"),
           type: "text",
           required: false,
           if_value: ["Evet"],
@@ -430,10 +572,21 @@ const UsaStepForm = () => {
       step: steps[2],
       name: "previousUsVisa",
       label: "Daha Önce ABD Vizesi Aldınız mı?",
+      text: t("usaForm.question19"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question19_1"),
+          text: t("usaForm.question19_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question19_2"),
+          text: t("usaForm.question19_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -441,6 +594,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "previousUsVisaIssueDate",
           label: "Son Aldığınız Vizenin Veriliş Tarihi",
+          text: t("usaForm.question19_1_1"),
           type: "calendar",
           required: true,
           if_value: ["Evet"],
@@ -449,6 +603,7 @@ const UsaStepForm = () => {
           id: 2,
           name: "previousUsVisaNumber",
           label: "Vize Numarası",
+          text: t("usaForm.question19_1_2"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -457,6 +612,7 @@ const UsaStepForm = () => {
           id: 3,
           name: "previousUsVisaType",
           label: "Hangi Vize Türüne Başvuru Yaptığınız",
+          text: t("usaForm.question19_1_3"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -465,10 +621,21 @@ const UsaStepForm = () => {
           id: 4,
           name: "previousUsVisaBiometrics",
           label: "Parmak İzinizi Alındı Mı?",
+          text: t("usaForm.question19_1_4"),
           type: "dropdown",
           options: [
-            { label: "Evet", value: "Evet" },
-            { label: "Hayır", value: "Hayır" },
+            {
+              label: "Evet",
+              value: t("usaForm.question19_4_1"),
+              text: t("usaForm.question19_4_1"),
+              showValue: "Evet",
+            },
+            {
+              label: "Hayır",
+              value: t("usaForm.question19_4_2"),
+              text: t("usaForm.question19_4_2"),
+              showValue: "Hayır",
+            },
           ],
           required: true,
           if_value: ["Evet"],
@@ -478,19 +645,30 @@ const UsaStepForm = () => {
     {
       id: 19.2,
       step: steps[2],
-
       name: "previousUsVisaLostOrStolen",
       label: "Vizeniz Kayboldu veya Çalındı Mı?",
+      text: t("usaForm.question19__2"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question19__2_1"),
+          text: t("usaForm.question19__2_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question19__2_2"),
+          text: t("usaForm.question19__2_2"),
+          showValue: "Hayır",
+        },
       ],
       otherInputs: [
         {
           id: 1,
           name: "previousUsVisaLostOrStolenYear",
           label: "Hangi Yıl",
+          text: t("usaForm.question19__2_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -499,6 +677,7 @@ const UsaStepForm = () => {
           id: 2,
           name: "previousUsVisaLostOrStolenExplanation",
           label: "Nasıl oldu açıklayınız",
+          text: t("usaForm.question19__2_1_2"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -511,10 +690,21 @@ const UsaStepForm = () => {
       step: steps[2],
       name: "previousUsVisaCancelled",
       label: "Vizeniz İptal Edildi veya Geri Alındı mı?",
+      text: t("usaForm.question20"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question20_1"),
+          text: t("usaForm.question20_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question20_2"),
+          text: t("usaForm.question20_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -522,6 +712,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "previousUsVisaCancelledExplanation",
           label: "Açıklayınız",
+          text: t("usaForm.question20_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -533,10 +724,21 @@ const UsaStepForm = () => {
       step: steps[2],
       name: "previousUsVisaRejected",
       label: "Daha Önce ABD Vize Başvurunuz – Girişiniz – Reddedildi Mi?",
+      text: t("usaForm.question21"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question21_1"),
+          text: t("usaForm.question21_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question21_2"),
+          text: t("usaForm.question21_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -544,6 +746,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "previousUsVisaRejectedExplanation",
           label: "Açıklayınız",
+          text: t("usaForm.question21_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -556,10 +759,21 @@ const UsaStepForm = () => {
       name: "previousUsImmigrationPetition",
       label:
         "Daha Önce Adınıza ABD Göçmenlik Hizmetlerine Göçmenlik İçin Dilekçe Verildi Mi?",
+      text: t("usaForm.question22"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question22_1"),
+          text: t("usaForm.question22_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question22_2"),
+          text: t("usaForm.question22_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -567,6 +781,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "previousUsImmigrationPetitionExplanation",
           label: "Açıklayınız",
+          text: t("usaForm.question22_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -579,6 +794,7 @@ const UsaStepForm = () => {
       name: "homeAddress",
       label:
         "Ev Adresinizi Mahalle – Sokak / Cd Apt Adı Bina No İl İlçe Posta Kodu Şeklinde Belirtiniz.",
+      text: t("usaForm.question23"),
       type: "textarea",
       required: true,
     },
@@ -587,6 +803,7 @@ const UsaStepForm = () => {
       step: steps[3],
       name: "phone",
       label: "Telefon Numaranız Nedir?",
+      text: t("usaForm.question24"),
       type: "text",
       required: true,
     },
@@ -595,6 +812,7 @@ const UsaStepForm = () => {
       step: steps[3],
       name: "secondPhone",
       label: "İkinci Bir Telefon Numarası Belirtiniz.",
+      text: t("usaForm.question25"),
       type: "text",
       required: false,
     },
@@ -603,6 +821,7 @@ const UsaStepForm = () => {
       step: steps[3],
       name: "workPhone",
       label: "İş Numaranız Nedir?",
+      text: t("usaForm.question26"),
       type: "text",
       required: false,
     },
@@ -611,6 +830,7 @@ const UsaStepForm = () => {
       step: steps[3],
       name: "email",
       label: "E-posta Adresiniz Nedir?",
+      text: t("usaForm.question27"),
       type: "text",
       required: true,
     },
@@ -619,10 +839,21 @@ const UsaStepForm = () => {
       step: steps[3],
       name: "useSocialMedia",
       label: "Sosyal Medya Kullanıyor Musunuz?",
+      text: t("usaForm.question28"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question28_1"),
+          text: t("usaForm.question28_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question28_2"),
+          text: t("usaForm.question28_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -631,6 +862,7 @@ const UsaStepForm = () => {
           name: "socialMedia",
           label:
             "Sosyal Medya Adreslerinizi, Uygulama Adı ve Kullanıcı Adı Şeklinde Belirtiniz. Kullanıcı Adınızı Bilmiyorsanız Link Ekleyebilirsiniz. (Ek Olarak Bir İşletme Sahibi vs. iseniz İşletmenin Sosyal Medya Kullanıcı Adını Belirtiniz)",
+          text: t("usaForm.question28_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -640,6 +872,7 @@ const UsaStepForm = () => {
           name: "socialMediaLink",
           label:
             "İçerik Paylaşmak Amacıyla Web Sitesi, Blog vs. Varsa Link Ekleyiniz",
+          text: t("usaForm.question28_1_2"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -651,6 +884,7 @@ const UsaStepForm = () => {
       step: steps[4],
       name: "passportNumber",
       label: "Pasaport numaranız nedir?",
+      text: t("usaForm.question29"),
       type: "text",
       required: true,
     },
@@ -659,6 +893,7 @@ const UsaStepForm = () => {
       step: steps[4],
       name: "passportCountry",
       label: "Hangi ülkenin pasaportu ile başvuru yapıyorsunuz?",
+      text: t("usaForm.question30"),
       type: "text",
       required: true,
     },
@@ -667,6 +902,7 @@ const UsaStepForm = () => {
       step: steps[4],
       name: "passportAuthority",
       label: "Veren makam (Pasaportta görünen şekliyle)",
+      text: t("usaForm.question31"),
       type: "text",
       required: true,
     },
@@ -675,6 +911,7 @@ const UsaStepForm = () => {
       step: steps[4],
       name: "passportIssueDate",
       label: "Pasaport verilme tarihi",
+      text: t("usaForm.question32"),
       type: "calendar",
       required: true,
     },
@@ -683,6 +920,7 @@ const UsaStepForm = () => {
       step: steps[4],
       name: "passportExpiryDate",
       label: "Pasaport son geçerlilik tarihi",
+      text: t("usaForm.question33"),
       type: "calendar",
       required: true,
     },
@@ -691,10 +929,21 @@ const UsaStepForm = () => {
       step: steps[4],
       name: "passportLostOrStolen",
       label: "Daha önce pasaportunuz çalındı ya da kayboldu mu?",
+      text: t("usaForm.question34"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question34_1"),
+          text: t("usaForm.question34_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question34_2"),
+          text: t("usaForm.question34_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -703,6 +952,7 @@ const UsaStepForm = () => {
           name: "passportLostOrStolenExplanation",
           label:
             "Pasaport numarası, hangi ülkeden aldığınız ve olayı açıklayınız.",
+          text: t("usaForm.question34_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -714,10 +964,21 @@ const UsaStepForm = () => {
       step: steps[5],
       name: "usAccommodation",
       label: "ABD’de kalacağınız adres belli mi?",
+      text: t("usaForm.question35"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question35_1"),
+          text: t("usaForm.question35_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question35_2"),
+          text: t("usaForm.question35_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -725,6 +986,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "usAccommodationAddress",
           label: "Adresi nedir?",
+          text: t("usaForm.question35_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -736,10 +998,21 @@ const UsaStepForm = () => {
       step: steps[5],
       name: "usRelative",
       label: "ABD’de bir yakınınızın yanına mı seyahat ediyorsunuz?",
+      text: t("usaForm.question36"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question36_1"),
+          text: t("usaForm.question36_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question36_2"),
+          text: t("usaForm.question36_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -747,6 +1020,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "usRelativeName",
           label: "Kişi adı soyadı, adresi, yakınlığınız nedir?",
+          text: t("usaForm.question36_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -758,10 +1032,21 @@ const UsaStepForm = () => {
       step: steps[5],
       name: "usEvent",
       label: "ABD’de bir etkinliğe katılacak mısınız?",
+      text: t("usaForm.question37"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question37_1"),
+          text: t("usaForm.question37_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question37_2"),
+          text: t("usaForm.question37_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -770,6 +1055,7 @@ const UsaStepForm = () => {
           name: "usEventName",
           label:
             "Etkinlik adı, adresi, iletişimde olduğunuz kişi varsa adı soyadı nedir?",
+          text: t("usaForm.question37_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -781,16 +1067,28 @@ const UsaStepForm = () => {
       step: steps[5],
       name: "usSchoolOrCompany",
       label: "Bir okula veya şirket/kuruluşa gidiyor musunuz?",
+      text: t("usaForm.question38"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question38_1"),
+          text: t("usaForm.question38_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question38_2"),
+          text: t("usaForm.question38_2"),
+          showValue: "Hayır",
+        },
       ],
       otherInputs: [
         {
           id: 1,
           name: "usSchoolOrCompanyInfo",
           label: "Adresi giriniz",
+          text: t("usaForm.question38_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -803,6 +1101,7 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "fatherName",
       label: "Baba adı soyadı",
+      text: t("usaForm.question39"),
       type: "text",
       required: true,
     },
@@ -811,6 +1110,7 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "fatherBirthDate",
       label: "Baba doğum tarihi",
+      text: t("usaForm.question39__2"),
       type: "calendar",
       required: true,
     },
@@ -819,6 +1119,7 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "motherName",
       label: "Anne adı-soyadı, doğum tarihi (gün, ay, yıl)",
+      text: t("usaForm.question40"),
       type: "text",
       required: true,
     },
@@ -827,6 +1128,7 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "motherBirthDate",
       label: "Anne doğum tarihi",
+      text: t("usaForm.question40__2"),
       type: "calendar",
       required: true,
     },
@@ -835,10 +1137,21 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "parentsInUsMother",
       label: "Anneniz ABD’de mi?",
+      text: t("usaForm.question41"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question41_1"),
+          text: t("usaForm.question41_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question41_2"),
+          text: t("usaForm.question41_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -847,6 +1160,7 @@ const UsaStepForm = () => {
           name: "parentsInUsMotherStatus",
           label:
             "Amerika’daki durumu nedir? (Vatandaş, LPR yasal daimi ikamet sahibi, vize sahibi, diğer)",
+          text: t("usaForm.question41_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -858,10 +1172,21 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "parentsInUsFather",
       label: "Babanız ABD’de mi?",
+      text: t("usaForm.question41__2"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question41__2_1"),
+          text: t("usaForm.question41__2_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question41__2_2"),
+          text: t("usaForm.question41__2_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -870,6 +1195,7 @@ const UsaStepForm = () => {
           name: "parentsInUsFatherStatus",
           label:
             "Amerika’daki durumu nedir? (Vatandaş, LPR yasal daimi ikamet sahibi, vize sahibi, diğer)",
+          text: t("usaForm.question41__2_1_1"),
           type: "text",
           required: true,
           if_value: ["Evet"],
@@ -882,10 +1208,21 @@ const UsaStepForm = () => {
       name: "relativeInUs",
       label:
         "Anne-babanız haricinde ABD’de yaşayan birinci derece akrabanız var mı? (Nişanlı, eş, çocuk veya kardeş)",
+      text: t("usaForm.question42"),
       type: "dropdown",
       options: [
-        { label: "Evet", value: "Evet" },
-        { label: "Hayır", value: "Hayır" },
+        {
+          label: "Evet",
+          value: t("usaForm.question42_1"),
+          text: t("usaForm.question42_1"),
+          showValue: "Evet",
+        },
+        {
+          label: "Hayır",
+          value: t("usaForm.question42_2"),
+          text: t("usaForm.question42_2"),
+          showValue: "Hayır",
+        },
       ],
       required: true,
       otherInputs: [
@@ -893,6 +1230,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "relativeInUsInfo",
           label: "Ad-soyad, sizinle yakınlığı, ABD’deki durumu belirtiniz.",
+          text: t("usaForm.question42_1_1"),
           type: "textarea",
           required: true,
           if_value: ["Evet"],
@@ -904,12 +1242,33 @@ const UsaStepForm = () => {
       step: steps[6],
       name: "maritalStatus",
       label: "Medeni Durumnuz Nedir?",
+      text: t("usaForm.question43"),
       type: "dropdown",
       options: [
-        { label: "Bekar", value: "Bekar" },
-        { label: "Evli", value: "Evli" },
-        { label: "Boşanmış", value: "Boşanmış" },
-        { label: "Dul", value: "Dul" },
+        {
+          label: "Bekar",
+          value: t("usaForm.question43_1"),
+          text: t("usaForm.question43_1"),
+          showValue: "Bekar",
+        },
+        {
+          label: "Evli",
+          value: t("usaForm.question43_2"),
+          text: t("usaForm.question43_2"),
+          showValue: "Evli",
+        },
+        {
+          label: "Boşanmış",
+          value: t("usaForm.question43_3"),
+          text: t("usaForm.question43_3"),
+          showValue: "Boşanmış",
+        },
+        {
+          label: "Dul",
+          value: t("usaForm.question43_4"),
+          text: t("usaForm.question43_4"),
+          showValue: "Dul",
+        },
       ],
       required: true,
       otherInputs: [
@@ -917,6 +1276,7 @@ const UsaStepForm = () => {
           id: 1,
           name: "spouseFirstNameLastName",
           label: "Eşinizin adı ve soyadı nedir?",
+          text: t("usaForm.question43_2_1"),
           type: "text",
           required: true,
           if_value: ["Evli"],
@@ -925,6 +1285,7 @@ const UsaStepForm = () => {
           id: 2,
           name: "spouseBirthLastName",
           label: "Eşinizin doğumla birlikte aldığı soyadı nedir?",
+          text: t("usaForm.question43_2_2"),
           type: "text",
           required: true,
           if_value: ["Evli"],
@@ -933,6 +1294,7 @@ const UsaStepForm = () => {
           id: 3,
           name: "spouseBirthDate",
           label: "Eşinizin doğum tarihi nedir?",
+          text: t("usaForm.question43_2_3"),
           type: "calendar",
           required: true,
           if_value: ["Evli"],
@@ -941,6 +1303,7 @@ const UsaStepForm = () => {
           id: 4,
           name: "spouseBirthPlace",
           label: "Eşinizin doğum yeri nedir?",
+          text: t("usaForm.question43_2_4"),
           type: "text",
           required: true,
           if_value: ["Evli"],
@@ -949,6 +1312,7 @@ const UsaStepForm = () => {
           id: 5,
           name: "spouseNationality",
           label: "Eşinizin uyruk nedir?",
+          text: t("usaForm.question43_2_5"),
           type: "text",
           required: true,
           if_value: ["Evli"],
@@ -957,10 +1321,21 @@ const UsaStepForm = () => {
           id: 6,
           name: "spouseAddress",
           label: "Sizinle aynı adreste mi yaşıyor?",
+          text: t("usaForm.question43_2_6"),
           type: "dropdown",
           options: [
-            { label: "Evet", value: "Evet" },
-            { label: "Hayır", value: "Hayır" },
+            {
+              label: "Evet",
+              value: t("usaForm.question43_2_6_1"),
+              text: t("usaForm.question43_2_6_1"),
+              showValue: "Evet",
+            },
+            {
+              label: "Hayır",
+              value: t("usaForm.question43_2_6_2"),
+              text: t("usaForm.question43_2_6_2"),
+              showValue: "Hayır",
+            },
           ],
           required: true,
           if_value: ["Evli"],
@@ -969,6 +1344,7 @@ const UsaStepForm = () => {
           id: 7,
           name: "spousePreviousMarriageCount",
           label: "Kaç kere evlendiniz?",
+          text: t("usaForm.question43_2_7"),
           type: "text",
           required: true,
           if_value: ["Boşanmış"],
@@ -977,6 +1353,7 @@ const UsaStepForm = () => {
           id: 8,
           name: "previousSpouseName",
           label: "Eski eşinizin adı ve soyadı nedir?",
+          text: t("usaForm.question43_3_1"),
           type: "text",
           required: true,
           if_value: ["Boşanmış"],
@@ -985,6 +1362,7 @@ const UsaStepForm = () => {
           id: 9,
           name: "previousSpouseBirthDate",
           label: "Eski eşinizin doğum tarihi nedir?",
+          text: t("usaForm.question43_3_2"),
           type: "calendar",
           required: true,
           if_value: ["Boşanmış"],
@@ -993,6 +1371,7 @@ const UsaStepForm = () => {
           id: 10,
           name: "previousSpouseBirthPlace",
           label: "Eski eşinizin doğum yeri nedir?",
+          text: t("usaForm.question43_3_3"),
           type: "text",
           required: true,
           if_value: ["Boşanmış"],
@@ -1001,6 +1380,7 @@ const UsaStepForm = () => {
           id: 11,
           name: "previousSpouseNationality",
           label: "Eski eşinizin uyruğu nedir?",
+          text: t("usaForm.question43_3_4"),
           type: "text",
           required: true,
           if_value: ["Boşanmış"],
@@ -1009,6 +1389,7 @@ const UsaStepForm = () => {
           id: 12,
           name: "marriageDate",
           label: "Evlilik tarihiniz nedir?",
+          text: t("usaForm.question43_3_5"),
           type: "calendar",
           required: true,
           if_value: ["Boşanmış"],
@@ -1017,6 +1398,7 @@ const UsaStepForm = () => {
           id: 13,
           name: "divorceDate",
           label: "Boşanma tarihiniz nedir?",
+          text: t("usaForm.question43_3_6"),
           type: "calendar",
           required: true,
           if_value: ["Boşanmış"],
@@ -1025,6 +1407,7 @@ const UsaStepForm = () => {
           id: 14,
           name: "divorceCountry",
           label: "Hangi ülkede boşandınız?",
+          text: t("usaForm.question43_3_7"),
           type: "text",
           required: true,
           if_value: ["Boşanmış"],
@@ -1033,6 +1416,7 @@ const UsaStepForm = () => {
           id: 15,
           name: "deceasedSpouseName",
           label: "Vefat eden eşinizin adı ve soyadı nedir?",
+          text: t("usaForm.question43_4_1"),
           type: "text",
           required: true,
           if_value: ["Dul"],
@@ -1041,6 +1425,7 @@ const UsaStepForm = () => {
           id: 16,
           name: "deceasedSpouseBirthDate",
           label: "Vefat eden eşinizin doğum tarihi nedir?",
+          text: t("usaForm.question43_4_2"),
           type: "calendar",
           required: true,
           if_value: ["Dul"],
@@ -1049,6 +1434,7 @@ const UsaStepForm = () => {
           id: 17,
           name: "deceasedSpouseBirthDate",
           label: "Vefat eden eşinizin vefat tarihi nedir?",
+          text: t("usaForm.question43_4_3"),
           type: "calendar",
           required: true,
           if_value: ["Dul"],
@@ -1057,6 +1443,7 @@ const UsaStepForm = () => {
           id: 18,
           name: "deceasedSpouseBirthPlace",
           label: "Vefat eden eşinizin doğum yeri nedir?",
+          text: t("usaForm.question43_4_4"),
           type: "text",
           required: true,
           if_value: ["Dul"],
@@ -1065,6 +1452,7 @@ const UsaStepForm = () => {
           id: 19,
           name: "deceasedSpouseNationality",
           label: "Vefat eden eşinizin uyruk nedir?",
+          text: t("usaForm.question43_4_5"),
           type: "text",
           required: true,
           if_value: ["Dul"],
@@ -1549,15 +1937,13 @@ const UsaStepForm = () => {
         [item.name]: {
           label: item.label,
           name: item.name,
-          value: "",
-          step: item.step,
+          step: { id: item.step.id, label: item.step.label },
           type: item.type,
           otherInputs: item.otherInputs
             ? item.otherInputs.reduce((acc, input) => {
                 acc[input.name] = {
                   label: input.label,
                   name: input.name,
-                  value: "",
                   type: input.type,
                   if_value: input.if_value,
                 };
@@ -1638,8 +2024,8 @@ const UsaStepForm = () => {
     } else {
       toast.current.show({
         severity: "error",
-        summary: "Hata",
-        detail: "Lütfen tüm alanları doldurun",
+        summary: t("swal.error"),
+        detail: t("swal.formError"),
         life: 2000,
       });
     }
@@ -1695,8 +2081,9 @@ const UsaStepForm = () => {
 
   const handleOtherInputChange = (e, item, input) => {
     const { name, value } = e.target;
+
     const convertedValue =
-      item.type === "calendar"
+      input.type === "calendar"
         ? value
         : convertToUppercaseAndReplaceTurkishChars(value);
 
@@ -1723,35 +2110,47 @@ const UsaStepForm = () => {
     e.preventDefault();
     if (isStepValid()) {
       const response = await axios.post("/addFormValue", {
-        form_id: "1",
+        form_id: "2",
         values: formValues,
         lang: activeLanguage.code,
       });
 
       if (response.data.insertId) {
-        Swal.fire(
-          "Başarılı",
-          "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız.",
-          "success"
-        );
+        Swal.fire(t("swal.success"), t("swal.formSendSuccess"), "success");
         defaultSetValues();
         setCurrentStep(0);
       } else {
         toast.current.show({
           severity: "error",
-          summary: "Hata",
-          detail: "Form gönderilirken bir hata oluştu",
+          summary: t("swal.error"),
+          detail: t("swal.formSendError"),
           life: 2000,
         });
       }
     } else {
       toast.current.show({
         severity: "error",
-        summary: "Hata",
-        detail: "Lütfen tüm alanları doldurun",
+        summary: t("swal.error"),
+        detail: t("swal.formError"),
         life: 2000,
       });
     }
+  };
+
+  const valueTemplate = (option, props) => {
+    if (option) {
+      return <div>{option.text}</div>;
+    }
+
+    return <span>{props.placeholder}</span>;
+  };
+
+  const itemTemplate = (option, props) => {
+    if (option) {
+      return <div>{option.text}</div>;
+    }
+
+    return <span>{props.placeholder}</span>;
   };
 
   return (
@@ -1772,7 +2171,7 @@ const UsaStepForm = () => {
               }}
             >
               <span className="index">{item.id}</span>
-              <span className="step-name">{item.label}</span>
+              <span className="step-name">{item.text}</span>
             </div>
           ))}
         </div>
@@ -1788,12 +2187,12 @@ const UsaStepForm = () => {
                   .map((item, key) => (
                     <React.Fragment key={key}>
                       <div className="step_parent">
-                        <label htmlFor="fullName">{item.label}</label>
+                        <label htmlFor="fullName">{item.text}</label>
                         {item.type === "text" && (
                           <InputText
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             value={formValues[item.name]?.value || ""}
                             onChange={(e) => handleInputChange(e, item)}
                           />
@@ -1802,7 +2201,7 @@ const UsaStepForm = () => {
                           <InputTextarea
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             value={formValues[item.name]?.value || ""}
                             onChange={(e) => handleInputChange(e, item)}
                           />
@@ -1811,8 +2210,10 @@ const UsaStepForm = () => {
                           <Dropdown
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             options={item.options}
+                            valueTemplate={valueTemplate}
+                            itemTemplate={itemTemplate}
                             value={formValues[item.name]?.value || ""}
                             onChange={(e) => handleInputChange(e, item)}
                           />
@@ -1823,7 +2224,7 @@ const UsaStepForm = () => {
                             locale="tr"
                             id={item.name}
                             name={item.name}
-                            placeholder={item.label}
+                            placeholder={item.text}
                             value={formValues[item.name]?.value || null}
                             onChange={(date) =>
                               handleInputChange(
@@ -1851,13 +2252,13 @@ const UsaStepForm = () => {
                               return (
                                 <div className="step_parent" key={input.name}>
                                   <label htmlFor={input.name}>
-                                    {input.label}
+                                    {input.text}
                                   </label>
                                   {input.type === "text" && (
                                     <InputText
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
@@ -1872,7 +2273,7 @@ const UsaStepForm = () => {
                                     <InputTextarea
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
@@ -1887,8 +2288,10 @@ const UsaStepForm = () => {
                                     <Dropdown
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       options={input.options}
+                                      valueTemplate={valueTemplate}
+                                      itemTemplate={itemTemplate}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
@@ -1905,7 +2308,7 @@ const UsaStepForm = () => {
                                       locale="tr"
                                       id={input.name}
                                       name={input.name}
-                                      placeholder={input.label}
+                                      placeholder={input.text}
                                       value={
                                         formValues[item.name]?.otherInputs?.[
                                           input.name
