@@ -8,98 +8,208 @@ import axios from "axios";
 import { useLanguage } from "../../context/LanguageContext";
 import Swal from "sweetalert2";
 import { Toast } from "primereact/toast";
+import { t } from "i18next";
 
 export default function VisaCalculate() {
   const questions = [
     {
       id: "age",
       label: "Yaşınız",
+      text: t("calc.question1"),
       type: "dropdown",
       options: [
-        { id: "age_0_18", label: "0-18", value: 10 },
-        { id: "age_18_26", label: "18-26", value: -5 },
-        { id: "age_26_30", label: "26-30", value: 0 },
-        { id: "age_30_35", label: "30-35", value: 5 },
-        { id: "age_35_45", label: "35-45", value: 10 },
-        { id: "age_45_plus", label: "45+", value: 20 },
+        {
+          id: "age_0_18",
+          label: "0-18",
+          value: 10,
+        },
+        {
+          id: "age_18_26",
+          label: "18-26",
+          value: -5,
+        },
+        {
+          id: "age_26_30",
+          label: "26-30",
+          value: 0,
+        },
+        {
+          id: "age_30_35",
+          label: "30-35",
+          value: 5,
+        },
+        {
+          id: "age_35_45",
+          label: "35-45",
+          value: 10,
+        },
+        {
+          id: "age_45_plus",
+          label: "45+",
+          value: 20,
+        },
       ],
     },
     {
       id: "gender",
       label: "Cinsiyetiniz",
+      text: t("calc.question2"),
       type: "dropdown",
       options: [
-        { id: "gender_male", label: "Erkek", value: 0 },
-        { id: "gender_female", label: "Kadın", value: 5 },
+        {
+          id: "gender_male",
+          label: "Erkek",
+          text: t("calc.question2_1"),
+          value: 0,
+        },
+        {
+          id: "gender_female",
+          label: "Kadın",
+          text: t("calc.question2_2"),
+          value: 5,
+        },
       ],
     },
     {
       id: "maritalStatus",
       label: "Medeni haliniz",
+      text: t("calc.question3"),
       type: "dropdown",
       options: [
-        { id: "status_single", label: "Bekar", value: 0 },
-        { id: "status_married", label: "Evli", value: 5 },
+        {
+          id: "status_single",
+          label: "Bekar",
+          value: 0,
+          text: t("calc.question3_1"),
+        },
+        {
+          id: "status_married",
+          label: "Evli",
+          value: 5,
+          text: t("calc.question3_2"),
+        },
       ],
     },
     {
       id: "children",
       label: "Çocuklarınızın sayısı",
+      text: t("calc.question4"),
       type: "dropdown",
       options: [
-        { id: "children_0", label: "0", value: 0 * 2 },
-        { id: "children_1", label: "1", value: 1 * 2 },
-        { id: "children_2", label: "2", value: 2 * 2 },
-        { id: "children_3", label: "3", value: 3 * 2 },
-        { id: "children_4", label: "4", value: 4 * 2 },
-        { id: "children_5", label: "5", value: 5 * 2 },
-        { id: "children_6", label: "6", value: 6 * 2 },
-        { id: "children_7", label: "7", value: 7 * 2 },
-        { id: "children_8", label: "8", value: 8 * 2 },
-        { id: "children_9", label: "9", value: 9 * 2 },
-        { id: "children_10", label: "10", value: 10 * 2 },
+        {
+          id: "children_0",
+          label: "0",
+          value: 0 * 2,
+        },
+        {
+          id: "children_1",
+          label: "1",
+          value: 1 * 2,
+        },
+        {
+          id: "children_2",
+          label: "2",
+          value: 2 * 2,
+        },
+        {
+          id: "children_3",
+          label: "3",
+          value: 3 * 2,
+        },
+        {
+          id: "children_4",
+          label: "4",
+          value: 4 * 2,
+        },
+        {
+          id: "children_5",
+          label: "5",
+          value: 5 * 2,
+        },
+        {
+          id: "children_6",
+          label: "6",
+          value: 6 * 2,
+        },
+        {
+          id: "children_7",
+          label: "7",
+          value: 7 * 2,
+        },
+        {
+          id: "children_8",
+          label: "8",
+          value: 8 * 2,
+        },
+        {
+          id: "children_9",
+          label: "9",
+          value: 9 * 2,
+        },
+        {
+          id: "children_10",
+          label: "10",
+          value: 10 * 2,
+        },
       ],
     },
     {
       id: "travelAbroad",
       label:
         "Komşu ülkeler (Gürcistan, Irak, Azerbaycan vb) hariç, son 5 yılda yurtdışına çıktınız mı ?",
+      text: t("calc.question5"),
       type: "dropdown",
       options: [
-        { id: "travel_abroad_yes", label: "Evet", value: 10 },
-        { id: "travel_abroad_no", label: "Hayır", value: -5 },
+        {
+          id: "travel_abroad_yes",
+          label: "Evet",
+          text: t("calc.question5_1"),
+          value: 10,
+        },
+        {
+          id: "travel_abroad_no",
+          label: "Hayır",
+          text: t("calc.question5_2"),
+          value: -5,
+        },
       ],
     },
     {
       id: "travelCategory",
       label: "Son 5 yılda ...",
+      text: t("calc.question6"),
       type: "dropdown",
       options: [
         {
           id: "travel_canada_uk",
           label:
             "Kanada, İngiltere, Avustralya veya Yeni Zelanda vizesi aldım.",
+          text: t("calc.question6_1"),
           value: 8,
         },
         {
           id: "travel_eu",
           label: "En az bir Schengen vizesi aldım",
+          text: t("calc.question6_2"),
           value: 5,
         },
         {
           id: "travel_high_tier",
           label:
             "Japonya, Güney Kore, Singapur, Hindistan, Malezya, Güney Afrika gibi ülkelere gittim",
+          text: t("calc.question6_3"),
           value: 3,
         },
         {
           id: "travel_no",
           label:
             "Sadece vizesiz ülkelere gittim (komşu ülkeler, Kuzey Afrika ve Orta Asya ülkeleri dahil)",
+          text: t("calc.question6_4"),
           value: 1,
         },
         {
           label: "Komşu ülkelere gittim",
+          text: t("calc.question6_5"),
           id: "travel_neighbour",
           value: 0,
         },
@@ -109,6 +219,7 @@ export default function VisaCalculate() {
       id: "schengenCount",
       label:
         "Varsa, pasaportunuza basılmış toplam vize etiketi sayısı (Schengen, Kanada, İngiltere vb dahil)",
+      text: t("calc.question7"),
       type: "dropdown",
       options: [
         { id: "schengen_0", label: "0", value: 0 },
@@ -123,21 +234,25 @@ export default function VisaCalculate() {
     {
       id: "travelCompanion",
       label: "Tek mi, eşinizle birlikte mi seyahat edeceksiniz?",
+      text: t("calc.question8"),
       type: "dropdown",
       options: [
         {
           id: "travel_alone",
           label: "Tek",
+          text: t("calc.question8_1"),
           value: 4,
         },
         {
           id: "travel_couple",
           label: "Eşimle birlikte",
+          text: t("calc.question8_2"),
           value: 3,
         },
         {
           id: "travel_family",
           label: "Ailecek (Çocuklar dahil)",
+          text: t("calc.question8_3"),
           value: 2,
         },
       ],
@@ -146,145 +261,337 @@ export default function VisaCalculate() {
     {
       id: "usaFamily",
       label: "ABD’de yaşayan birinci derece akrabanız var mı?",
+      text: t("calc.question9"),
       type: "dropdown",
       options: [
-        { id: "usa_family_no", label: "Hayır", value: 0 },
-        { id: "usa_family_yes", label: "Evet", value: -5 },
+        {
+          id: "usa_family_no",
+          label: "Hayır",
+          text: t("calc.question9_1"),
+          value: 0,
+        },
+        {
+          id: "usa_family_yes",
+          label: "Evet",
+          text: t("calc.question9_2"),
+          value: -5,
+        },
       ],
     },
     {
       id: "profession",
       label: "Mesleğiniz",
+      text: t("calc.question10"),
       type: "dropdown",
       options: [
-        { id: "profession_doctor", label: "Doktor", value: 10 },
-        { id: "profession_engineer", label: "Mühendis-Mimar", value: 6 },
-        { id: "profession_teacher", label: "Öğretmen", value: 4 },
-        { id: "profession_technician", label: "Teknisyen", value: 3 },
-        { id: "profession_manager", label: "Yönetici", value: 7 },
+        {
+          id: "profession_doctor",
+          label: "Doktor",
+          text: t("calc.question10_1"),
+          value: 10,
+        },
+        {
+          id: "profession_engineer",
+          label: "Mühendis-Mimar",
+          text: t("calc.question10_2"),
+          value: 6,
+        },
+        {
+          id: "profession_teacher",
+          label: "Öğretmen",
+          text: t("calc.question10_3"),
+          value: 4,
+        },
+        {
+          id: "profession_technician",
+          label: "Teknisyen",
+          text: t("calc.question10_4"),
+          value: 3,
+        },
+        {
+          id: "profession_manager",
+          label: "Yönetici",
+          text: t("calc.question10_5"),
+          value: 7,
+        },
         {
           id: "profession_public_basic",
           label: "Kamu temel çalışan",
+          text: t("calc.question10_6"),
           value: 2,
         },
-        { id: "profession_public_expert", label: "Uzman memur", value: 5 },
+        {
+          id: "profession_public_expert",
+          label: "Uzman memur",
+          text: t("calc.question10_7"),
+          value: 5,
+        },
         {
           id: "profession_public_manager",
           label: "Kamuda yönetici",
+          text: t("calc.question10_8"),
           value: 10,
         },
-        { id: "profession_blue_collar", label: "Mavi yaka", value: 2 },
-        { id: "profession_white_collar", label: "Beyaz yaka", value: 4 },
-        { id: "profession_academician", label: "Akademisyen", value: 8 },
-        { id: "profession_lawyer", label: "Avukat", value: 7 },
+        {
+          id: "profession_blue_collar",
+          label: "Mavi yaka",
+          text: t("calc.question10_9"),
+          value: 2,
+        },
+        {
+          id: "profession_white_collar",
+          label: "Beyaz yaka",
+          text: t("calc.question10_10"),
+          value: 4,
+        },
+        {
+          id: "profession_academician",
+          label: "Akademisyen",
+          text: t("calc.question10_11"),
+          value: 8,
+        },
+        {
+          id: "profession_lawyer",
+          label: "Avukat",
+          text: t("calc.question10_12"),
+          value: 7,
+        },
       ],
     },
     {
       id: "yearsProfession",
       label: "Kaç yıldır mesleğinizi yapıyorsunuz?",
+      text: t("calc.question11"),
       type: "dropdown",
       options: [
-        { id: "profession_5_plus", label: "5 yıl ve üstü", value: 10 },
-        { id: "profession_1_2", label: "1-2 yıl", value: -5 },
-        { id: "profession_2_5", label: "2-5 yıl", value: 0 },
+        {
+          id: "profession_5_plus",
+          label: "5 yıl ve üstü",
+          text: t("calc.question11_1"),
+          value: 10,
+        },
+        {
+          id: "profession_1_2",
+          label: "1-2 yıl",
+          text: t("calc.question11_2"),
+          value: -5,
+        },
+        {
+          id: "profession_2_5",
+          label: "2-5 yıl",
+          text: t("calc.question11_3"),
+          value: 0,
+        },
       ],
     },
     {
       id: "income",
       label: "Aylık geliriniz",
+      text: t("calc.question12"),
       type: "dropdown",
       options: [
-        { id: "income_0_50", label: "0-50 bin", value: 0 },
-        { id: "income_50_100", label: "50-100 bin", value: 5 },
-        { id: "income_100_plus", label: "100 bin üstü", value: 10 },
+        {
+          id: "income_0_50",
+          label: "0-50 bin",
+          text: t("calc.question12_1"),
+          value: 0,
+        },
+        {
+          id: "income_50_100",
+          label: "50-100 bin",
+          text: t("calc.question12_2"),
+          value: 5,
+        },
+        {
+          id: "income_100_plus",
+          label: "100 bin üstü",
+          text: t("calc.question12_3"),
+          value: 10,
+        },
       ],
     },
     {
       id: "englishLevel",
       label: "İngilizce seviyeniz",
+      text: t("calc.question13"),
       type: "dropdown",
       options: [
         {
           id: "english_fluent",
           label: "B2 ve üstü – mülakatı ingilizce yapabilecek seviyede",
+          text: t("calc.question13_1"),
           value: 15,
         },
         {
           id: "english_intermediate",
           label:
             "Orta ve altı – mülakatı İngilizce yapamaz, Türkçe tercih eder",
+          text: t("calc.question13_2"),
           value: 5,
         },
-        { id: "english_none", label: "Yok veya çok az", value: 0 },
+        {
+          id: "english_none",
+          label: "Yok veya çok az",
+          text: t("calc.question13_3"),
+          value: 0,
+        },
       ],
     },
     {
       id: "usaVisa",
       label: "Daha önce ABD vizesi aldınız mı? (Work and Travel hariç)",
+      text: t("calc.question14"),
       type: "dropdown",
       options: [
-        { id: "visa_yes", label: "Evet", value: 20 },
-        { id: "visa_no", label: "Hayır", value: 0 },
+        {
+          id: "visa_yes",
+          label: "Evet",
+          text: t("calc.question14_1"),
+          value: 20,
+        },
+        {
+          id: "visa_no",
+          label: "Hayır",
+          text: t("calc.question14_2"),
+          value: 0,
+        },
       ],
     },
     {
       id: "usaVisaRejection",
       label: "ABD vize reddi aldınız mı?",
+      text: t("calc.question15"),
       type: "dropdown",
       options: [
         {
           id: "rejection_2_years",
           label: "Son 2 yıl içinde aldım",
+          text: t("calc.question15_1"),
           value: -10,
         },
-        { id: "rejection_5_years", label: "Son 5 yıl içinde aldım", value: 0 },
+        {
+          id: "rejection_5_years",
+          label: "Son 5 yıl içinde aldım",
+          text: t("calc.question15_2"),
+          value: 0,
+        },
         {
           id: "rejection_10_years",
           label: "Son 10 yıl içinde aldım",
+          text: t("calc.question15_3"),
           value: 0,
         },
-        { id: "rejection_no", label: "Almadım", value: 0 },
+        {
+          id: "rejection_no",
+          label: "Almadım",
+          text: t("calc.question15_4"),
+          value: 0,
+        },
       ],
     },
     {
       id: "education",
       label: "Eğitim durumunuz",
+      text: t("calc.question16"),
       type: "dropdown",
       options: [
-        { id: "education_high_school", label: "Lise", value: 0 },
-        { id: "education_on_bachelor", label: "Ön Lisans", value: 0 },
-        { id: "education_bachelor", label: "Lisans", value: 5 },
-        { id: "education_master", label: "Yüksek Lisans", value: 10 },
-        { id: "education_phd", label: "Doktora", value: 15 },
+        {
+          id: "education_high_school",
+          label: "Lise",
+          text: t("calc.question16_1"),
+          value: 0,
+        },
+        {
+          id: "education_on_bachelor",
+          label: "Ön Lisans",
+          text: t("calc.question16_2"),
+          value: 0,
+        },
+        {
+          id: "education_bachelor",
+          label: "Lisans",
+          text: t("calc.question16_3"),
+          value: 5,
+        },
+        {
+          id: "education_master",
+          label: "Yüksek Lisans",
+          text: t("calc.question16_4"),
+          value: 10,
+        },
+        {
+          id: "education_phd",
+          label: "Doktora",
+          text: t("calc.question16_5"),
+          value: 15,
+        },
       ],
     },
     {
       id: "interviewAnxiety",
       label: "Mülakatlarda heyecanlanır mısınız?",
+      text: t("calc.question17"),
       type: "dropdown",
       options: [
-        { id: "anxiety_yes", label: "Evet", value: -1 },
-        { id: "anxiety_no", label: "Hayır", value: 1 },
+        {
+          id: "anxiety_yes",
+          label: "Evet",
+          text: t("calc.question17_1"),
+          value: -1,
+        },
+        {
+          id: "anxiety_no",
+          label: "Hayır",
+          text: t("calc.question17_2"),
+          value: 1,
+        },
       ],
     },
     {
       id: "assets",
       label: "Bankadaki varlıklarınız (USD)",
+      text: t("calc.question18"),
       type: "dropdown",
       options: [
-        { id: "assets_0_100", label: "0-100 bin", value: 0 },
-        { id: "assets_100_250", label: "100-250 bin", value: 10 },
-        { id: "assets_250_plus", label: "250 bin+", value: 20 },
+        {
+          id: "assets_0_100",
+          label: "0-100 bin",
+          text: t("calc.question18_1"),
+          value: 0,
+        },
+        {
+          id: "assets_100_250",
+          label: "100-250 bin",
+          text: t("calc.question18_2"),
+          value: 10,
+        },
+        {
+          id: "assets_250_plus",
+          label: "250 bin+",
+          text: t("calc.question18_3"),
+          value: 20,
+        },
       ],
     },
     {
       id: "awards",
       label:
         "Spor, sanat, akademi gibi alanlarda, uluslararası bir ödülünüz var mı?",
+      text: t("calc.question19"),
       type: "dropdown",
       options: [
-        { id: "awards_yes", label: "Evet", value: 20 },
-        { id: "awards_no", label: "Hayır", value: 0 },
+        {
+          id: "awards_yes",
+          label: "Evet",
+          text: t("calc.question19_1"),
+          value: 20,
+        },
+        {
+          id: "awards_no",
+          label: "Hayır",
+          text: t("calc.question19_2"),
+          value: 0,
+        },
       ],
     },
   ];
@@ -470,14 +777,14 @@ export default function VisaCalculate() {
             <div className="buttons">
               <Button
                 type="button"
-                label="Tekrar Hesapla"
+                label={t("calcText.again")}
                 onClick={resetForm}
               />
 
               {formId && (
                 <Button
                   type="button"
-                  label="Size bu konuda ulaşalım mı ?"
+                  label={t("calcText.contact")}
                   onClick={updateReach}
                 />
               )}
@@ -489,14 +796,14 @@ export default function VisaCalculate() {
             <form>
               <div className="step">
                 <div className="field">
-                  <label htmlFor="fullName">Ad-Soyad</label>
+                  <label htmlFor="fullName">{t("calcText.fullname")}</label>
                   <InputText
                     id="fullName"
                     value={basicInfo.fullName}
                     onChange={(e) =>
                       setBasicInfo({ ...basicInfo, fullName: e.target.value })
                     }
-                    placeholder="Ad-Soyad"
+                    placeholder={t("calcText.fullname")}
                   />
                   {basicInfoErrors.fullName && (
                     <small className="p-error">
@@ -505,14 +812,14 @@ export default function VisaCalculate() {
                   )}
                 </div>
                 <div className="field">
-                  <label htmlFor="email">E-posta Adresi</label>
+                  <label htmlFor="email">{t("calcText.email")}</label>
                   <InputText
                     id="email"
                     value={basicInfo.email}
                     onChange={(e) =>
                       setBasicInfo({ ...basicInfo, email: e.target.value })
                     }
-                    placeholder="E-posta"
+                    placeholder={t("calcText.email")}
                   />
                   {basicInfoErrors.email && (
                     <small className="p-error">{basicInfoErrors.email}</small>
@@ -522,7 +829,7 @@ export default function VisaCalculate() {
                 <div className="buttons">
                   <Button
                     type="button"
-                    label="Devam Et"
+                    label={t("calcText.next")}
                     onClick={handleBasicInfoSubmit}
                   />
                 </div>
@@ -536,21 +843,21 @@ export default function VisaCalculate() {
               <div className="step">
                 <div className="field">
                   <label htmlFor={questions[currentStep].id}>
-                    {questions[currentStep].label}
+                    {questions[currentStep].text}
                   </label>
                   {questions[currentStep].type === "dropdown" && (
                     <Dropdown
                       id={questions[currentStep].id}
                       value={formValues[questions[currentStep].id]}
                       options={questions[currentStep].options.map((option) => ({
-                        label: option.label,
+                        label: option.text || option.label,
                         value: option.id,
                       }))}
                       optionLabel="label"
                       onChange={(e) =>
                         handleInputChange(questions[currentStep].id, e.value)
                       }
-                      placeholder={questions[currentStep].label}
+                      placeholder={questions[currentStep].text}
                     />
                   )}
                   {errors[questions[currentStep].id] && (

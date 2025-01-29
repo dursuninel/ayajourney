@@ -2740,3 +2740,7 @@ p.pckg-price-message {
 .auth_area small.p-error {
   position: relative;
 }
+
+.step .p-error {
+  position: relative;
+}

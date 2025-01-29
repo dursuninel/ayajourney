@@ -1368,7 +1368,7 @@ const SchengenStepForm = () => {
                     onClick={handlePrev}
                     className="prev-button"
                   >
-                    Önceki
+                    {t("input.back")}
                   </button>
                 )}
                 {currentStep < steps.length - 1 ? (
@@ -1377,7 +1377,7 @@ const SchengenStepForm = () => {
                     onClick={handleNext}
                     className="next-button"
                   >
-                    Sonraki
+                    {t("input.next")}
                   </button>
                 ) : (
                   <button
@@ -1385,7 +1385,7 @@ const SchengenStepForm = () => {
                     onClick={handleSubmit}
                     className="submit-button"
                   >
-                    Gönder
+                    {t("input.send")}
                   </button>
                 )}
               </div>

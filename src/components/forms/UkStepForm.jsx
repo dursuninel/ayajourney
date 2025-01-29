@@ -2300,7 +2300,7 @@ const UkStepForm = () => {
                     onClick={handlePrev}
                     className="prev-button"
                   >
-                    Önceki
+                    {t("input.back")}
                   </button>
                 )}
                 {currentStep < steps.length - 1 ? (
@@ -2309,7 +2309,7 @@ const UkStepForm = () => {
                     onClick={handleNext}
                     className="next-button"
                   >
-                    Sonraki
+                    {t("input.next")}
                   </button>
                 ) : (
                   <button
@@ -2317,7 +2317,7 @@ const UkStepForm = () => {
                     onClick={handleSubmit}
                     className="submit-button"
                   >
-                    Gönder
+                    {t("input.send")}
                   </button>
                 )}
               </div>
