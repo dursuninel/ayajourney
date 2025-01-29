@@ -22,7 +22,7 @@ export default function Header() {
 
   const location = useLocation();
 
-  const { languages, changeLanguage } = useLanguage();
+  const { languages, changeLanguage, activeLanguage } = useLanguage();
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -54,17 +54,19 @@ export default function Header() {
               </div>
             )}
             <div>
-              <span>
-                TR <i className="fa-solid fa-globe"></i>
-                {languages.map((lang) => (
-                  <span
-                    key={lang.title}
-                    onClick={() => changeLanguage(lang.id)}
-                  >
-                    {lang.title}
-                  </span>
-                ))}
-              </span>
+              <div className="langs">
+                {languages
+                  .filter((item) => item.id !== activeLanguage.id)
+                  .map((lang) => (
+                    <span
+                      key={lang.title}
+                      onClick={() => changeLanguage(lang.id)}
+                    >
+                      {lang.title}
+                    </span>
+                  ))}
+                <i className="fa-solid fa-globe"></i>
+              </div>
             </div>
           </div>
         </div>

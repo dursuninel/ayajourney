@@ -2765,3 +2765,9 @@ p.pckg-price-message {
   height: 100%;
   object-fit: cover;
 }
+
+.langs{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
