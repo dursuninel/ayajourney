@@ -6,8 +6,6 @@ import React, {
   useState,
 } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow } from "swiper/modules";
-import "swiper/css/effect-coverflow";
 
 import TiltBox from "../components/TiltBox";
 import { NavLink } from "react-router-dom";
@@ -22,65 +20,7 @@ import { Toast } from "primereact/toast";
 import Modal from "../components/Modal";
 import TakePackageForm from "../components/forms/TakePackageForm";
 import { useTranslation } from "react-i18next";
-
-const PostSlider = () => {
-  const images = [
-    "post.png",
-    "post.png",
-    "post.png",
-    "post.png",
-    "post.png",
-    "post.png",
-  ];
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const { siteType, runType } = useSiteType();
-
-  useEffect(() => {
-    if (siteType !== 1) {
-      runType(1);
-    }
-  }, []);
-
-  return (
-    <div className="swiper-container">
-      <Swiper
-        effect="coverflow"
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView="2"
-        loop={true}
-        coverflowEffect={{
-          rotate: 10,
-          stretch: 5,
-          depth: 400,
-          modifier: 1,
-        }}
-        modules={[EffectCoverflow]}
-        className="postSlider"
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
-      >
-        {images.map((src, index) => (
-          <SwiperSlide key={index}>
-            {activeIndex === index ? ( // Eğer bu slide aktif ise tilt uygula
-              <TiltBox>
-                <img
-                  src={require(`../assets/images/${src}`)}
-                  alt={`Slide ${index + 1}`}
-                />
-              </TiltBox>
-            ) : (
-              <img
-                src={require(`../assets/images/${src}`)}
-                alt={`Slide ${index + 1}`}
-              />
-            )}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-};
+import PostSlider from "../components/PostSlider";
 
 const TestimonialSlider = () => {
   const [datas, setDatas] = useState([
@@ -230,6 +170,8 @@ export default function VisaHome() {
   const [visaCards, setVisaCards] = useState([]);
   const [packages, setPackages] = useState([]);
 
+  const [posts, setPosts] = useState([]);
+
   const toast = useRef();
 
   const { wbContent } = useGlobal();
@@ -241,6 +183,10 @@ export default function VisaHome() {
 
     axios.get(`/getPackages/${activeLanguage.code}`).then((res) => {
       setPackages(res.data);
+    });
+
+    axios.get(`/getInstaPost/${activeLanguage.code}`).then((res) => {
+      setPosts(res.data);
     });
   }, []);
 
@@ -542,19 +488,23 @@ export default function VisaHome() {
       </section>
 
       {/* İnstagram Paylaşımlarımız */}
-      <section>
-        <div className="container">
-          <div className="module-head">
-            <span className="sm-title center">
-              {t("pageText.social_media")}
-            </span>
-            <h2 className="module-title center">{t("pageText.insta_title")}</h2>
+      {posts.length > 0 && (
+        <section>
+          <div className="container">
+            <div className="module-head">
+              <span className="sm-title center">
+                {t("pageText.social_media")}
+              </span>
+              <h2 className="module-title center">
+                {t("pageText.insta_title")}
+              </h2>
+            </div>
+            <div className="post_slider">
+              <PostSlider posts={posts} />
+            </div>
           </div>
-          <div className="post_slider">
-            <PostSlider />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Müşteri Yorumları */}
       <section>
