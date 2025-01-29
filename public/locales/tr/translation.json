@@ -43,7 +43,8 @@
     "userNotFound": "Kullanıcı bilginiz alınamadı, Lüften hesabınıza tekrar giriş yapıp deneyiniz",
     "formError": "Lütfen tüm alanları doldurun",
     "formSendError": "Form gönderilirken bir hata oluştu",
-    "formSendSuccess": "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız"
+    "formSendSuccess": "Form başarıyla gönderildi, En kısa zamanda size ulaşacağız",
+    "loading": "Yükleniyor..."
   },
   "input": {
     "name": "Adınız",

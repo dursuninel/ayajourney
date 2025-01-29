@@ -12,7 +12,9 @@ export default function Dropdown({ title, data }) {
       <ul className={dropdownActive ? "active" : ""}>
         {data.map((item, key) => (
           <li key={key}>
-            <NavLink to={item.link}>{item.title}</NavLink>
+            <NavLink to={item.link} title={item.title}>
+              {item.title}
+            </NavLink>
           </li>
         ))}
       </ul>

@@ -30,29 +30,32 @@ export default function Login() {
       setSubmitting(true);
       try {
         setPending(true);
+        console.log(values)
 
         const response = await axios.post("/webLogin", values);
+        console.log(response)
 
         if (response.data.error === 0) {
           console.log(response.data.message);
-          Alert(t("valid.error"), t("valid.consoleAlert"), "error");
+          Alert(t("valid.error"), t("swal.consoleAlert"), "error");
         } else if (response.data.error === 1) {
           Alert(
-            t("valid.success"),
-            t("valid.notFoundUser"),
+            t("swal.success"),
+            t("swal.notFoundUser"),
             "error",
             t("input.ok"),
             t("input.repeat")
           );
         } else {
-          Alert(t("valid.success"), t("swal.okSuccess"), "success");
+          console.log("giriş")
+          Alert(t("swal.success"), t("swal.okSuccess"), "success");
           saveUserWeb(response.data);
           setAuthMenu(false);
         }
       } catch (error) {
         Alert(
-          t("valid.error"),
-          t("valid.consoleAlert"),
+          t("swal.error"),
+          t("swal.consoleAlert"),
           "error",
           t("input.ok"),
           t("input.repeat")

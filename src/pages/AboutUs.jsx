@@ -10,7 +10,7 @@ export default function AboutUs() {
 
   return (
     <>
-      <PageBanner title={"Hakkımızda"} />
+      <PageBanner title={t("pages.about")} />
 
       <section>
         <div className="container">

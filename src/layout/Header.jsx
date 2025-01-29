@@ -8,6 +8,7 @@ import FormatUserName from "../components/FormatUserName";
 import { useGlobal } from "../context/GlobalContext";
 import Dropdown from "../components/Dropdown";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
@@ -20,6 +21,8 @@ export default function Header() {
   const { login, logout, authMenu, setAuthMenu } = useContext(UserContext);
 
   const location = useLocation();
+
+  const { languages, changeLanguage } = useLanguage();
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -53,6 +56,14 @@ export default function Header() {
             <div>
               <span>
                 TR <i className="fa-solid fa-globe"></i>
+                {languages.map((lang) => (
+                  <span
+                    key={lang.title}
+                    onClick={() => changeLanguage(lang.id)}
+                  >
+                    {lang.title}
+                  </span>
+                ))}
               </span>
             </div>
           </div>
@@ -82,13 +93,13 @@ export default function Header() {
                 <li>
                   <NavLink
                     to={siteType === 1 ? "/visa" : "/education"}
-                    title="Anasayfa"
+                    title={t("pages.home")}
                   >
                     {t("pages.home")}
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/about-us" title="Hakkımızda">
+                  <NavLink to="/about-us" title={t("pages.about")}>
                     {t("pages.about")}
                   </NavLink>
                 </li>
@@ -106,7 +117,7 @@ export default function Header() {
                 />
 
                 <li>
-                  <NavLink to="/blog" title="Blog">
+                  <NavLink to="/blog" title={t("pages.blogs")}>
                     {t("pages.blogs")}
                   </NavLink>
                 </li>
@@ -134,7 +145,7 @@ export default function Header() {
                 />
 
                 <li>
-                  <NavLink to="/contact" title="İletişim">
+                  <NavLink to="/contact" title={t("pages.contact")}>
                     {t("pages.contact")}
                   </NavLink>
                 </li>
@@ -143,7 +154,7 @@ export default function Header() {
                     // Spinner
                     <div className="spinner">
                       <i className="fa-solid fa-spinner fa-spin"></i>{" "}
-                      Yükleniyor...
+                      {t("swal.loading")}
                     </div>
                   ) : login === true ? (
                     // Giriş yapılmış menü

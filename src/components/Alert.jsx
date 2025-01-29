@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
+import { t } from "i18next";
 
 export default function Alert(
   title,
@@ -8,9 +8,7 @@ export default function Alert(
   confirmButtonText,
   cancelButtonText
 ) {
-  const { t } = useTranslation();
-
-  return Swal.fire({
+  Swal.fire({
     title: title,
     text: text,
     icon: icon,
