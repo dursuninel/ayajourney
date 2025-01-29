@@ -16,7 +16,7 @@ export default function PostSlider({ posts }) {
 
   return (
     <>
-      {posts.length === 2 && (
+      {posts.length < 2 && (
         <div className="postSliderTwo">
           {posts.length !== 0 &&
             posts.map((item, index) => (

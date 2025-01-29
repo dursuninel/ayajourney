@@ -9,58 +9,9 @@ import BlogSlider from "../components/BlogSlider";
 import { useSiteType } from "../context/SiteTypeContext";
 import { useGlobal } from "../context/GlobalContext";
 import { useTranslation } from "react-i18next";
-
-const PostSlider = () => {
-  const images = [
-    "post.png",
-    "post.png",
-    "post.png",
-    "post.png",
-    "post.png",
-    "post.png",
-  ];
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  return (
-    <div className="swiper-container">
-      <Swiper
-        effect="coverflow"
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView="2"
-        loop={true}
-        coverflowEffect={{
-          rotate: 10,
-          stretch: 5,
-          depth: 400,
-          modifier: 1,
-        }}
-        modules={[EffectCoverflow]}
-        className="postSlider"
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)} // Güncel slide indeksini al
-      >
-        {images.map((src, index) => (
-          <SwiperSlide key={index}>
-            {activeIndex === index ? ( // Eğer bu slide aktif ise tilt uygula
-              <TiltBox>
-                <img
-                  src={require(`../assets/images/${src}`)}
-                  alt={`Slide ${index + 1}`}
-                />
-              </TiltBox>
-            ) : (
-              <img
-                src={require(`../assets/images/${src}`)}
-                alt={`Slide ${index + 1}`}
-              />
-            )}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-};
+import axios from "axios";
+import { useLanguage } from "../context/LanguageContext";
+import PostSlider from "../components/PostSlider";
 
 const TestimonialSlider = () => {
   const [datas, setDatas] = useState([
@@ -193,6 +144,16 @@ export default function EducationHome() {
   const { siteType, runType } = useSiteType();
 
   const { services, wbContent } = useGlobal();
+  const { activeLanguage } = useLanguage();
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/getInstaPost/${activeLanguage.code}`).then((res) => {
+      console.log(res.data)
+      setPosts(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     if (siteType !== 2) {
@@ -357,19 +318,23 @@ export default function EducationHome() {
       </section>
 
       {/* İnstagram Paylaşımlarımız */}
-      <section>
-        <div className="container">
-          <div className="module-head">
-            <span className="sm-title center">
-              {t("pageText.social_media")}
-            </span>
-            <h2 className="module-title center">{t("pageText.insta_title")}</h2>
+      {posts.length > 0 && (
+        <section>
+          <div className="container">
+            <div className="module-head">
+              <span className="sm-title center">
+                {t("pageText.social_media")}
+              </span>
+              <h2 className="module-title center">
+                {t("pageText.insta_title")}
+              </h2>
+            </div>
+            <div className="post_slider">
+              <PostSlider posts={posts} />
+            </div>
           </div>
-          <div className="post_slider">
-            <PostSlider />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Müşteri Yorumları */}
       <section>
