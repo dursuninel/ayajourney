@@ -79,18 +79,43 @@ export default function Footer() {
               </a>
               <ul className="social-list">
                 <li>
-                  <a href="/">
+                  <a
+                    href="https://www.instagram.com/ayajourneyvize/"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Instagram"
+                  >
                     <i className="fa-brands fa-instagram"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="/">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100095568336692"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Facebook"
+                  >
                     <i className="fa-brands fa-facebook-f"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="/">
+                  <a
+                    href="https://www.linkedin.com/company/ayajourney/posts/?feedView=all"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Linkedin"
+                  >
                     <i className="fa-brands fa-linkedin-in"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/ayajourneyvize"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="X (Twitter)"
+                  >
+                    <i className="fa-brands fa-x-twitter"></i>
                   </a>
                 </li>
               </ul>
