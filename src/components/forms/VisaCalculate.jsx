@@ -215,6 +215,53 @@ export default function VisaCalculate() {
       ],
     },
     {
+      id: "travelCategory2",
+      label: "Son 5 yılda ...",
+      text: t("calc.question6"),
+      type: "dropdown",
+      options: [
+        {
+          id: "travel_canada_uk",
+          label:
+            "Kanada, İngiltere, Avustralya veya Yeni Zelanda vizesi aldım.",
+          text: t("calc.question6_1"),
+          value: 8,
+        },
+        {
+          id: "travel_eu",
+          label: "En az bir Schengen vizesi aldım",
+          text: t("calc.question6_2"),
+          value: 5,
+        },
+        {
+          id: "travel_high_tier",
+          label:
+            "Japonya, Güney Kore, Singapur, Hindistan, Malezya, Güney Afrika gibi ülkelere gittim",
+          text: t("calc.question6_3"),
+          value: 3,
+        },
+        {
+          id: "travel_no",
+          label:
+            "Sadece vizesiz ülkelere gittim (komşu ülkeler, Kuzey Afrika ve Orta Asya ülkeleri dahil)",
+          text: t("calc.question6_4"),
+          value: 1,
+        },
+        {
+          label: "Komşu ülkelere gittim",
+          text: t("calc.question6_5"),
+          id: "travel_neighbour",
+          value: 0,
+        },
+        {
+          label: "Hiçbiri",
+          text: t("calc.question6_6"),
+          id: "travel_neighbour",
+          value: 0,
+        },
+      ],
+    },
+    {
       id: "schengenCount",
       label:
         "Varsa, pasaportunuza basılmış toplam vize etiketi sayısı (Schengen, Kanada, İngiltere vb dahil)",
@@ -238,20 +285,44 @@ export default function VisaCalculate() {
       options: [
         {
           id: "travel_alone",
-          label: "Tek",
+          label: "Tek, yalnız seyahat edeceğim",
           text: t("calc.question8_1"),
           value: 4,
         },
         {
           id: "travel_couple",
-          label: "Eşimle birlikte",
+          label: "Evliyim, eşimle seyahat edeceğim",
           text: t("calc.question8_2"),
           value: 3,
         },
         {
           id: "travel_family",
-          label: "Ailecek (Çocuklar dahil)",
+          label: "Evliyim, çocuk sahibiyim, eşimle seyahat edeceğim",
           text: t("calc.question8_3"),
+          value: 2,
+        },
+        {
+          id: "travel_8_4",
+          label: "Eşim ve çocuklarımla seyahat edeceğim",
+          text: t("calc.question8_4"),
+          value: 2,
+        },
+        {
+          id: "travel_8_5",
+          label: "Evliyim Arkadaşlarımla/iş arkadaşlarımla seyahat edeceğim",
+          text: t("calc.question8_5"),
+          value: 2,
+        },
+        {
+          id: "travel_8_6",
+          label: "Bekarım Arkadaşlarımla seyahat edeceğim",
+          text: t("calc.question8_6"),
+          value: 2,
+        },
+        {
+          id: "travel_8_7",
+          label: "Diğer",
+          text: t("calc.question8_7"),
           value: 2,
         },
       ],
