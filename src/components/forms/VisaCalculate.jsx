@@ -155,7 +155,7 @@ export default function VisaCalculate() {
     {
       id: "travelAbroad",
       label:
-        "Komşu ülkeler (Gürcistan, Irak, Azerbaycan vb) hariç, son 5 yılda yurtdışına çıktınız mı ?",
+        "Komşu ülkeler (Gürcistan, Irak, Azerbaycan vb) hariç, son 5 yılda yurt dışına çıktınız mı ?",
       text: t("calc.question5"),
       type: "dropdown",
       options: [
