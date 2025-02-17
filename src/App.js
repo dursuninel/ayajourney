@@ -17,6 +17,7 @@ const EducationHome = lazy(() => import("./pages/EducationHome"));
 const VisaForm = lazy(() => import("./pages/VisaForm"));
 const SchengenForm = lazy(() => import("./pages/SchengenForm"));
 const UsaForm = lazy(() => import("./pages/UsaForm"));
+const CanadaForm = lazy(() => import("./pages/CanadaForm"));
 const VisaCalculateForm = lazy(() => import("./pages/VisaCalculateForm"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const Service = lazy(() => import("./pages/Service"));
@@ -78,7 +79,6 @@ function App() {
 
   const { t } = useTranslation();
 
-
   return (
     <>
       <main>
@@ -132,6 +132,15 @@ function App() {
               element={
                 <PageIncudes title={t("pageTitle.usa_visa_form")}>
                   <UsaForm />
+                </PageIncudes>
+              }
+            />
+
+            <Route
+              path={"/canada-form"}
+              element={
+                <PageIncudes title={t("pageTitle.canada_visa_form")}>
+                  <CanadaForm />
                 </PageIncudes>
               }
             />

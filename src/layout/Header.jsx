@@ -140,6 +140,10 @@ export default function Header() {
                       link: "/usa-form",
                     },
                     {
+                      title: t("forms.canada"),
+                      link: "/canada-form",
+                    },
+                    {
                       title: t("forms.visa"),
                       link: "/visa-calculate",
                     },
