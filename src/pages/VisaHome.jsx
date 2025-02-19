@@ -168,21 +168,16 @@ export default function VisaHome() {
   }, []);
 
   const [visaCards, setVisaCards] = useState([]);
-  const [packages, setPackages] = useState([]);
 
   const [posts, setPosts] = useState([]);
 
   const toast = useRef();
 
-  const { wbContent } = useGlobal();
+  const { wbContent, packages } = useGlobal();
 
   useEffect(() => {
     axios.get(`/visaCards/${activeLanguage.code}`).then((res) => {
       setVisaCards(res.data);
-    });
-
-    axios.get(`/getPackages/${activeLanguage.code}`).then((res) => {
-      setPackages(res.data);
     });
 
     axios.get(`/getInstaPost/${activeLanguage.code}`).then((res) => {
@@ -326,19 +321,67 @@ export default function VisaHome() {
           </div>
           {isMobile ? (
             <Swiper autoHeight={true} spaceBetween={16} slidesPerView={1}>
-              {packages.map((item, index) => (
-                <SwiperSlide
-                  key={index}
-                  className={`package-item${
-                    Number(item.popular) === 1 ? "most-populer" : ""
-                  }`}
-                >
-                  <div>
+              {packages
+                .filter((item) => item.isMain === 1)
+                .map((item, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className={`package-item${
+                      Number(item.popular) === 1 ? "most-populer" : ""
+                    }`}
+                  >
+                    <div>
+                      {Number(item.popular) === 1 && (
+                        <div className="most-populer-btn">
+                          {t("pageText.bestPopuler")}
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="pckg-title">{item.title}</h3>
+                        {user?.id ? (
+                          <p className="pckg-price">{item.price}</p>
+                        ) : (
+                          <p className="pckg-price-message">
+                            {t("pageText.showPrice")}
+                          </p>
+                        )}
+
+                        <span>{t("pageText.inPriceText")}</span>
+                      </div>
+                      <button
+                        onClick={() => handleTakePackage(item.id)}
+                        className="btn-style w-100"
+                      >
+                        {t("pageText.nowTake")}
+                      </button>
+                      <div>
+                        <h4>{t("pageText.packageAttr")}</h4>
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.content }}
+                        />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              +
+            </Swiper>
+          ) : (
+            <div className="packages-flex">
+              {packages
+                .filter((item) => item.isMain === 1)
+                .map((item, index) => (
+                  <div
+                    key={index}
+                    className={`package-item${
+                      Number(item.popular) === 1 ? " most-populer" : ""
+                    }`}
+                  >
                     {Number(item.popular) === 1 && (
                       <div className="most-populer-btn">
                         {t("pageText.bestPopuler")}
                       </div>
                     )}
+
                     <div>
                       <h3 className="pckg-title">{item.title}</h3>
                       {user?.id ? (
@@ -348,7 +391,6 @@ export default function VisaHome() {
                           {t("pageText.showPrice")}
                         </p>
                       )}
-
                       <span>{t("pageText.inPriceText")}</span>
                     </div>
                     <button
@@ -362,48 +404,7 @@ export default function VisaHome() {
                       <div dangerouslySetInnerHTML={{ __html: item.content }} />
                     </div>
                   </div>
-                </SwiperSlide>
-              ))}
-              +
-            </Swiper>
-          ) : (
-            <div className="packages-flex">
-              {packages.map((item, index) => (
-                <div
-                  key={index}
-                  className={`package-item${
-                    Number(item.popular) === 1 ? " most-populer" : ""
-                  }`}
-                >
-                  {Number(item.popular) === 1 && (
-                    <div className="most-populer-btn">
-                      {t("pageText.bestPopuler")}
-                    </div>
-                  )}
-
-                  <div>
-                    <h3 className="pckg-title">{item.title}</h3>
-                    {user?.id ? (
-                      <p className="pckg-price">{item.price}</p>
-                    ) : (
-                      <p className="pckg-price-message">
-                        {t("pageText.showPrice")}
-                      </p>
-                    )}
-                    <span>{t("pageText.inPriceText")}</span>
-                  </div>
-                  <button
-                    onClick={() => handleTakePackage(item.id)}
-                    className="btn-style w-100"
-                  >
-                    {t("pageText.nowTake")}
-                  </button>
-                  <div>
-                    <h4>{t("pageText.packageAttr")}</h4>
-                    <div dangerouslySetInnerHTML={{ __html: item.content }} />
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </div>

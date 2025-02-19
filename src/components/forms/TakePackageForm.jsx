@@ -14,7 +14,7 @@ const TakePackageForm = ({ toast, pacID }) => {
       surname: "",
       email: "",
       phone: "",
-      package: pacID,
+      package_id: pacID,
     },
     validationSchema: Yup.object({
       name: Yup.string().required(t("valid.name")).min(3, t("valid.nameLimit")),
