@@ -14,6 +14,52 @@ export const GlobalProvider = ({ children }) => {
 
   const { activeLanguage } = useLanguage();
 
+  const [googleReviews, setGoogleReviews] = useState([]);
+  const [googleReviewsLoading, setGoogleReviewsLoading] = useState(true);
+
+  useEffect(() => {
+    try {
+      // Google Yorumları
+      const fetchReviews = async () => {
+        try {
+          const placeid = process.env.REACT_APP_PLACE_ID;
+          const key = process.env.REACT_APP_PLACE_KEY;
+          const language = "tr";
+
+          const url = `https://proxy.cors.sh/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${key}&language=${language}`;
+          const headers = {
+            "x-cors-api-key": process.env.REACT_APP_X_CORS_API_KEY,
+            "access-control-allow-origin": "*",
+            "x-requested-with": "XMLHttpRequest",
+            "content-type": "application/json",
+          };
+
+          const response = await fetch(url, { headers });
+          const data = await response.json();
+
+          if (response.ok) {
+            return data.result.reviews;
+          } else {
+            throw new Error(`API hatası: ${response.status}`);
+          }
+        } catch (error) {
+          console.error(`Hata: ${error.message}`);
+          return [];
+        }
+      };
+      const loadReviews = async () => {
+        const fetchedReviews = await fetchReviews();
+        console.log(fetchedReviews)
+        setGoogleReviews(fetchedReviews);
+        setGoogleReviewsLoading(false);
+      };
+
+      loadReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   useEffect(() => {
     axios.get("/services").then((response) => {
       setServices(response.data);
@@ -30,13 +76,21 @@ export const GlobalProvider = ({ children }) => {
 
     axios.get(`/getPackages/${activeLanguage.code}`).then((res) => {
       setPackages(res.data);
-      console.log(res.data);
     });
   }, []);
 
   return (
     <GlobalContext.Provider
-      value={{ services, wbContent, loader, setLoader, packages }}
+      value={{
+        services,
+        wbContent,
+        loader,
+        setLoader,
+        packages,
+
+        googleReviews,
+        googleReviewsLoading,
+      }}
     >
       {children}
     </GlobalContext.Provider>

@@ -1779,11 +1779,13 @@ span.p-dropdown-item-label {
 .testimonial-item h3 {
   margin: 0.5rem 0 0.25rem 0;
   font-size: 1.1rem;
+  color: black;
 }
 .testimonial-item h4 {
   margin: 0;
   font-size: 0.85rem;
   color: #707070;
+  color: black;
 }
 
 .testi-content {
@@ -1794,6 +1796,7 @@ span.p-dropdown-item-label {
 
 .testi-content p {
   margin: 0;
+  color: black;
 }
 
 .testimonial-item ul {
@@ -1804,6 +1807,7 @@ span.p-dropdown-item-label {
 
 .testimonial-item li {
   opacity: 0.4;
+  color: rgb(235, 199, 0);
 }
 .testimonial-item li.act {
   opacity: 1;
@@ -1817,7 +1821,7 @@ span.p-dropdown-item-label {
   transition: transform 250ms !important;
 }
 
-.testimonial-item * {
+.testimonial-item *:not(.testi-content) {
   position: relative;
   perspective: 1000px;
   z-index: 5;

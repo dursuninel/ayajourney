@@ -8,7 +8,7 @@ import React, {
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import TiltBox from "../components/TiltBox";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ContactForm from "../components/forms/ContactForm";
 import BlogSlider from "../components/BlogSlider";
 import { useSiteType } from "../context/SiteTypeContext";
@@ -23,40 +23,7 @@ import { useTranslation } from "react-i18next";
 import PostSlider from "../components/PostSlider";
 
 const TestimonialSlider = () => {
-  const [datas, setDatas] = useState([
-    {
-      id: 1,
-      fullname: "Dursun İnel",
-      title: "Misafir",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
-      star: 4,
-    },
-    {
-      id: 2,
-      fullname: "Dursun İnel",
-      title: "Misafir",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
-      star: 4,
-    },
-    {
-      id: 3,
-      fullname: "Dursun İnel",
-      title: "Misafir",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
-      star: 4,
-    },
-    {
-      id: 4,
-      fullname: "Dursun İnel",
-      title: "Misafir",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem animi id possimus qui quos nesciunt?",
-      star: 2,
-    },
-  ]);
+  const { googleReviews, googleReviewsLoading } = useGlobal();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -71,6 +38,8 @@ const TestimonialSlider = () => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
+
+  if (googleReviewsLoading) return <div>Yükleniyor...</div>;
 
   return (
     <div className="swiper-container">
@@ -96,46 +65,57 @@ const TestimonialSlider = () => {
           },
         }}
       >
-        {datas.map((item, index) => (
+        {googleReviews.map((item, index) => (
           <SwiperSlide key={index}>
             {activeIndex + 1 === index ? ( // Eğer bu slide aktif ise tilt uygula
               <TiltBox>
-                <div className="testimonial-item">
+                <Link
+                  target="_blank"
+                  to={item.author_url}
+                  className="testimonial-item"
+                >
                   <div className="testi-img">
                     <i className="fa-solid fa-user"></i>
                   </div>
-                  <h3>{item.fullname}</h3>
-                  <h4>{item.title}</h4>
+                  <h3>{item.author_name}</h3>
+                  <h4>{item.relative_time_description}</h4>
                   <div className="testi-content">
-                    <p>{item.content}</p>
+                    <p>{item.text.split(" ").slice(0, 35).join(" ") + "..."}</p>
                   </div>
                   <ul>
                     {[1, 2, 3, 4, 5].map((star, key) => (
-                      <li key={key} className={star <= item.star ? "act" : ""}>
+                      <li
+                        key={key}
+                        className={star <= item.rating ? "act" : ""}
+                      >
                         <i className="fa-solid fa-star"></i>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </Link>
               </TiltBox>
             ) : (
-              <div className="testimonial-item">
+              <Link
+                target="_blank"
+                to={item.author_url}
+                className="testimonial-item"
+              >
                 <div className="testi-img">
                   <i className="fa-solid fa-user"></i>
                 </div>
-                <h3>{item.fullname}</h3>
-                <h4>{item.title}</h4>
+                <h3>{item.author_name}</h3>
+                <h4>{item.relative_time_description}</h4>
                 <div className="testi-content">
-                  <p>{item.content}</p>
+                  <p>{item.text.split(" ").slice(0, 35).join(" ") + "..."}</p>
                 </div>
                 <ul>
                   {[1, 2, 3, 4, 5].map((star, key) => (
-                    <li key={key} className={star <= item.star ? "act" : ""}>
+                    <li key={key} className={star <= item.rating ? "act" : ""}>
                       <i className="fa-solid fa-star"></i>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Link>
             )}
           </SwiperSlide>
         ))}
