@@ -326,7 +326,7 @@ export default function VisaHome() {
                           </p>
                         )}
 
-                        <span>{t("pageText.inPriceText")}</span>
+                        
                       </div>
                       <button
                         onClick={() => handleTakePackage(item.id)}
@@ -371,7 +371,7 @@ export default function VisaHome() {
                           {t("pageText.showPrice")}
                         </p>
                       )}
-                      <span>{t("pageText.inPriceText")}</span>
+                      
                     </div>
                     <button
                       onClick={() => handleTakePackage(item.id)}

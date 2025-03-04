@@ -88,7 +88,7 @@ export default function SchengenForm() {
                           </p>
                         )}
 
-                        <span>{t("pageText.inPriceText")}</span>
+                        
                       </div>
                       <button
                         onClick={() => handleTakePackage(item.id)}
@@ -133,7 +133,7 @@ export default function SchengenForm() {
                           {t("pageText.showPrice")}
                         </p>
                       )}
-                      <span>{t("pageText.inPriceText")}</span>
+                      
                     </div>
                     <button
                       onClick={() => handleTakePackage(item.id)}

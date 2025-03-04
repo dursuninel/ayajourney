@@ -89,7 +89,7 @@ export default function UsaForm() {
                           </p>
                         )}
 
-                        <span>{t("pageText.inPriceText")}</span>
+                        
                       </div>
                       <button
                         onClick={() => handleTakePackage(item.id)}
@@ -134,7 +134,7 @@ export default function UsaForm() {
                           {t("pageText.showPrice")}
                         </p>
                       )}
-                      <span>{t("pageText.inPriceText")}</span>
+                      
                     </div>
                     <button
                       onClick={() => handleTakePackage(item.id)}

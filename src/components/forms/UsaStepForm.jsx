@@ -142,41 +142,43 @@ const UsaStepForm = () => {
           showValue: "Hayır",
         },
       ],
-      required: true,
-    },
-    {
-      id: 8,
-      step: steps[0],
-      name: "otherCitizenshipPassport",
-      label: "O Bölgeye Ait Pasaportunuz Var mı?",
-      text: t("usaForm.question8"),
-      type: "dropdown",
-      options: [
-        {
-          label: "Evet",
-          value: t("usaForm.question8_1"),
-          text: t("usaForm.question8_1"),
-          showValue: "Evet",
-        },
-        {
-          label: "Hayır",
-          value: t("usaForm.question8_2"),
-          text: t("usaForm.question8_2"),
-          showValue: "Hayır",
-        },
-      ],
-      required: true,
       otherInputs: [
         {
           id: 1,
-          name: "otherCitizenshipPassportNumber",
-          label: "Pasaport numarası nedir?",
-          text: t("usaForm.question8_1_1"),
-          type: "text",
+          name: "otherCitizenshipPassport",
+          label: "O Bölgeye Ait Pasaportunuz Var mı?",
+          text: t("usaForm.question8"),
+          type: "dropdown",
+          options: [
+            {
+              label: "Evet",
+              value: t("usaForm.question8_1"),
+              text: t("usaForm.question8_1"),
+              showValue: "Evet",
+            },
+            {
+              label: "Hayır",
+              value: t("usaForm.question8_2"),
+              text: t("usaForm.question8_2"),
+              showValue: "Hayır",
+            },
+          ],
           required: true,
+          otherInputs: [
+            {
+              id: 1,
+              name: "otherCitizenshipPassportNumber",
+              label: "Pasaport numarası nedir?",
+              text: t("usaForm.question8_1_1"),
+              type: "text",
+              required: true,
+              if_value: ["Evet"],
+            },
+          ],
           if_value: ["Evet"],
         },
       ],
+      required: true,
     },
     {
       id: 9,
@@ -1432,7 +1434,7 @@ const UsaStepForm = () => {
         },
         {
           id: 17,
-          name: "deceasedSpouseBirthDate",
+          name: "deceasedSpouseDeadDate",
           label: "Vefat eden eşinizin vefat tarihi nedir?",
           text: t("usaForm.question43_4_3"),
           type: "calendar",
@@ -1828,7 +1830,7 @@ const UsaStepForm = () => {
           name: "highSchoolStartDate",
           label: "Lise başlama tarihiniz nedir?",
           text: t("usaForm.question46_3_3"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Lise"],
         },
@@ -1837,7 +1839,7 @@ const UsaStepForm = () => {
           name: "highSchoolGraduationDate",
           label: "Lise mezuniyet tarihiniz nedir?",
           text: t("usaForm.question46_3_4"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Lise"],
         },
@@ -1864,7 +1866,7 @@ const UsaStepForm = () => {
           name: "universityStartDate",
           label: "Üniversite başlama tarihiniz nedir?",
           text: t("usaForm.question46_4_3"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Üniversite"],
         },
@@ -1873,7 +1875,7 @@ const UsaStepForm = () => {
           name: "universityGraduationDate",
           label: "Üniversite mezuniyet tarihiniz nedir?",
           text: t("usaForm.question46_4_4"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Üniversite"],
         },
@@ -1909,7 +1911,7 @@ const UsaStepForm = () => {
           name: "mastersStartDate",
           label: "Yüksek lisansa başlama tarihiniz nedir?",
           text: t("usaForm.question46_5_3"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Yüksek Lisans"],
         },
@@ -1918,7 +1920,7 @@ const UsaStepForm = () => {
           name: "mastersGraduationDate",
           label: "Yüksek lisans mezuniyet tarihiniz nedir?",
           text: t("usaForm.question46_5_4"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Yüksek Lisans"],
         },
@@ -1954,7 +1956,7 @@ const UsaStepForm = () => {
           name: "phdStartDate",
           label: "Doktora başlama tarihiniz nedir?",
           text: t("usaForm.question46_6_3"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Doktora"],
         },
@@ -1963,7 +1965,7 @@ const UsaStepForm = () => {
           name: "phdGraduationDate",
           label: "Doktora mezuniyet tarihiniz nedir?",
           text: t("usaForm.question46_6_4"),
-          type: "date",
+          type: "calendar",
           required: true,
           if_value: ["Doktora"],
         },
@@ -2226,7 +2228,7 @@ const UsaStepForm = () => {
     const { name, value } = e.target;
 
     const convertedValue =
-      input.type === "calendar"
+      input.type === "calendar" || input.type === "dropdown"
         ? value
         : convertToUppercaseAndReplaceTurkishChars(value);
 

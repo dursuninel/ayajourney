@@ -1106,7 +1106,7 @@ const SchengenStepForm = () => {
     const { name, value } = e.target;
 
     const convertedValue =
-      input.type === "calendar"
+      input.type === "calendar" || input.type === "dropdown"
         ? value
         : convertToUppercaseAndReplaceTurkishChars(value);
 
